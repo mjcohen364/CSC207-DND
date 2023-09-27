@@ -1,6 +1,6 @@
 CSC207 Group Project - Group 56
 # A description of the problem domain we are tentatively wanting to focus on in the project:
-
+We want to tackle 
 # A brief, high-level description of what kind of application we are thinking of developing:
 
 # A link to the documentation for an API your team can use related to the domain:
