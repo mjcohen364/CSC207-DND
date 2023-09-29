@@ -15,3 +15,4 @@ https://www.dnd5eapi.co/docs/
 # Example output of running our Java code:
 
 # A list of any technical problems blocking progress (if any):
+The majority of us are still very inexperienced with API usage, and it will definitely require a fair bit of teamwork to make sure that we can put together a working product. The API we have selected also seems fairly extensive, and might require research on DnD and its various features and properties in order to be put to good use.
