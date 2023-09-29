@@ -8,10 +8,9 @@ We also may implement other elements of a TableTop RPG, such as item shopping or
 
 # A link to the documentation for an API your team can use related to the domain:
 https://www.dnd5eapi.co/docs/
-https://open5e.com/
-(Two potential D&D APIs, will delete the other once we choose which one to implement)
 
 # A screenshot of using a tool to try out the API:
+![image](https://github.com/mjcohen364/noidea/assets/101151775/49458e72-712d-4a5f-b7c3-94fc1c382744)
 
 # Example output of running our Java code:
 
