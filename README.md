@@ -13,6 +13,7 @@ https://www.dnd5eapi.co/docs/
 ![image](https://github.com/mjcohen364/noidea/assets/101151775/49458e72-712d-4a5f-b7c3-94fc1c382744)
 
 # Example output of running our Java code:
+{"index":"cha","name":"CHA","full_name":"Charisma","desc":["Charisma measures your ability to interact effectively with others. It includes such factors as confidence and eloquence, and it can represent a charming or commanding personality.","A Charisma check might arise when you try to influence or entertain others, when you try to make an impression or tell a convincing lie, or when you are navigating a tricky social situation. The Deception, Intimidation, Performance, and Persuasion skills reflect aptitude in certain kinds of Charisma checks."],"skills":[{"name":"Deception","index":"deception","url":"/api/skills/deception"},{"name":"Intimidation","index":"intimidation","url":"/api/skills/intimidation"},{"name":"Performance","index":"performance","url":"/api/skills/performance"},{"name":"Persuasion","index":"persuasion","url":"/api/skills/persuasion"}],"url":"/api/ability-scores/cha"}
 
 # A list of any technical problems blocking progress (if any):
 The majority of us are still very inexperienced with API usage, and it will definitely require a fair bit of teamwork to make sure that we can put together a working product. The API we have selected also seems fairly extensive, and might require research on DnD and its various features and properties in order to be put to good use.
