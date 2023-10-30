@@ -9,11 +9,12 @@ public interface Character {
     Size getSize();
     ClassLevel getClassLevel();
     Race getRace();
-    DndClass getDndClass();
+    List<DndClass> getClasses();
     Background getBackground();
     List<Proficiency> getSkillProficiencies();
     List<Proficiency> getEquipmentProficiencies();
     List<Spell> getSpellsKnown();
+    List<Feature> getFeatures();
     void setName();
     void addAttribute();
     void addItem();
@@ -27,4 +28,5 @@ public interface Character {
     void addSkillProficiency();
     void addEquipmentProficiency();
     void addSpell();
+    void addFeature();
 }

@@ -7,11 +7,12 @@ public class Player implements Character{
     Size size;
     ClassLevel classLevel;
     Race race;
-    DndClass dndClass;
+    List<DndClass> classes;
     Background background;
     List<Proficiency> skillProficiencies;
     List<Proficiency> equipmentProficiencies;
     List<Spell> spellsKnown;
+    List<Feature> features;
 
     @Override
     public String getName() {
@@ -54,8 +55,8 @@ public class Player implements Character{
     }
 
     @Override
-    public DndClass getDndClass() {
-        return dndClass;
+    public List<DndClass> getClasses() {
+        return classes;
     }
 
     @Override
@@ -76,5 +77,10 @@ public class Player implements Character{
     @Override
     public List<Spell> getSpellsKnown() {
         return spellsKnown;
+    }
+
+    @Override
+    public List<Feature> getFeatures() {
+        return features;
     }
 }
