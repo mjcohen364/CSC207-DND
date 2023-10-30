@@ -1,19 +1,19 @@
 package interface_adapter.character_name;
 
-import use_case.character_name.SignupInputBoundary;
-import use_case.character_name.SignupInputData;
+import use_case.character_name.CharacterNameInputBoundary;
+import use_case.character_name.CharacterNameInputData;
 
 public class CharacterNameController {
 
-    final SignupInputBoundary userSignupUseCaseInteractor;
-    public SignupController(SignupInputBoundary userSignupUseCaseInteractor) {
-        this.userSignupUseCaseInteractor = userSignupUseCaseInteractor;
+    final CharacterNameInputBoundary characterNameUseCaseInteractor;
+    public CharacterNameController(CharacterNameInputBoundary userSignupUseCaseInteractor) {
+        this.characterNameUseCaseInteractor = characterNameUseCaseInteractor;
     }
 
-    public void execute(String username, String password1, String password2) {
-        SignupInputData signupInputData = new SignupInputData(
-                username, password1, password2);
+    public void execute(String username) {
+        CharacterNameInputData characterNameInputData = new CharacterNameInputData(
+                username);
 
-        userSignupUseCaseInteractor.execute(signupInputData);
+        characterNameUseCaseInteractor.execute(characterNameInputData);
     }
 }

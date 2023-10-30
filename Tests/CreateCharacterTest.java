@@ -1,7 +1,7 @@
 import app.Main;
-import data_access.FileUserDataAccessObject;
-import entity.CommonUserFactory;
-import entity.UserFactory;
+import data_access.FileCharacterDataAccessObject;
+import entity.CommonCharacterFactory;
+import entity.CharacterFactory;
 import view.SignupView;
 
 import javax.swing.*;
