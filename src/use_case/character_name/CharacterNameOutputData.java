@@ -1,20 +1,20 @@
-package use_case.signup;
+package use_case.character_name;
 
-public class SignupOutputData {
+public class CharacterNameOutputData {
 
-    private final String username;
+    private final String name;
     private String creationTime;
 
     private boolean useCaseFailed;
 
-    public SignupOutputData(String username, String creationTime, boolean useCaseFailed) {
-        this.username = username;
+    public CharacterNameOutputData(String name, String creationTime, boolean useCaseFailed) {
+        this.name = name;
         this.creationTime = creationTime;
         this.useCaseFailed = useCaseFailed;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
     public String getCreationTime() {

@@ -8,7 +8,7 @@ public class NPC implements Character {
      * Requires: password is valid.
      * @param name
      */
-    Player(String name) {
+    NPC(String name) {
         this.name = name;
     }
 

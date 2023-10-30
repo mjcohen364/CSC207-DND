@@ -4,7 +4,7 @@ import entity.User;
 import entity.UserFactory;
 import use_case.clear_users.ClearUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
-import use_case.signup.SignupUserDataAccessInterface;
+import use_case.character_name.SignupUserDataAccessInterface;
 
 import java.io.*;
 import java.time.LocalDateTime;

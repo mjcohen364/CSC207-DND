@@ -1,25 +1,24 @@
-package interface_adapter.signup;
+package interface_adapter.character_name;
 
+import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
-import interface_adapter.ViewManagerModel;
-import use_case.signup.SignupOutputBoundary;
-import use_case.signup.SignupOutputData;
+import use_case.character_name.SignupOutputData;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class SignupPresenter implements SignupOutputBoundary {
+public class CharacterNamePresenter implements CharacterNameOutputBoundary {
 
-    private final SignupViewModel signupViewModel;
+    private final CharacterNameViewModel characterNameViewModel;
     private final LoginViewModel loginViewModel;
     private ViewManagerModel viewManagerModel;
 
-    public SignupPresenter(ViewManagerModel viewManagerModel,
-                           SignupViewModel signupViewModel,
+    public CharacterNamePresenter(ViewManagerModel viewManagerModel,
+                                  CharacterNameViewModel characterNameViewModel,
                            LoginViewModel loginViewModel) {
         this.viewManagerModel = viewManagerModel;
-        this.signupViewModel = signupViewModel;
+        this.CharacterNameViewModel = characterNameViewModel;
         this.loginViewModel = loginViewModel;
     }
 
@@ -40,8 +39,8 @@ public class SignupPresenter implements SignupOutputBoundary {
 
     @Override
     public void prepareFailView(String error) {
-        SignupState signupState = signupViewModel.getState();
-        signupState.setUsernameError(error);
-        signupViewModel.firePropertyChanged();
+        CharacterNameState signupState = characterNameViewModel.getState();
+        characterNameState.setNameError(error);
+        characterNameViewModel.firePropertyChanged();
     }
 }
