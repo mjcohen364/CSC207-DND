@@ -1,15 +1,18 @@
+package data_access;
+
+import entity.Item;
+import entity.Unit;
 import org.json.JSONObject;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
 
-public class Item {
+public class DataAccessObject {
 
-    public void asdf(String apiCall) {
+    public Item get(String apiCall) {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://www.dnd5eapi.co/api/" + apiCall))
                 .build();
@@ -26,42 +29,29 @@ public class Item {
 
         JSONObject obj = new JSONObject(jsonString);
         String name = obj.getString("name");
-        this.Name = name;
+        Item toReturn = new Item();
+        toReturn.Name = name;
 
         JSONObject cost = obj.getJSONObject("cost");
 
-        this.CostQuantity = cost.getInt("quantity");
+        toReturn.CostQuantity = cost.getInt("quantity");
         //cp, sp, gp, pp
         String unit = cost.getString("unit");
         if (unit.equals("cp")) {
-            this.CostUnit = Unit.COPPER;
+            toReturn.CostUnit = Unit.COPPER;
         }
         if (unit.equals("sp")) {
-            this.CostUnit = Unit.SILVER;
+            toReturn.CostUnit = Unit.SILVER;
         }
         if (unit.equals("gp")) {
-            this.CostUnit = Unit.GOLD;
+            toReturn.CostUnit = Unit.GOLD;
         }
         if (unit.equals("pp")) {
-            this.CostUnit = Unit.PLATINUM;
+            toReturn.CostUnit = Unit.PLATINUM;
         }
 
+        return toReturn;
+
     }
-    String Name;
 
-    int CostQuantity;
-    Unit CostUnit;
-
-    float Weight;
-
-    ArrayList<String> Desc;
-
-    ArrayList<ItemProperty> Properties;
-}
-
-enum Unit {
-    COPPER,
-    SILVER,
-    GOLD,
-    PLATINUM
 }
