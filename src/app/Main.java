@@ -1,16 +1,14 @@
 package app;
 
-import data_access.FileUserDataAccessObject;
-import entity.CommonUserFactory;
-import interface_adapter.clear_users.ClearViewModel;
-import interface_adapter.login.LoginViewModel;
-import interface_adapter.logged_in.LoggedInViewModel;
-import interface_adapter.signup.SignupViewModel;
+import data_access.DataAccessObject;
+
+import interface_adapter.ItemController;
+import interface_adapter.ItemPresenter;
+import interface_adapter.ItemViewModel;
 import interface_adapter.ViewManagerModel;
-import use_case.login.LoginUserDataAccessInterface;
-import view.LoggedInView;
-import view.LoginView;
-import view.SignupView;
+import use_case.ItemInteractor;
+import view.ItemView;
+
 import view.ViewManager;
 
 import javax.swing.*;
@@ -23,7 +21,7 @@ public class Main {
         // various cards, and the layout, and stitch them together.
 
         // The main application window.
-        JFrame application = new JFrame("Login Example");
+        JFrame application = new JFrame("Item Example");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         CardLayout cardLayout = new CardLayout();
@@ -40,30 +38,21 @@ public class Main {
         // This information will be changed by a presenter object that is reporting the
         // results from the use case. The ViewModels are observable, and will
         // be observed by the Views.
-        LoginViewModel loginViewModel = new LoginViewModel();
-        LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
-        SignupViewModel signupViewModel = new SignupViewModel();
-        ClearViewModel clearViewModel = new ClearViewModel();
+        ItemViewModel itemViewModel = new ItemViewModel();
 
-        FileUserDataAccessObject userDataAccessObject;
-        FileUserDataAccessObject clearDataAccessObject;
-        try {
-            userDataAccessObject = new FileUserDataAccessObject("./users.csv", new CommonUserFactory());
-            clearDataAccessObject = new FileUserDataAccessObject("./users.csv", new CommonUserFactory());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        DataAccessObject dataAccessObject;
 
-        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, clearViewModel, clearDataAccessObject);
-        views.add(signupView, signupView.viewName);
+        dataAccessObject = new DataAccessObject();
 
-        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject);
-        views.add(loginView, loginView.viewName);
 
-        LoggedInView loggedInView = new LoggedInView(loggedInViewModel);
-        views.add(loggedInView, loggedInView.viewName);
+        ItemView itemView = new ItemView(new ItemController(new ItemInteractor(dataAccessObject, new ItemPresenter(itemViewModel))), itemViewModel);
+                //viewManagerModel
+        views.add(itemView, itemView.viewName);
 
-        viewManagerModel.setActiveView(signupView.viewName);
+
+
+
+        viewManagerModel.setActiveView(itemView.viewName);
         viewManagerModel.firePropertyChanged();
 
         application.pack();
