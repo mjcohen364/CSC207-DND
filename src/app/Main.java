@@ -2,18 +2,21 @@ package app;
 
 import data_access.DataAccessObject;
 
-import interface_adapter.ItemController;
-import interface_adapter.ItemPresenter;
-import interface_adapter.ItemViewModel;
-import interface_adapter.ViewManagerModel;
-import use_case.ItemInteractor;
-import view.ItemView;
+import interface_adapter.*;
+import interface_adapter.dnd_class.ClassController;
+import interface_adapter.dnd_class.ClassPresenter;
+import interface_adapter.dnd_class.ClassViewModel;
+import interface_adapter.inventory.InventoryController;
+import interface_adapter.inventory.InventoryPresenter;
+import interface_adapter.inventory.InventoryViewModel;
+import use_case.dnd_class.ClassInteractor;
+import use_case.inventory.InventoryInteractor;
+import view.CharacterCreatorView;
 
 import view.ViewManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
@@ -21,7 +24,7 @@ public class Main {
         // various cards, and the layout, and stitch them together.
 
         // The main application window.
-        JFrame application = new JFrame("Item Example");
+        JFrame application = new JFrame("Character Creator");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         CardLayout cardLayout = new CardLayout();
@@ -38,21 +41,25 @@ public class Main {
         // This information will be changed by a presenter object that is reporting the
         // results from the use case. The ViewModels are observable, and will
         // be observed by the Views.
-        ItemViewModel itemViewModel = new ItemViewModel();
+        InventoryViewModel inventoryViewModel = new InventoryViewModel();
+        ClassViewModel classViewModel = new ClassViewModel();
 
         DataAccessObject dataAccessObject;
 
         dataAccessObject = new DataAccessObject();
 
 
-        ItemView itemView = new ItemView(new ItemController(new ItemInteractor(dataAccessObject, new ItemPresenter(itemViewModel))), itemViewModel);
-                //viewManagerModel
-        views.add(itemView, itemView.viewName);
+        CharacterCreatorView characterCreatorView = new CharacterCreatorView(new InventoryController(new InventoryInteractor(dataAccessObject, new InventoryPresenter(inventoryViewModel))),
+                inventoryViewModel,
+                new ClassController(new ClassInteractor(dataAccessObject, new ClassPresenter(classViewModel))),
+                classViewModel);
+        //viewManagerModel
+        views.add(characterCreatorView, characterCreatorView.viewName);
 
 
 
 
-        viewManagerModel.setActiveView(itemView.viewName);
+        viewManagerModel.setActiveView(characterCreatorView.viewName);
         viewManagerModel.firePropertyChanged();
 
         application.pack();
