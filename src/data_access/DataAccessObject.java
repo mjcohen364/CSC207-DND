@@ -1,6 +1,7 @@
 package data_access;
 
 import entity.Item;
+import entity.Player;
 import entity.Unit;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,7 +14,7 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 
 public class DataAccessObject {
-
+    public Player player = new Player();
     public ArrayList<Item> itemsFromClass = new ArrayList<>();
     public ArrayList<Item> itemsFromClassOptions = new ArrayList<>();
 
