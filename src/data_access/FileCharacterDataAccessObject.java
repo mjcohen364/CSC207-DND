@@ -1,27 +1,27 @@
 package data_access;
 
-import entity.User;
-import entity.UserFactory;
+import entity.Character;
+import entity.CharacterFactory;
 import use_case.clear_users.ClearUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
-import use_case.character_name.SignupUserDataAccessInterface;
+import use_case.character_name.CharacterNameDataAccessInterface;
 
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
-public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, ClearUserDataAccessInterface {
+public class FileCharacterDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, ClearUserDataAccessInterface {
 
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
-    private final Map<String, User> accounts = new HashMap<>();
+    private final Map<String, Character> characters = new HashMap<>();
 
-    private UserFactory userFactory;
+    private CharacterFactory characterFactory;
 
-    public FileUserDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
-        this.userFactory = userFactory;
+    public FileCharacterDataAccessObject(String csvPath, CharacterFactory characterFactory) throws IOException {
+        this.characterFactory = characterFactory;
 
         csvFile = new File(csvPath);
         headers.put("username", 0);
@@ -42,11 +42,10 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                 while ((row = reader.readLine()) != null) {
                     String[] col = row.split(",");
                     String username = String.valueOf(col[headers.get("username")]);
-                    String password = String.valueOf(col[headers.get("password")]);
                     String creationTimeText = String.valueOf(col[headers.get("creation_time")]);
                     LocalDateTime ldt = LocalDateTime.parse(creationTimeText);
-                    User user = userFactory.create(username, password, ldt);
-                    accounts.put(username, user);
+                    Character character = characterFactory.create(username, ldt);
+                    characters.put(username, character);
                 }
             }
         }
