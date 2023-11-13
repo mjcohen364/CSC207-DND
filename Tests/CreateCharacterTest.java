@@ -16,25 +16,24 @@ import java.time.LocalDateTime;
 import static org.junit.Assert.*;
 
 
-public class ClearUsersTest {
+public class CreateCharacterTest {
 
 
     static String message = "";
     static boolean popUpDiscovered = false;
 
     /**
-     * ensures there are at least 2 users in the CSV file for testing purposes
+     * ensures there is at least 1 character in the CSV file for testing purposes
      */
-    public void addTwoUsers() {
-        UserFactory uf = new CommonUserFactory();
-        FileUserDataAccessObject fudao;
+    public void addCharacter() {
+        CharacterFactory cf = new PlayerFactory();
+        FileCharacterNameDataAccessObject fcndao;
         try {
-            fudao = new FileUserDataAccessObject("./users.csv", uf);
+            fcndao = new FileCharacterNameDataAccessObject("./characters.csv", cf);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        fudao.save(uf.create("user1", "password1", LocalDateTime.now()));
-        fudao.save(uf.create("user2", "password2", LocalDateTime.now()));
+        fcndao.save(cf.create("character", LocalDateTime.now()));
     }
 
 
