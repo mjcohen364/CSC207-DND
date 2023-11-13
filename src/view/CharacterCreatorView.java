@@ -55,7 +55,7 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
 
         //create buttons for choosing class
         classController.execute();
-        RaceController.execute();
+        raceController.execute();
 
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
