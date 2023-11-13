@@ -9,8 +9,12 @@ import interface_adapter.dnd_class.ClassViewModel;
 import interface_adapter.inventory.InventoryController;
 import interface_adapter.inventory.InventoryPresenter;
 import interface_adapter.inventory.InventoryViewModel;
+import interface_adapter.race.RaceController;
+import interface_adapter.race.RacePresenter;
+import interface_adapter.race.RaceViewModel;
 import use_case.dnd_class.ClassInteractor;
 import use_case.inventory.InventoryInteractor;
+import use_case.race.RaceInteractor;
 import view.CharacterCreatorView;
 
 import view.ViewManager;
@@ -43,6 +47,7 @@ public class Main {
         // be observed by the Views.
         InventoryViewModel inventoryViewModel = new InventoryViewModel();
         ClassViewModel classViewModel = new ClassViewModel();
+        RaceViewModel raceViewModel = new RaceViewModel();
 
         DataAccessObject dataAccessObject;
 
@@ -52,7 +57,9 @@ public class Main {
         CharacterCreatorView characterCreatorView = new CharacterCreatorView(new InventoryController(new InventoryInteractor(dataAccessObject, new InventoryPresenter(inventoryViewModel))),
                 inventoryViewModel,
                 new ClassController(new ClassInteractor(dataAccessObject, new ClassPresenter(classViewModel))),
-                classViewModel);
+                classViewModel,
+                new RaceController(new RaceInteractor(dataAccessObject, new RacePresenter(raceViewModel))),
+                raceViewModel);
         //viewManagerModel
         views.add(characterCreatorView, characterCreatorView.viewName);
 
