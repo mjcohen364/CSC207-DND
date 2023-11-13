@@ -6,5 +6,7 @@ public class RaceController {
     public RaceController(RaceInputBoundary raceUseCaseInteractor) {
         this.raceUseCaseInteractor = raceUseCaseInteractor;
     }
-    public void execute() {raceUseCaseInteractor.execute();}
+    public void execute() {
+        raceUseCaseInteractor.execute();
+    }
 }
