@@ -3,9 +3,7 @@ package interface_adapter.clear_users;
 // TODO Complete me seems good
 
 import interface_adapter.ViewModel;
-import interface_adapter.clear_users.ClearState;
 
-import javax.swing.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
