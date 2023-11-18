@@ -15,12 +15,29 @@ public class ChooseBackgroundView extends JPanel implements ActionListener, Prop
     public final String viewName = "Choose Background";
     private final BackgroundViewModel backgroundViewModel;
     private final BackgroundController backgroundController;
+    final JButton mainScreen;
     public ChooseBackgroundView(BackgroundController backgroundController, BackgroundViewModel backgroundViewModel) {
         this.backgroundController = backgroundController;
         this.backgroundViewModel = backgroundViewModel;
         backgroundViewModel.addPropertyChangeListener(this);
 
         backgroundController.execute();
+        JPanel buttons = new JPanel();
+        mainScreen = new JButton(backgroundViewModel.MAIN_SCREEN_LABEL);
+        buttons.add(mainScreen);
+
+        mainScreen.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(mainScreen)) {
+                            BackgroundState currentState = backgroundViewModel.getState();
+                            backgroundController.execute();
+                        }
+                    }
+                }
+        );
+        this.add(buttons);
     }
 //    FINISH ACTIONPERFORMED
     public void actionPerformed(ActionEvent evt) {

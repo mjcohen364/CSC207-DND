@@ -35,6 +35,7 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
     private final BackgroundController backgroundController;
 
     private JLabel items;
+//    private final JButton chooseBackground;
 
     public CharacterCreatorView(InventoryController controller,
                                 InventoryViewModel inventoryViewModel,
@@ -67,6 +68,9 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
         raceController.execute();
         backgroundController.execute();
 
+//        JPanel buttons = new JPanel();
+//        chooseBackground = new JButton("Background");
+//        buttons.add(chooseBackground);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

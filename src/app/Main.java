@@ -58,6 +58,9 @@ public class Main {
         DataAccessObject dataAccessObject;
 
         dataAccessObject = new DataAccessObject();
+        ChooseBackgroundView chooseBackgroundView =
+                new ChooseBackgroundView(new BackgroundController(new BackgroundInteractor(dataAccessObject,
+                        new BackgroundPresenter(backgroundViewModel))), backgroundViewModel);
 
 
         CharacterCreatorView characterCreatorView = new CharacterCreatorView(new InventoryController(new InventoryInteractor(dataAccessObject, new InventoryPresenter(inventoryViewModel))),
@@ -68,9 +71,6 @@ public class Main {
                 raceViewModel,
                 new BackgroundController(new BackgroundInteractor(dataAccessObject, new BackgroundPresenter(backgroundViewModel))),
                 backgroundViewModel);
-        ChooseBackgroundView chooseBackgroundView =
-                new ChooseBackgroundView(new BackgroundController(new BackgroundInteractor(dataAccessObject,
-                        new BackgroundPresenter(backgroundViewModel))), backgroundViewModel);
         //viewManagerModel
         views.add(characterCreatorView, characterCreatorView.viewName);
         views.add(chooseBackgroundView, chooseBackgroundView.viewName);
