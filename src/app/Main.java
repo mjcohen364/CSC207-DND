@@ -3,6 +3,9 @@ package app;
 import data_access.DataAccessObject;
 
 import interface_adapter.*;
+import interface_adapter.background.BackgroundController;
+import interface_adapter.background.BackgroundPresenter;
+import interface_adapter.background.BackgroundViewModel;
 import interface_adapter.dnd_class.ClassController;
 import interface_adapter.dnd_class.ClassPresenter;
 import interface_adapter.dnd_class.ClassViewModel;
@@ -15,6 +18,7 @@ import interface_adapter.race.RaceViewModel;
 import use_case.dnd_class.ClassInteractor;
 import use_case.inventory.InventoryInteractor;
 import use_case.race.RaceInteractor;
+import use_case.background.BackgroundInteractor;
 import view.CharacterCreatorView;
 
 import view.ViewManager;
@@ -48,6 +52,7 @@ public class Main {
         InventoryViewModel inventoryViewModel = new InventoryViewModel();
         ClassViewModel classViewModel = new ClassViewModel();
         RaceViewModel raceViewModel = new RaceViewModel();
+        BackgroundViewModel backgroundViewModel = new BackgroundViewModel();
 
         DataAccessObject dataAccessObject;
 
@@ -59,7 +64,9 @@ public class Main {
                 new ClassController(new ClassInteractor(dataAccessObject, new ClassPresenter(classViewModel))),
                 classViewModel,
                 new RaceController(new RaceInteractor(dataAccessObject, new RacePresenter(raceViewModel))),
-                raceViewModel);
+                raceViewModel,
+                new BackgroundController(new BackgroundInteractor(dataAccessObject, new BackgroundPresenter(backgroundViewModel))),
+                backgroundViewModel);
         //viewManagerModel
         views.add(characterCreatorView, characterCreatorView.viewName);
 
