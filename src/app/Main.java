@@ -20,6 +20,7 @@ import use_case.inventory.InventoryInteractor;
 import use_case.race.RaceInteractor;
 import use_case.background.BackgroundInteractor;
 import view.CharacterCreatorView;
+import view.ChooseBackgroundView;
 
 import view.ViewManager;
 
@@ -67,8 +68,12 @@ public class Main {
                 raceViewModel,
                 new BackgroundController(new BackgroundInteractor(dataAccessObject, new BackgroundPresenter(backgroundViewModel))),
                 backgroundViewModel);
+        ChooseBackgroundView chooseBackgroundView =
+                new ChooseBackgroundView(new BackgroundController(new BackgroundInteractor(dataAccessObject,
+                        new BackgroundPresenter(backgroundViewModel))), backgroundViewModel);
         //viewManagerModel
         views.add(characterCreatorView, characterCreatorView.viewName);
+        views.add(chooseBackgroundView, chooseBackgroundView.viewName);
 
 
 
