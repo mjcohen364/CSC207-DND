@@ -1,12 +1,11 @@
 package view;
 
 import interface_adapter.character_name.CharacterNameViewModel;
-import interface_adapter.clear_users.ClearController;
-import interface_adapter.clear_users.ClearState;
-import interface_adapter.clear_users.ClearViewModel;
+import interface_adapter.clear_characters.ClearController;
+import interface_adapter.clear_characters.ClearState;
+import interface_adapter.clear_characters.ClearViewModel;
 import interface_adapter.character_name.CharacterNameController;
 import interface_adapter.character_name.CharacterNameState;
-import interface_adapter.character_name.CharacterNameViewModel;
 
 import javax.swing.*;
 import java.awt.*;

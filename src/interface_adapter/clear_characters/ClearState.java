@@ -1,4 +1,4 @@
-package interface_adapter.clear_users;
+package interface_adapter.clear_characters;
 
 // TODO Complete me seems good
 

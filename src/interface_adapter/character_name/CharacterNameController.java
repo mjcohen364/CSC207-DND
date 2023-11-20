@@ -6,13 +6,13 @@ import use_case.character_name.CharacterNameInputData;
 public class CharacterNameController {
 
     final CharacterNameInputBoundary characterNameUseCaseInteractor;
-    public CharacterNameController(CharacterNameInputBoundary userSignupUseCaseInteractor) {
+    public CharacterNameController(CharacterNameInputBoundary characterNameUseCaseInteractor) {
         this.characterNameUseCaseInteractor = characterNameUseCaseInteractor;
     }
 
-    public void execute(String username) {
+    public void execute(String name) {
         CharacterNameInputData characterNameInputData = new CharacterNameInputData(
-                username);
+                name);
 
         characterNameUseCaseInteractor.execute(characterNameInputData);
     }

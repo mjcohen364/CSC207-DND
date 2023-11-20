@@ -6,11 +6,11 @@ import entity.CharacterFactory;
 import java.time.LocalDateTime;
 
 public class CharacterNameInteractor implements CharacterNameInputBoundary {
-    final CharacterNameUserDataAccessInterface characterNameDataAccessObject;
+    final CharacterNameDataAccessInterface characterNameDataAccessObject;
     final CharacterNameOutputBoundary characterNamePresenter;
     final CharacterFactory characterFactory;
 
-    public CharacterNameInteractor(CharacterNameUserDataAccessInterface characterNameDataAccessInterface,
+    public CharacterNameInteractor(CharacterNameDataAccessInterface characterNameDataAccessInterface,
                                    CharacterNameOutputBoundary characterNameOutputBoundary,
                             CharacterFactory characterFactory) {
         this.characterNameDataAccessObject = characterNameDataAccessInterface;
@@ -25,7 +25,7 @@ public class CharacterNameInteractor implements CharacterNameInputBoundary {
         } else {
 
             LocalDateTime now = LocalDateTime.now();
-            Character character = characterFactory.create(CharacterNameInputData.getName(), now);
+            Character character = characterFactory.create(characterNameInputData.getName(), now);
             characterNameDataAccessObject.save(character);
 
             CharacterNameOutputData characterNameOutputData = new CharacterNameOutputData(character.getName(), now.toString(), false);

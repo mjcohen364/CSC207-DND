@@ -1,8 +1,8 @@
 package interface_adapter.character_name;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.login.LoginState;
-import interface_adapter.login.LoginViewModel;
+import interface_adapter.logged_in.LoggedInState;
+import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.character_name.CharacterNameViewModel;
 import use_case.character_name.CharacterNameOutputData;
 import use_case.character_name.CharacterNameOutputBoundary;
@@ -11,18 +11,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class CharacterNamePresenter implements CharacterNameOutputBoundary {
-    private final CharacterNameViewModel characterNameViewModel1;
-    private final LoginViewModel loginViewModel;
+    private final LoggedInViewModel loggedInViewModel;
     private final CharacterNameViewModel characterNameViewModel;
-    private ViewManagerModel viewManagerModel;
+    private final ViewManagerModel viewManagerModel;
 
     public CharacterNamePresenter(ViewManagerModel viewManagerModel,
-                                  CharacterNameViewModel characterNameViewModel,
-                                  CharacterNameViewModel characterNameViewModel1, LoginViewModel loginViewModel) {
+                                  CharacterNameViewModel characterNameViewModel, LoggedInViewModel loggedInViewModel) {
         this.viewManagerModel = viewManagerModel;
-        this.characterNameViewModel1 = characterNameViewModel1;
         this.characterNameViewModel = characterNameViewModel;
-        this.loginViewModel = loginViewModel;
+        this.loggedInViewModel = loggedInViewModel;
     }
 
     @Override
@@ -31,19 +28,19 @@ public class CharacterNamePresenter implements CharacterNameOutputBoundary {
         LocalDateTime responseTime = LocalDateTime.parse(response.getCreationTime());
         response.setCreationTime(responseTime.format(DateTimeFormatter.ofPattern("hh:mm:ss")));
 
-        LoginState loginState = loginViewModel.getState();
+        LoggedInState loginState = loggedInViewModel.getState();
         loginState.setUsername(response.getName());
-        this.loginViewModel.setState(loginState);
-        loginViewModel.firePropertyChanged();
+        this.loggedInViewModel.setState(loginState);
+        loggedInViewModel.firePropertyChanged();
 
-        viewManagerModel.setActiveView(loginViewModel.getViewName());
+        viewManagerModel.setActiveView(loggedInViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 
 
     @Override
     public void prepareFailView(String error) {
-        CharacterNameState signupState = characterNameViewModel.getState();
+        CharacterNameState characterNameState = characterNameViewModel.getState();
         characterNameState.setNameError(error);
         characterNameViewModel.firePropertyChanged();
     }
