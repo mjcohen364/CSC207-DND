@@ -15,9 +15,10 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     public final String viewName = "logged in";
     private final LoggedInViewModel loggedInViewModel;
 
-    JLabel username;
+    JLabel name;
 
-    final JButton logOut;
+    final JButton switchCharacter;
+    final JButton newCharacter;
 
     /**
      * A window with a title and a JButton.
@@ -29,20 +30,21 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         JLabel title = new JLabel("Logged In Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel usernameInfo = new JLabel("Currently logged in: ");
-        username = new JLabel();
+        JLabel nameInfo = new JLabel("Currently logged in: ");
+        name = new JLabel();
 
         JPanel buttons = new JPanel();
-        logOut = new JButton(loggedInViewModel.LOGOUT_BUTTON_LABEL);
-        buttons.add(logOut);
+        switchCharacter = new JButton(LoggedInViewModel.SWITCH_CHARACTER_BUTTON_LABEL);
+        newCharacter = new JButton(LoggedInViewModel.NEW_CHARACTER_LABEL);
+        buttons.add(switchCharacter);
 
-        logOut.addActionListener(this);
+        switchCharacter.addActionListener(this);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
-        this.add(usernameInfo);
-        this.add(username);
+        this.add(nameInfo);
+        this.add(name);
         this.add(buttons);
     }
 
@@ -56,6 +58,6 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         LoggedInState state = (LoggedInState) evt.getNewValue();
-        username.setText(state.getUsername());
+        name.setText(state.getName());
     }
 }

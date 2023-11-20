@@ -1,4 +1,4 @@
-package interface_adapter.clear_users;
+package interface_adapter.clear_characters;
 
 import use_case.clear_users.ClearInputBoundary;
 import use_case.clear_users.ClearInputData;
