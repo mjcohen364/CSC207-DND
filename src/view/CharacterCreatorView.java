@@ -95,7 +95,7 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
                     new ActionListener() {
                         public void actionPerformed(ActionEvent evt) {
                             if (evt.getSource().equals(characterAdd)) {
-                                LoggedInController.execute(state.getName(), );
+                                LoggedInController.execute("Add Character");
                             }
                         }
                     }
@@ -105,7 +105,7 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
                     new ActionListener() {
                         public void actionPerformed(ActionEvent evt) {
                             if (evt.getSource().equals(characterChange)) {
-                                LoggedInController.execute(state.getName());
+                                LoggedInController.execute("Change Character");
                             }
                         }
                     }
