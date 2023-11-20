@@ -10,7 +10,7 @@ public class PlayerFactory implements CharacterFactory {
      */
 
     @Override
-    public entity.Character create(String name) {
+    public Character create(String name, LocalDateTime now) {
         return new Player(/*name*/);
     }
 }

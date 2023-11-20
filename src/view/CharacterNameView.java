@@ -18,11 +18,10 @@ import java.beans.PropertyChangeListener;
 import java.util.Set;
 
 public class CharacterNameView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "character name";
-
+    public final String viewName = "Name a Character!";
     private final CharacterNameViewModel characterNameViewModel;
-    private final JTextField nameInputField = new JTextField(15);
     private final CharacterNameController characterNameController;
+    private final JTextField nameInputField = new JTextField(15);
     private final ClearController clearController;
     private final ClearViewModel clearViewModel;
 
@@ -127,6 +126,7 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
      * React to a button click that results in evt.
      */
     public void actionPerformed(ActionEvent evt) {
+
         JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
     }
 

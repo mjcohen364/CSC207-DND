@@ -1,5 +1,6 @@
 package entity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import entity.Character;
@@ -17,6 +18,7 @@ public class Player implements Character {
     Size size;
     ClassLevel classLevel;
     Race race;
+    LocalDateTime creationTime;
     ArrayList<DndClass> classes = new ArrayList<DndClass>();
     Background background;
     ArrayList<Proficiency> skillProficiencies = new ArrayList<Proficiency>();
@@ -27,6 +29,11 @@ public class Player implements Character {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public LocalDateTime getCreationTime() {
+        return creationTime;
     }
 
     @Override

@@ -2,7 +2,12 @@ package app;
 
 import data_access.DataAccessObject;
 
+import data_access.FileCharacterDataAccessObject;
+import entity.PlayerFactory;
 import interface_adapter.*;
+import interface_adapter.character_name.CharacterNameController;
+import interface_adapter.character_name.CharacterNamePresenter;
+import interface_adapter.character_name.CharacterNameViewModel;
 import interface_adapter.dnd_class.ClassController;
 import interface_adapter.dnd_class.ClassPresenter;
 import interface_adapter.dnd_class.ClassViewModel;
@@ -12,18 +17,22 @@ import interface_adapter.inventory.InventoryViewModel;
 import interface_adapter.race.RaceController;
 import interface_adapter.race.RacePresenter;
 import interface_adapter.race.RaceViewModel;
+import use_case.character_name.CharacterNameDataAccessInterface;
+import use_case.character_name.CharacterNameInteractor;
 import use_case.dnd_class.ClassInteractor;
 import use_case.inventory.InventoryInteractor;
 import use_case.race.RaceInteractor;
 import view.CharacterCreatorView;
 
+import view.CharacterNameView;
 import view.ViewManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // Build the main program window, the main panel containing the
         // various cards, and the layout, and stitch them together.
 
@@ -60,13 +69,16 @@ public class Main {
                 classViewModel,
                 new RaceController(new RaceInteractor(dataAccessObject, new RacePresenter(raceViewModel))),
                 raceViewModel);
-        //viewManagerModel
         views.add(characterCreatorView, characterCreatorView.viewName);
 
+        PlayerFactory playerFactory= new PlayerFactory();
+        CharacterNameView characterNameView = new CharacterNameView(
+                new CharacterNameController(new CharacterNameInteractor(
+                        new FileCharacterDataAccessObject("idk", playerFactory), new CharacterNamePresenter(), playerFactory));
+        views.add(characterNameView, characterNameView.viewName);
 
 
-
-        viewManagerModel.setActiveView(characterCreatorView.viewName);
+        viewManagerModel.setActiveView(characterNameView.viewName);
         viewManagerModel.firePropertyChanged();
 
         application.pack();
