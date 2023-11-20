@@ -17,7 +17,8 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
 
     JLabel name;
 
-    final JButton logOut;
+    final JButton switchCharacter;
+    final JButton newCharacter;
 
     /**
      * A window with a title and a JButton.
@@ -33,10 +34,11 @@ public class LoggedInView extends JPanel implements ActionListener, PropertyChan
         name = new JLabel();
 
         JPanel buttons = new JPanel();
-        logOut = new JButton(loggedInViewModel.NEW_CHARACTER);
-        buttons.add(logOut);
+        switchCharacter = new JButton(LoggedInViewModel.SWITCH_CHARACTER_BUTTON_LABEL);
+        newCharacter = new JButton(LoggedInViewModel.NEW_CHARACTER_LABEL);
+        buttons.add(switchCharacter);
 
-        logOut.addActionListener(this);
+        switchCharacter.addActionListener(this);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

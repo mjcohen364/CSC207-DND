@@ -1,101 +1,55 @@
 package interface_adapter.clear_characters;
 
-// TODO Complete me seems good
-
 import java.util.Set;
 
 public class ClearState {
-    private String username = "";
-    private String usernameError = null;
-    private String password = "";
-    private String passwordError = null;
-    private String repeatPassword = "";
-    private String repeatPasswordError = null;
-    private Set usernames;
-    private String usernamesError = "";
+    private String name = "";
+    private String nameError = null;
+    private Set names;
+    private String namesError = "";
 
     public ClearState(ClearState copy) {
-        username = copy.username;
-        usernameError = copy.usernameError;
-        password = copy.password;
-        passwordError = copy.passwordError;
-        repeatPassword = copy.repeatPassword;
-        repeatPasswordError = copy.repeatPasswordError;
+        name = copy.name;
+        nameError = copy.nameError;
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
     public ClearState() {
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public String getUsernameError() {
-        return usernameError;
+    public String getNameError() {
+        return nameError;
     }
-    public Set getUsernames() {
-        return usernames;
+    public Set getNames() {
+        return names;
     }
-
-    public String getUsernamesError() {
-        return usernamesError;
+    public String getNamesError() {
+        return namesError;
     }
-
-    public String getPassword() {
-        return password;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getPasswordError() {
-        return passwordError;
+    public void setNameError(String nameError) {
+        this.nameError = nameError;
+    }
+    public void setNames(Set names) {
+        this.names = names;
     }
 
-    public String getRepeatPassword() {
-        return repeatPassword;
-    }
-
-    public String getRepeatPasswordError() {
-        return repeatPasswordError;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setUsernameError(String usernameError) {
-        this.usernameError = usernameError;
-    }
-    public void setUsernames(Set usernames) {
-        this.usernames = usernames;
-    }
-
-    public void setUsernamesError(String usernamesError) {
-        this.usernamesError = usernamesError;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setPasswordError(String passwordError) {
-        this.passwordError = passwordError;
-    }
-
-    public void setRepeatPassword(String repeatPassword) {
-        this.repeatPassword = repeatPassword;
-    }
-
-    public void setRepeatPasswordError(String repeatPasswordError) {
-        this.repeatPasswordError = repeatPasswordError;
+    public void setNamesError(String namesError) {
+        this.namesError = namesError;
     }
 
     @Override
     public String toString() {
         return "ClearState{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", repeatPassword='" + repeatPassword + '\'' +
-                "usernames='" + usernames + '\'' +
+                "name='" + name + '\'' +
+                "names='" + names + '\'' +
                 '}';
     }
 }

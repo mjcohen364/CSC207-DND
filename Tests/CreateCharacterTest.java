@@ -190,8 +190,8 @@ public class CreateCharacterTest {
                             System.out.println("message = " + s);
 
                             // store the information we got from the JDialog
-                            ClearUsersTest.message = s;
-                            ClearUsersTest.popUpDiscovered = true;
+//                            ClearUsersTest.message = s;
+//                            ClearUsersTest.popUpDiscovered = true;
 
                             System.out.println("disposing of..." + window.getClass());
                             window.dispose();
