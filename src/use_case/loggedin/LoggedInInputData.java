@@ -1,11 +1,11 @@
-package use_case.login;
+package use_case.loggedin;
 
-public class LoginInputData {
+public class LoggedInInputData {
 
     final private String username;
     final private String password;
 
-    public LoginInputData(String username, String password) {
+    public LoggedInInputData(String username, String password) {
         this.username = username;
         this.password = password;
     }

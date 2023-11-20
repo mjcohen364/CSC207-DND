@@ -1,11 +1,9 @@
-package interface_adapter.clear_users;
+package interface_adapter.clear_characters;
 
 // TODO Complete me seems good
 
 import interface_adapter.ViewModel;
-import interface_adapter.clear_users.ClearState;
 
-import javax.swing.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
