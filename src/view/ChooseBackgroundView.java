@@ -19,12 +19,17 @@ public class ChooseBackgroundView extends JPanel implements ActionListener, Prop
     public ChooseBackgroundView(BackgroundController backgroundController, BackgroundViewModel backgroundViewModel) {
         this.backgroundController = backgroundController;
         this.backgroundViewModel = backgroundViewModel;
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         backgroundViewModel.addPropertyChangeListener(this);
+        JLabel title = new JLabel("Choose Background");
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.add(title);
 
-        backgroundController.execute();
         JPanel buttons = new JPanel();
         mainScreen = new JButton(backgroundViewModel.MAIN_SCREEN_LABEL);
         buttons.add(mainScreen);
+        buttons.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.add(buttons);
 
         mainScreen.addActionListener(
                 new ActionListener() {
@@ -32,12 +37,11 @@ public class ChooseBackgroundView extends JPanel implements ActionListener, Prop
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(mainScreen)) {
                             BackgroundState currentState = backgroundViewModel.getState();
-                            backgroundController.execute();
+//                            loggedInController.execute();
                         }
                     }
                 }
         );
-        this.add(buttons);
     }
 //    FINISH ACTIONPERFORMED
     public void actionPerformed(ActionEvent evt) {
@@ -48,12 +52,13 @@ public class ChooseBackgroundView extends JPanel implements ActionListener, Prop
         if (evt.getNewValue() instanceof BackgroundState) {
             BackgroundState state = (BackgroundState) evt.getNewValue();
 
-            JPanel buttons = new JPanel();
+            JPanel buttons2 = new JPanel();
             for (String backgroundName: state.backgrounds) {
                 JButton backgroundAdd = new JButton(backgroundName);
-                buttons.add(backgroundAdd);
+                buttons2.add(backgroundAdd);
             }
-            this.add(buttons);
+            buttons2.setAlignmentX(Component.CENTER_ALIGNMENT);
+            this.add(buttons2, 1);
             revalidate();
             repaint();
 
