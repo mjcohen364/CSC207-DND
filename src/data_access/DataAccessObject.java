@@ -71,6 +71,24 @@ public class DataAccessObject {
             itemsFromClass.add(newItem);
         }
     }
+    public ArrayList<String> getRaces() {
+        ArrayList<String> raceNames = new ArrayList<>();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://www.dnd5eapi.co/api/races"))
+                .build();
+        HttpResponse<String> response;
+        try {
+            response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+            JSONObject obj = new JSONObject(response.body());
+            JSONArray arr = obj.getJSONArray("results");
+            for (int i = 0; i < arr.length(); i++) {
+                raceNames.add(arr.getJSONObject(i).getString("name"));
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return raceNames;
+    }
 
     private Item get(String apiCall) {
         HttpRequest request = HttpRequest.newBuilder()
