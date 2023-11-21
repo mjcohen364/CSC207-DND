@@ -9,6 +9,8 @@ import interface_adapter.dnd_class.ClassViewModel;
 import interface_adapter.inventory.InventoryController;
 import interface_adapter.inventory.InventoryPresenter;
 import interface_adapter.inventory.InventoryViewModel;
+import interface_adapter.race.RaceController;
+import interface_adapter.race.RaceViewModel;
 import use_case.dnd_class.ClassInteractor;
 import use_case.inventory.InventoryInteractor;
 import view.CharacterCreatorView;
@@ -44,15 +46,20 @@ public class Main {
         InventoryViewModel inventoryViewModel = new InventoryViewModel();
         ClassViewModel classViewModel = new ClassViewModel();
 
+
+
         DataAccessObject dataAccessObject;
 
         dataAccessObject = new DataAccessObject();
+        RaceViewModel raceViewModel = new RaceViewModel();
+        RaceController raceController = new RaceController(raceViewModel, dataAccessObject);
+        raceController.loadRaces(); // Load the races
 
 
         CharacterCreatorView characterCreatorView = new CharacterCreatorView(new InventoryController(new InventoryInteractor(dataAccessObject, new InventoryPresenter(inventoryViewModel))),
                 inventoryViewModel,
                 new ClassController(new ClassInteractor(dataAccessObject, new ClassPresenter(classViewModel))),
-                classViewModel);
+                classViewModel, raceController, raceViewModel);
         //viewManagerModel
         views.add(characterCreatorView, characterCreatorView.viewName);
 

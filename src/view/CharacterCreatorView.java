@@ -6,6 +6,8 @@ import interface_adapter.dnd_class.ClassViewModel;
 import interface_adapter.inventory.InventoryController;
 import interface_adapter.inventory.InventoryState;
 import interface_adapter.inventory.InventoryViewModel;
+import interface_adapter.race.RaceController;
+import interface_adapter.race.RaceViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,17 +28,40 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
 
     private JLabel items;
 
+    private RaceViewModel raceViewModel;
+    private RaceController raceController;
+    //private JPanel raceButtonsPanel;
+
+    private JTabbedPane tabbedPane;
+
     public CharacterCreatorView(InventoryController controller,
                                 InventoryViewModel inventoryViewModel,
                                 ClassController classController,
-                                ClassViewModel classViewModel) {
+                                ClassViewModel classViewModel,
+                                RaceController raceController,
+                                RaceViewModel raceViewModel) {
 
         this.inventoryController = controller;
         this.inventoryViewModel = inventoryViewModel;
         this.classController = classController;
         this.classViewModel = classViewModel;
+        this.raceController = raceController;
+        this.raceViewModel = raceViewModel;
+
+        tabbedPane = new JTabbedPane();
+        // Set up the race tab
+        initRaceTab();
+
+        // Add the tabbed pane to the view
+        this.add(tabbedPane);
+
         inventoryViewModel.addPropertyChangeListener(this);
         classViewModel.addPropertyChangeListener(this);
+
+       // raceButtonsPanel = new JPanel(new FlowLayout());
+      //  this.add(raceButtonsPanel);
+
+      //  createRaceButtons();
 
 
         items = new JLabel();
@@ -53,6 +78,30 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
         this.add(title);
         this.add(items);
 
+    }
+   /* private void createRaceButtons() {
+        raceController.loadRaces(); // This should be async in a real app
+        for (String raceName : raceViewModel.getRaceNames()) {
+            JButton raceButton = new JButton(raceName);
+            raceButton.addActionListener(e -> raceController.selectRace(raceName));
+            raceButtonsPanel.add(raceButton);
+        }
+    } */
+
+    private void initRaceTab() {
+        // Panel that will contain the race buttons
+        JPanel racePanel = new JPanel();
+        racePanel.setLayout(new FlowLayout()); // Or any other layout you prefer
+
+        // Assuming raceController.loadRaces() has been called and raceViewModel has the data
+        for (String raceName : raceViewModel.getRaceNames()) {
+            JButton raceButton = new JButton(raceName);
+            raceButton.addActionListener(e -> raceController.selectRace(raceName));
+            racePanel.add(raceButton);
+        }
+
+        // Add the race panel as a tab
+        tabbedPane.addTab("Races", null, racePanel, "Choose your race");
     }
 
     /**
@@ -76,6 +125,7 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
             repaint();
 
         }
+
         if (evt.getNewValue() instanceof ClassState) {
             ClassState state = (ClassState) evt.getNewValue();
 
