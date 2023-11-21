@@ -13,4 +13,10 @@ public class DndAttribute {
         this.value = value;
         this.modifier = (int) ((value-10)/2);
     }
+    public String getName(){
+        return this.name;
+    }
+    public int getModifier(){
+        return this.modifier;
+    }
 }
