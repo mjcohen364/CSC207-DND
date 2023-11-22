@@ -19,22 +19,8 @@ public class Race {
     private List<Subrace> subraces;
     private String url;
 
-    public Race(String index, String name, int speed, List<AbilityBonus> abilityBonuses, String alignment, String age, String size, String sizeDescription, List<Proficiency> startingProficiencies, ProficiencyOptions startingProficiencyOptions, List<Language> languages, String languageDesc, List<Trait> traits, List<Subrace> subraces, String url) {
-        this.index = index;
-        this.name = name;
-        this.speed = speed;
-        this.abilityBonuses = abilityBonuses;
-        this.alignment = alignment;
-        this.age = age;
-        this.size = size;
-        this.sizeDescription = sizeDescription;
-        this.startingProficiencies = startingProficiencies;
-        this.startingProficiencyOptions = startingProficiencyOptions;
-        this.languages = languages;
-        this.languageDesc = languageDesc;
-        this.traits = traits;
-        this.subraces = subraces;
-        this.url = url;
+    public Race(){
+
     }
 
     public String getIndex() {
