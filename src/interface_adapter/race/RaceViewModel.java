@@ -1,4 +1,5 @@
 package interface_adapter.race;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -55,4 +56,5 @@ public class RaceViewModel {
         propertyChangeSupport.firePropertyChange("raceDetails", null, raceDetails);
     }
 }
+
 

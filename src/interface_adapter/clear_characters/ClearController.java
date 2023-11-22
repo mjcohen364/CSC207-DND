@@ -1,7 +1,7 @@
-package interface_adapter.clear_users;
+package interface_adapter.clear_characters;
 
-import use_case.clear_users.ClearInputData;
 import use_case.clear_users.ClearInputBoundary;
+import use_case.clear_users.ClearInputData;
 
 // TODO Complete me seems good
 public class ClearController {

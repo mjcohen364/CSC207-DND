@@ -88,6 +88,31 @@ public class DataAccessObject {
             e.printStackTrace();
         }
         return raceNames;
+
+    public ArrayList<String> getBackgrounds() {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://www.dnd5eapi.co/api/backgrounds"))
+                .build();
+        HttpResponse<String> response = null;
+        try {
+            response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        String jsonString = response.body().toString();
+
+        JSONObject obj = new JSONObject(jsonString);
+        JSONArray arr = obj.getJSONArray("results");
+        ArrayList<String> toReturn = new ArrayList<>();
+        for (int i = 0; i < arr.length(); i++) {
+            toReturn.add(arr.getJSONObject(i).getString("name"));
+        }
+
+        return toReturn;
+
     }
 
     private Item get(String apiCall) {
