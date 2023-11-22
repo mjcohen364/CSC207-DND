@@ -1,6 +1,8 @@
 package interface_adapter.race;
 
 import data_access.DataAccessObject;
+import entity.Race;
+import use_case.race.RaceDetailsInteractor;
 
 public class RaceController {
     private RaceViewModel raceViewModel;
@@ -15,8 +17,16 @@ public class RaceController {
         raceViewModel.setRaceNames(dataAccessObject.getRaces());
     }
 
+
     public void selectRace(String race) {
         raceViewModel.setSelectedRace(race);
-        // Additional logic to handle a race selection
+        // Fetch the race details using the interactor
+        RaceDetailsInteractor raceDetailsInteractor = new RaceDetailsInteractor();
+        Race raceDetails = raceDetailsInteractor.getRaceDetails(race.toLowerCase());
+        // Here you would update the RaceViewModel with the details of the race
+        raceViewModel.setRaceDetails(raceDetails); // Assuming this setter is implemented
     }
+
+
+
 }

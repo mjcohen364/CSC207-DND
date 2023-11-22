@@ -1,5 +1,7 @@
 package view;
 
+import entity.Race;
+import entity.Trait;
 import interface_adapter.dnd_class.ClassController;
 import interface_adapter.dnd_class.ClassState;
 import interface_adapter.dnd_class.ClassViewModel;
@@ -27,6 +29,7 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
     private final ClassController classController;
 
     private JLabel items;
+    private JLabel raceDetailsLabel;
 
     private RaceViewModel raceViewModel;
     private RaceController raceController;
@@ -50,6 +53,7 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
 
         tabbedPane = new JTabbedPane();
         // Set up the race tab
+        raceDetailsLabel = new JLabel();
         initRaceTab();
 
         // Add the tabbed pane to the view
@@ -57,6 +61,7 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
 
         inventoryViewModel.addPropertyChangeListener(this);
         classViewModel.addPropertyChangeListener(this);
+        raceViewModel.addPropertyChangeListener(this);
 
        // raceButtonsPanel = new JPanel(new FlowLayout());
       //  this.add(raceButtonsPanel);
@@ -77,6 +82,13 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
 
         this.add(title);
         this.add(items);
+
+        // SAVE BUTTON FOR RACE
+        JButton saveButton = new JButton("Save Race");
+      //  saveButton.addActionListener(e -> raceController.saveCurrentRace());
+        this.add(saveButton); // Add to the layout
+
+
 
     }
    /* private void createRaceButtons() {
@@ -102,6 +114,12 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
 
         // Add the race panel as a tab
         tabbedPane.addTab("Races", null, racePanel, "Choose your race");
+
+        // Wrap the raceDetailsLabel in a JScrollPane
+        JScrollPane scrollPane = new JScrollPane(raceDetailsLabel);
+        scrollPane.setPreferredSize(new Dimension(200, 100)); // You can adjust the size as needed
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        racePanel.add(scrollPane);
     }
 
     /**
@@ -114,6 +132,7 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
+
         if (evt.getNewValue() instanceof InventoryState) {
             InventoryState state = (InventoryState) evt.getNewValue();
 
@@ -124,6 +143,13 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
             revalidate();
             repaint();
 
+        }
+        if ("raceDetails".equals(evt.getPropertyName())) {
+            System.out.println("dasfd");
+            Race race = raceViewModel.getRaceDetails();
+            if (race != null) {
+                raceDetailsLabel.setText(formatRaceDetails(race));
+            }
         }
 
         if (evt.getNewValue() instanceof ClassState) {
@@ -154,4 +180,30 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
 
         }
     }
+    private String formatRaceDetails(Race race) {
+        StringBuilder detailsBuilder = new StringBuilder("<html><div style='max-width:200px; word-wrap:break-word;'>");
+
+        // Add name and basic details
+        detailsBuilder.append("<b>").append(race.getName()).append("</b><br/>")
+                .append("Speed: ").append(race.getSpeed()).append("<br/>")
+                .append("Age: ").append(race.getAge()).append("<br/>")
+                .append("Alignment: ").append(race.getAlignment()).append("<br/>")
+                .append("Size: ").append(race.getSize()).append("<br/>")
+                .append("Size Description: ").append(race.getSizeDescription()).append("<br/>");
+
+        // Add traits
+        if (race.getTraits() != null && !race.getTraits().isEmpty()) {
+            detailsBuilder.append("<br/><b>Traits:</b><br/>");
+            for (Trait trait : race.getTraits()) {
+                detailsBuilder.append(trait.getName()).append("<br/>");
+            }
+        }
+
+        // Close HTML tags
+        detailsBuilder.append("</div></html>");
+
+        return detailsBuilder.toString();
+    }
+
+
 }
