@@ -5,10 +5,8 @@ public class Trait {
     private String name;
     private String url;
 
-    public Trait(String index, String name, String url) {
-        this.index = index;
-        this.name = name;
-        this.url = url;
+    public Trait() {
+
     }
 
     public String getIndex() {
