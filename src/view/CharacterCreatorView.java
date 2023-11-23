@@ -68,14 +68,24 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
         raceController.execute();
         backgroundController.execute();
 
-//        JPanel buttons = new JPanel();
-//        chooseBackground = new JButton("Background");
-//        buttons.add(chooseBackground);
+        JPanel buttons = new JPanel();
+        JButton chooseBackground = new JButton("Background");
+        buttons.add(chooseBackground);
+
+        chooseBackground.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+
+                    }
+                }
+        );
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
         this.add(items);
+        this.add(buttons);
 
     }
 
@@ -153,31 +163,31 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
             repaint();
 
         }
-        if (evt.getNewValue() instanceof BackgroundState) {
-            BackgroundState state = (BackgroundState) evt.getNewValue();
-
-            JPanel buttons = new JPanel();
-            for (String backgroundName: state.backgrounds) {
-                JButton backgroundAdd = new JButton(backgroundName);
-                buttons.add(backgroundAdd);
-
-
-                backgroundAdd.addActionListener(
-                        new ActionListener() {
-                            public void actionPerformed(ActionEvent evt) {
-                                if (evt.getSource().equals(backgroundAdd)) {
-                                    inventoryController.execute("/api/races/" + backgroundName.toLowerCase());
-                                }
-                            }
-                        }
-                );
-
-
-            }
-            this.add(buttons);
-            revalidate();
-            repaint();
-
-        }
+//        if (evt.getNewValue() instanceof BackgroundState) {
+//            BackgroundState state = (BackgroundState) evt.getNewValue();
+//
+//            JPanel buttons = new JPanel();
+//            for (String backgroundName: state.backgrounds) {
+//                JButton backgroundAdd = new JButton(backgroundName);
+//                buttons.add(backgroundAdd);
+//
+//
+//                backgroundAdd.addActionListener(
+//                        new ActionListener() {
+//                            public void actionPerformed(ActionEvent evt) {
+//                                if (evt.getSource().equals(backgroundAdd)) {
+//                                    inventoryController.execute("/api/races/" + backgroundName.toLowerCase());
+//                                }
+//                            }
+//                        }
+//                );
+//
+//
+//            }
+//            this.add(buttons);
+//            revalidate();
+//            repaint();
+//
+//        }
     }
 }
