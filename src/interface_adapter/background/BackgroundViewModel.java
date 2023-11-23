@@ -10,7 +10,7 @@ public class BackgroundViewModel extends ViewModel {
     public static final String TITLE_LABEL = "Choose Background";
     public static final String MAIN_SCREEN_LABEL = "Return to Main Screen";
     private BackgroundState state = new BackgroundState();
-    public BackgroundViewModel() {super("background");}
+    public BackgroundViewModel() {super("Choose Background");}
     public void setState(BackgroundState state) {this.state = state;}
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     public void firePropertyChanged() {support.firePropertyChange("state", null, this.state);}

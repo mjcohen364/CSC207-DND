@@ -66,7 +66,6 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
         //create buttons for choosing class
         classController.execute();
         raceController.execute();
-        backgroundController.execute();
 
         JPanel buttons = new JPanel();
         JButton chooseBackground = new JButton("Background");
@@ -76,7 +75,7 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent evt) {
-
+                        backgroundController.execute();
                     }
                 }
         );
