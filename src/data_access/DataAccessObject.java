@@ -17,6 +17,8 @@ public class DataAccessObject {
     public Player player = new Player();
     public ArrayList<Item> itemsFromClass = new ArrayList<>();
     public ArrayList<Item> itemsFromClassOptions = new ArrayList<>();
+//    TODO REPLACE PLACEHOLDERNAME WITH CODE THAT RETRIEVES CURRENT SELECTED CHARACTER'S NAME
+    public String getCharacterName() {return "PLACEHOLDERNAME";}
 
     public ArrayList<String> getClasses() {
         HttpRequest request = HttpRequest.newBuilder()
