@@ -1,7 +1,6 @@
 package entity;
 
 import not_implemented.Feature;
-
 import java.util.ArrayList;
 
 public class HitDice {
@@ -16,7 +15,7 @@ public class HitDice {
         ArrayList<DndAttribute> attributes = player.getAttributes();
         ArrayList<Feature> features = player.getFeatures();
         for (int i = 0; i < attributes.size(); i++) {
-            if (attributes.get(i).getName() == "Constitution"){
+            if (attributes.get(i).getName() == AttributeType.CONSTITUTION){
                 ConstitutionModifier = attributes.get(i).getModifier();
                 break;
             }
