@@ -6,6 +6,12 @@ import interface_adapter.dnd_class.ClassViewModel;
 import interface_adapter.inventory.InventoryController;
 import interface_adapter.inventory.InventoryState;
 import interface_adapter.inventory.InventoryViewModel;
+import interface_adapter.race.RaceController;
+import interface_adapter.race.RaceState;
+import interface_adapter.race.RaceViewModel;
+import interface_adapter.background.BackgroundController;
+import interface_adapter.background.BackgroundState;
+import interface_adapter.background.BackgroundViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,20 +29,33 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
 
     private final ClassViewModel classViewModel;
     private final ClassController classController;
+    private final RaceViewModel raceViewModel;
+    private final RaceController raceController;
+    private final BackgroundViewModel backgroundViewmodel;
+    private final BackgroundController backgroundController;
 
     private JLabel items;
+//    private final JButton chooseBackground;
 
     public CharacterCreatorView(InventoryController controller,
                                 InventoryViewModel inventoryViewModel,
                                 ClassController classController,
-                                ClassViewModel classViewModel) {
+                                ClassViewModel classViewModel,
+                                RaceController raceController, RaceViewModel raceViewModel,
+                                BackgroundController backgroundController, BackgroundViewModel backgroundViewModel) {
 
         this.inventoryController = controller;
         this.inventoryViewModel = inventoryViewModel;
         this.classController = classController;
         this.classViewModel = classViewModel;
+        this.raceController = raceController;
+        this.raceViewModel = raceViewModel;
+        this.backgroundController = backgroundController;
+        this.backgroundViewmodel = backgroundViewModel;
         inventoryViewModel.addPropertyChangeListener(this);
         classViewModel.addPropertyChangeListener(this);
+        raceViewModel.addPropertyChangeListener(this);
+        backgroundViewmodel.addPropertyChangeListener(this);
 
 
         items = new JLabel();
@@ -46,12 +65,27 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
 
         //create buttons for choosing class
         classController.execute();
+        raceController.execute();
+        backgroundController.execute();
 
+        JPanel buttons = new JPanel();
+        JButton chooseBackground = new JButton("Background");
+        buttons.add(chooseBackground);
+
+        chooseBackground.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+
+                    }
+                }
+        );
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
         this.add(items);
+        this.add(buttons);
 
     }
 
@@ -103,5 +137,57 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
             repaint();
 
         }
+        if (evt.getNewValue() instanceof RaceState) {
+            RaceState state = (RaceState) evt.getNewValue();
+
+            JPanel buttons = new JPanel();
+            for (String raceName: state.races) {
+                JButton raceAdd = new JButton(raceName);
+                buttons.add(raceAdd);
+
+
+                raceAdd.addActionListener(
+                        new ActionListener() {
+                            public void actionPerformed(ActionEvent evt) {
+                                if (evt.getSource().equals(raceAdd)) {
+                                    inventoryController.execute("/api/races/" + raceName.toLowerCase());
+                                }
+                            }
+                        }
+                );
+
+
+            }
+            this.add(buttons);
+            revalidate();
+            repaint();
+
+        }
+//        if (evt.getNewValue() instanceof BackgroundState) {
+//            BackgroundState state = (BackgroundState) evt.getNewValue();
+//
+//            JPanel buttons = new JPanel();
+//            for (String backgroundName: state.backgrounds) {
+//                JButton backgroundAdd = new JButton(backgroundName);
+//                buttons.add(backgroundAdd);
+//
+//
+//                backgroundAdd.addActionListener(
+//                        new ActionListener() {
+//                            public void actionPerformed(ActionEvent evt) {
+//                                if (evt.getSource().equals(backgroundAdd)) {
+//                                    inventoryController.execute("/api/races/" + backgroundName.toLowerCase());
+//                                }
+//                            }
+//                        }
+//                );
+//
+//
+//            }
+//            this.add(buttons);
+//            revalidate();
+//            repaint();
+//
+//        }
     }
 }

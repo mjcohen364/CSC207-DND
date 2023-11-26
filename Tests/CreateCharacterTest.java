@@ -1,8 +1,9 @@
 import app.Main;
 import data_access.FileCharacterDataAccessObject;
-import entity.CommonCharacterFactory;
+import entity.Character;
 import entity.CharacterFactory;
-import view.SignupView;
+import entity.PlayerFactory;
+import view.CharacterNameView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,25 +17,24 @@ import java.time.LocalDateTime;
 import static org.junit.Assert.*;
 
 
-public class ClearUsersTest {
+public class CreateCharacterTest {
 
 
     static String message = "";
     static boolean popUpDiscovered = false;
 
     /**
-     * ensures there are at least 2 users in the CSV file for testing purposes
+     * ensures there is at least 1 character in the CSV file for testing purposes
      */
-    public void addTwoUsers() {
-        UserFactory uf = new CommonUserFactory();
-        FileUserDataAccessObject fudao;
+    public void addCharacter() {
+        CharacterFactory cf = new PlayerFactory();
+        FileCharacterDataAccessObject fcdao;
         try {
-            fudao = new FileUserDataAccessObject("./users.csv", uf);
+            fcdao = new FileCharacterDataAccessObject("./characters.csv", cf);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        fudao.save(uf.create("user1", "password1", LocalDateTime.now()));
-        fudao.save(uf.create("user2", "password2", LocalDateTime.now()));
+        fcdao.save(cf.create("character", LocalDateTime.now()));
     }
 
 
@@ -57,7 +57,7 @@ public class ClearUsersTest {
 
         JPanel jp2 = (JPanel) jp.getComponent(0);
 
-        SignupView sv = (SignupView) jp2.getComponent(0);
+        CharacterNameView sv = (CharacterNameView) jp2.getComponent(0);
 
      
         JPanel buttons = (JPanel) sv.getComponent(4);
@@ -85,7 +85,7 @@ public class ClearUsersTest {
     @org.junit.Test
     public void testClearUsersDeletedUsersFromFile() {
 
-        addTwoUsers();
+        addCharacter();
         Main.main(null);
         JButton button = getButton();
 
@@ -123,7 +123,7 @@ public class ClearUsersTest {
     @org.junit.Test
     public void testClearUsersPopUpShown() {
 
-        addTwoUsers();
+        addCharacter();
         popUpDiscovered = false;
 
         Main.main(null);
@@ -150,7 +150,7 @@ public class ClearUsersTest {
     @org.junit.Test
     public void testClearUsersReturnedUsersDeleted() throws InterruptedException {
 
-        addTwoUsers();
+        addCharacter();
         message = "";
 
         Main.main(null);
@@ -190,8 +190,8 @@ public class ClearUsersTest {
                             System.out.println("message = " + s);
 
                             // store the information we got from the JDialog
-                            ClearUsersTest.message = s;
-                            ClearUsersTest.popUpDiscovered = true;
+//                            ClearUsersTest.message = s;
+//                            ClearUsersTest.popUpDiscovered = true;
 
                             System.out.println("disposing of..." + window.getClass());
                             window.dispose();

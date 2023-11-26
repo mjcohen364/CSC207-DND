@@ -1,22 +1,38 @@
 package entity;
 
 public class DndAttribute {
-    String name;
-    int value;
-    int modifier;
-    public void init(String name, int value){
-        this.name = name;
+    private AttributeType type;
+    private int value;
+
+    public DndAttribute(AttributeType type, int value) {
+        this.type = type;
         this.value = value;
-        this.modifier = (int) ((value-10)/2);
     }
-    public void update(int value){
+
+    // Getters and setters for type and value
+    public AttributeType getType() {
+        return type;
+    }
+
+    public void setType(AttributeType type) {
+        this.type = type;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
         this.value = value;
-        this.modifier = (int) ((value-10)/2);
     }
-    public String getName(){
-        return this.name;
-    }
-    public int getModifier(){
-        return this.modifier;
-    }
+}
+
+// Enum for attribute types, could be in its own file or nested within DndAttribute class
+enum AttributeType {
+    STRENGTH,
+    CONSTITUTION,
+    DEXTERITY,
+    INTELLIGENCE,
+    WISDOM,
+    CHARISMA
 }

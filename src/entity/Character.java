@@ -2,10 +2,12 @@ package entity;
 
 import not_implemented.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public interface Character {
     String getName();
+    LocalDateTime getCreationTime();
     ArrayList<DndAttribute> getAttributes();
     Inventory getInventory();
     HitDice getHitDice();
