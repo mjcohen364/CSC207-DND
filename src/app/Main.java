@@ -11,6 +11,12 @@ import interface_adapter.character_name.CharacterNameViewModel;
 import interface_adapter.clear_characters.ClearController;
 import interface_adapter.clear_characters.ClearPresenter;
 import interface_adapter.clear_characters.ClearViewModel;
+import interface_adapter.background.BackgroundController;
+import interface_adapter.background.BackgroundPresenter;
+import interface_adapter.background.BackgroundViewModel;
+import interface_adapter.character_creator.CharacterCreatorController;
+import interface_adapter.character_creator.CharacterCreatorPresenter;
+import interface_adapter.character_creator.CharacterCreatorViewModel;
 import interface_adapter.dnd_class.ClassController;
 import interface_adapter.dnd_class.ClassPresenter;
 import interface_adapter.dnd_class.ClassViewModel;
@@ -26,12 +32,15 @@ import use_case.character_name.CharacterNameDataAccessInterface;
 import use_case.character_name.CharacterNameInteractor;
 import use_case.clear_users.ClearInteractor;
 import use_case.clear_users.ClearOutputBoundary;
+import use_case.character_creator.CharacterCreatorInteractor;
 import use_case.dnd_class.ClassInteractor;
 import use_case.inventory.InventoryInteractor;
 import use_case.race.RaceInteractor;
+import use_case.background.BackgroundInteractor;
 import view.CharacterCreatorView;
-
+import view.ChooseBackgroundView;
 import view.CharacterNameView;
+import view.ChooseClassView;
 import view.ViewManager;
 
 import javax.swing.*;
@@ -64,20 +73,33 @@ public class Main {
         InventoryViewModel inventoryViewModel = new InventoryViewModel();
         ClassViewModel classViewModel = new ClassViewModel();
         RaceViewModel raceViewModel = new RaceViewModel();
+        BackgroundViewModel backgroundViewModel = new BackgroundViewModel();
+        CharacterCreatorViewModel characterCreatorViewModel = new CharacterCreatorViewModel();
 
         DataAccessObject dataAccessObject;
 
         dataAccessObject = new DataAccessObject();
+        ChooseBackgroundView chooseBackgroundView =
+                new ChooseBackgroundView(new CharacterCreatorController(new CharacterCreatorInteractor(dataAccessObject,
+                        new CharacterCreatorPresenter(viewManagerModel, characterCreatorViewModel))), backgroundViewModel);
+        ChooseClassView chooseClassView =
+                new ChooseClassView(new CharacterCreatorController(new CharacterCreatorInteractor(dataAccessObject,
+                        new CharacterCreatorPresenter(viewManagerModel, characterCreatorViewModel))), classViewModel);
 
 
         CharacterCreatorView characterCreatorView = new CharacterCreatorView(new InventoryController(
                 new InventoryInteractor(dataAccessObject, new InventoryPresenter(inventoryViewModel))),
                 inventoryViewModel,
-                new ClassController(new ClassInteractor(dataAccessObject, new ClassPresenter(classViewModel))),
+                new ClassController(new ClassInteractor(dataAccessObject, new ClassPresenter(viewManagerModel, classViewModel))),
                 classViewModel,
                 new RaceController(new RaceInteractor(dataAccessObject, new RacePresenter(raceViewModel))),
-                raceViewModel, new LoggedInController(), new LoggedInViewModel());
+                raceViewModel, new LoggedInController(), new LoggedInViewModel(),
+                new BackgroundController(new BackgroundInteractor(dataAccessObject, new BackgroundPresenter(viewManagerModel, backgroundViewModel))),
+                backgroundViewModel);
+        //viewManagerModel
         views.add(characterCreatorView, characterCreatorView.viewName);
+        views.add(chooseBackgroundView, chooseBackgroundView.viewName);
+        views.add(chooseClassView, chooseClassView.viewName);
 
         PlayerFactory playerFactory= new PlayerFactory();
         CharacterNameViewModel characterNameViewModel = new CharacterNameViewModel();

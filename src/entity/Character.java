@@ -1,8 +1,5 @@
 package entity;
 
-import entity.DndClass;
-import entity.Inventory;
-import entity.Item;
 import not_implemented.*;
 
 import java.time.LocalDateTime;

@@ -6,6 +6,7 @@ import interface_adapter.clear_characters.ClearState;
 import interface_adapter.clear_characters.ClearViewModel;
 import interface_adapter.character_name.CharacterNameController;
 import interface_adapter.character_name.CharacterNameState;
+import interface_adapter.dnd_class.ClassState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,9 +28,8 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
 
     private final JButton createCharacterName;
     private final JButton cancel;
-
-    // TODO Note: this is the new JButton for clearing the users file
     private final JButton clear;
+    private boolean nameChoicesAdded;
 
     public CharacterNameView(CharacterNameController characterNameController, CharacterNameViewModel characterNameViewModel, ClearController clearController, ClearViewModel clearViewModel) {
 
@@ -46,14 +46,13 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
                 new JLabel(CharacterNameViewModel.NAME_LABEL), nameInputField);
 
         JPanel buttons = new JPanel();
+        //This button starts editing a new character (send to character creator view)
         createCharacterName = new JButton(CharacterNameViewModel.CREATECHARACTERNAME_BUTTON_LABEL);
         buttons.add(createCharacterName);
+
         cancel = new JButton(CharacterNameViewModel.CANCEL_BUTTON_LABEL);
         buttons.add(cancel);
 
-        // TODO Note: the following line instantiates the "clear" button; it uses
-        //      a CLEAR_BUTTON_LABEL constant which is defined in the CharacterNameViewModel class.
-        //      You need to add this "clear" button to the "buttons" panel.
         clear = new JButton(CharacterNameViewModel.CLEAR_BUTTON_LABEL);
         buttons.add(clear);
 
@@ -135,6 +134,22 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
         CharacterNameState state = (CharacterNameState) evt.getNewValue();
         if (state.getNameError() != null) {
             JOptionPane.showMessageDialog(this, state.getNameError());
+        }
+        if (evt.getNewValue() instanceof CharacterNameState) {
+            CharacterNameState state2 = (CharacterNameState) evt.getNewValue();
+
+            JPanel buttons2 = new JPanel();
+            for (String className: state2.names) {
+                JButton classAdd = new JButton(className);
+                buttons2.add(classAdd);
+            }
+            buttons2.setAlignmentX(Component.CENTER_ALIGNMENT);
+            if (!this.nameChoicesAdded){
+                this.add(buttons2, 1);
+            }
+            this.nameChoicesAdded = true;
+            revalidate();
+            repaint();
         }
 
     }

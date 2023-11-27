@@ -25,6 +25,14 @@ public class DndAttribute {
     public void setValue(int value) {
         this.value = value;
     }
+
+    public AttributeType getName() {
+        return this.type;
+    }
+
+    public int getModifier() {
+        return ((this.value - 10)/2);
+    }
 }
 
 // Enum for attribute types, could be in its own file or nested within DndAttribute class

@@ -11,6 +11,7 @@ import not_implemented.*;
 
 public class Player implements Character {
     String name;
+    LocalDateTime creationTime;
     ArrayList<DndAttribute> attributes = new ArrayList<DndAttribute>();
     Inventory inventory;
     HitDice hitDice;
@@ -18,7 +19,6 @@ public class Player implements Character {
     Size size;
     ClassLevel classLevel;
     Race race;
-    LocalDateTime creationTime;
     ArrayList<DndClass> classes = new ArrayList<DndClass>();
     Background background;
     ArrayList<Proficiency> skillProficiencies = new ArrayList<Proficiency>();
