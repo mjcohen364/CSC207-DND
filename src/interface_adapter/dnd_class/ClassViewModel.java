@@ -10,11 +10,12 @@ public class ClassViewModel extends ViewModel {
 
     public ArrayList<String> Classes = new ArrayList<>();
     public static final String TITLE_LABEL = "Choose Class";
+    public static final String MAIN_SCREEN_LABEL = "Return to Main Screen";
 
     private ClassState state = new ClassState();
 
     public ClassViewModel() {
-        super("class");
+        super("Choose Class");
     }
 
     public void setState(ClassState state) {

@@ -26,6 +26,7 @@ import use_case.background.BackgroundInteractor;
 import view.CharacterCreatorView;
 import view.ChooseBackgroundView;
 
+import view.ChooseClassView;
 import view.ViewManager;
 
 import javax.swing.*;
@@ -66,11 +67,14 @@ public class Main {
         ChooseBackgroundView chooseBackgroundView =
                 new ChooseBackgroundView(new CharacterCreatorController(new CharacterCreatorInteractor(dataAccessObject,
                         new CharacterCreatorPresenter(viewManagerModel, characterCreatorViewModel))), backgroundViewModel);
+        ChooseClassView chooseClassView =
+                new ChooseClassView(new CharacterCreatorController(new CharacterCreatorInteractor(dataAccessObject,
+                        new CharacterCreatorPresenter(viewManagerModel, characterCreatorViewModel))), classViewModel);
 
 
         CharacterCreatorView characterCreatorView = new CharacterCreatorView(new InventoryController(new InventoryInteractor(dataAccessObject, new InventoryPresenter(inventoryViewModel))),
                 inventoryViewModel,
-                new ClassController(new ClassInteractor(dataAccessObject, new ClassPresenter(classViewModel))),
+                new ClassController(new ClassInteractor(dataAccessObject, new ClassPresenter(viewManagerModel, classViewModel))),
                 classViewModel,
                 new RaceController(new RaceInteractor(dataAccessObject, new RacePresenter(raceViewModel))),
                 raceViewModel,
@@ -79,6 +83,7 @@ public class Main {
         //viewManagerModel
         views.add(characterCreatorView, characterCreatorView.viewName);
         views.add(chooseBackgroundView, chooseBackgroundView.viewName);
+        views.add(chooseClassView, chooseClassView.viewName);
 
 
 
