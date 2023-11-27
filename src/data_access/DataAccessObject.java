@@ -97,6 +97,9 @@ public class DataAccessObject {
 
         return toReturn;
     }
+    public String getDescription(String api) {
+        return "hi";
+    }
     public ArrayList<String> getBackgrounds() {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://www.dnd5eapi.co/api/backgrounds"))
