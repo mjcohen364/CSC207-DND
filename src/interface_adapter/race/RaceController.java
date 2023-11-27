@@ -1,33 +1,12 @@
 package interface_adapter.race;
-
-
-import data_access.DataAccessObject;
-import entity.Race;
-import use_case.race.RaceDetailsInteractor;
+import use_case.race.RaceInputBoundary;
 
 public class RaceController {
-    private RaceViewModel raceViewModel;
-    private DataAccessObject dataAccessObject;
-
-    public RaceController(RaceViewModel raceViewModel, DataAccessObject dataAccessObject) {
-        this.raceViewModel = raceViewModel;
-        this.dataAccessObject = dataAccessObject;
+    final RaceInputBoundary raceUseCaseInteractor;
+    public RaceController(RaceInputBoundary raceUseCaseInteractor) {
+        this.raceUseCaseInteractor = raceUseCaseInteractor;
     }
-
-    public void loadRaces() {
-        raceViewModel.setRaceNames(dataAccessObject.getRaces());
+    public void execute() {
+        raceUseCaseInteractor.execute();
     }
-
-
-    public void selectRace(String race) {
-        raceViewModel.setSelectedRace(race);
-        // Fetch the race details using the interactor
-        RaceDetailsInteractor raceDetailsInteractor = new RaceDetailsInteractor();
-        Race raceDetails = raceDetailsInteractor.getRaceDetails(race.toLowerCase());
-        // Here you would update the RaceViewModel with the details of the race
-        raceViewModel.setRaceDetails(raceDetails); // Assuming this setter is implemented
-    }
-
-
-
-
+}
