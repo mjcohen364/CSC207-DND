@@ -1,5 +1,5 @@
 package view;
-import interface_adapter.background.BackgroundController;
+import interface_adapter.character_creator.CharacterCreatorController;
 import interface_adapter.background.BackgroundState;
 import interface_adapter.background.BackgroundViewModel;
 import not_implemented.Background;
@@ -14,10 +14,11 @@ import java.beans.PropertyChangeListener;
 public class ChooseBackgroundView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "Choose Background";
     private final BackgroundViewModel backgroundViewModel;
-    private final BackgroundController backgroundController;
+    private final CharacterCreatorController characterCreatorController;
+    private boolean backgroundChoicesAdded = false;
     final JButton mainScreen;
-    public ChooseBackgroundView(BackgroundController backgroundController, BackgroundViewModel backgroundViewModel) {
-        this.backgroundController = backgroundController;
+    public ChooseBackgroundView(CharacterCreatorController characterCreatorController, BackgroundViewModel backgroundViewModel) {
+        this.characterCreatorController = characterCreatorController;
         this.backgroundViewModel = backgroundViewModel;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         backgroundViewModel.addPropertyChangeListener(this);
@@ -37,7 +38,7 @@ public class ChooseBackgroundView extends JPanel implements ActionListener, Prop
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(mainScreen)) {
                             BackgroundState currentState = backgroundViewModel.getState();
-//                            loggedInController.execute();
+                            characterCreatorController.execute();
                         }
                     }
                 }
@@ -58,10 +59,12 @@ public class ChooseBackgroundView extends JPanel implements ActionListener, Prop
                 buttons2.add(backgroundAdd);
             }
             buttons2.setAlignmentX(Component.CENTER_ALIGNMENT);
-            this.add(buttons2, 1);
+            if (!this.backgroundChoicesAdded){
+                this.add(buttons2, 1);
+            }
+            this.backgroundChoicesAdded = true;
             revalidate();
             repaint();
-
         }
     }
 }
