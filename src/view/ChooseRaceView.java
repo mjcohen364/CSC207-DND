@@ -54,9 +54,19 @@ public class ChooseRaceView extends JPanel implements ActionListener, PropertyCh
             RaceState state = (RaceState) evt.getNewValue();
 
             JPanel buttons2 = new JPanel();
-            for (String backgroundName: state.races) {
-                JButton backgroundAdd = new JButton(backgroundName);
-                buttons2.add(backgroundAdd);
+            for (String raceName: state.races) {
+                JButton raceAdd = new JButton(raceName);
+                buttons2.add(raceAdd);
+                raceAdd.addActionListener(
+                        new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                if (evt.getSource().equals(raceAdd)) {
+
+                                }
+                            }
+                        }
+                );
             }
             buttons2.setAlignmentX(Component.CENTER_ALIGNMENT);
             if (!this.raceChoicesAdded){
