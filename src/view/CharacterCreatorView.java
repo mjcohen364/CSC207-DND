@@ -64,7 +64,6 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         //create buttons for choosing class
-        classController.execute();
         raceController.execute();
 
         JPanel buttons = new JPanel();
@@ -89,6 +88,15 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
                 }
         );
 
+        JButton chooseRace = new JButton("Race");
+        buttons.add(chooseRace);
+
+        chooseRace.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {raceController.execute();}
+                }
+        );
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(buttons);
@@ -107,17 +115,17 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
-        if (evt.getNewValue() instanceof InventoryState) {
-            InventoryState state = (InventoryState) evt.getNewValue();
-
-            items.setText("");
-            for (int i = 0; i < state.items.size(); i++) {
-                items.setText(items.getText() + "    " + state.items.get(i));
-            }
-            revalidate();
-            repaint();
-
-        }
+//        if (evt.getNewValue() instanceof InventoryState) {
+//            InventoryState state = (InventoryState) evt.getNewValue();
+//
+//            items.setText("");
+//            for (int i = 0; i < state.items.size(); i++) {
+//                items.setText(items.getText() + "    " + state.items.get(i));
+//            }
+//            revalidate();
+//            repaint();
+//
+//        }
 //        if (evt.getNewValue() instanceof ClassState) {
 //            ClassState state = (ClassState) evt.getNewValue();
 //
@@ -145,32 +153,32 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
 //            repaint();
 //
 //        }
-        if (evt.getNewValue() instanceof RaceState) {
-            RaceState state = (RaceState) evt.getNewValue();
-
-            JPanel buttons = new JPanel();
-            for (String raceName: state.races) {
-                JButton raceAdd = new JButton(raceName);
-                buttons.add(raceAdd);
-
-
-                raceAdd.addActionListener(
-                        new ActionListener() {
-                            public void actionPerformed(ActionEvent evt) {
-                                if (evt.getSource().equals(raceAdd)) {
-                                    inventoryController.execute("/api/races/" + raceName.toLowerCase());
-                                }
-                            }
-                        }
-                );
-
-
-            }
-            this.add(buttons);
-            revalidate();
-            repaint();
-
-        }
+//        if (evt.getNewValue() instanceof RaceState) {
+//            RaceState state = (RaceState) evt.getNewValue();
+//
+//            JPanel buttons = new JPanel();
+//            for (String raceName: state.races) {
+//                JButton raceAdd = new JButton(raceName);
+//                buttons.add(raceAdd);
+//
+//
+//                raceAdd.addActionListener(
+//                        new ActionListener() {
+//                            public void actionPerformed(ActionEvent evt) {
+//                                if (evt.getSource().equals(raceAdd)) {
+//                                    inventoryController.execute("/api/races/" + raceName.toLowerCase());
+//                                }
+//                            }
+//                        }
+//                );
+//
+//
+//            }
+//            this.add(buttons);
+//            revalidate();
+//            repaint();
+//
+//        }
 //        if (evt.getNewValue() instanceof BackgroundState) {
 //            BackgroundState state = (BackgroundState) evt.getNewValue();
 //

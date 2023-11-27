@@ -7,8 +7,10 @@ import java.util.ArrayList;
 public class RaceViewModel extends ViewModel {
     public ArrayList<String> Races = new ArrayList<>();
     public static final String TITLE_LABEL = "Choose Race";
+    public static final String MAIN_SCREEN_LABEL = "Return to Main Screen";
+
     private RaceState state = new RaceState();
-    public RaceViewModel() {super("race");}
+    public RaceViewModel() {super("Choose Race");}
     public void setState(RaceState state) {this.state = state;}
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     public void firePropertyChanged() {support.firePropertyChange("state", null, this.state);}
