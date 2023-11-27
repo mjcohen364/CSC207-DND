@@ -17,6 +17,8 @@ public class DataAccessObject {
     public Player player = new Player();
     public ArrayList<Item> itemsFromClass = new ArrayList<>();
     public ArrayList<Item> itemsFromClassOptions = new ArrayList<>();
+//    TODO REPLACE PLACEHOLDERNAME WITH CODE THAT RETRIEVES CURRENT SELECTED CHARACTER'S NAME
+    public String getCharacterName() {return "PLACEHOLDERNAME";}
 
     public ArrayList<String> getClasses() {
         HttpRequest request = HttpRequest.newBuilder()
@@ -72,23 +74,29 @@ public class DataAccessObject {
         }
     }
     public ArrayList<String> getRaces() {
-        ArrayList<String> raceNames = new ArrayList<>();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://www.dnd5eapi.co/api/races"))
                 .build();
-        HttpResponse<String> response;
+        HttpResponse<String> response = null;
         try {
             response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-            JSONObject obj = new JSONObject(response.body());
-            JSONArray arr = obj.getJSONArray("results");
-            for (int i = 0; i < arr.length(); i++) {
-                raceNames.add(arr.getJSONObject(i).getString("name"));
-            }
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return raceNames;
 
+        String jsonString = response.body().toString();
+
+        JSONObject obj = new JSONObject(jsonString);
+        JSONArray arr = obj.getJSONArray("results");
+        ArrayList<String> toReturn = new ArrayList<>();
+        for (int i = 0; i < arr.length(); i++) {
+            toReturn.add(arr.getJSONObject(i).getString("name"));
+        }
+
+        return toReturn;
+    }
     public ArrayList<String> getBackgrounds() {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://www.dnd5eapi.co/api/backgrounds"))
@@ -112,7 +120,6 @@ public class DataAccessObject {
         }
 
         return toReturn;
-
     }
 
     private Item get(String apiCall) {
