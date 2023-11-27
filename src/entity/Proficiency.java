@@ -1,17 +1,14 @@
 package entity;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Dictionary;
-import java.util.Hashtable;
+import java.util.*;
 
 public class Proficiency {
-    Dictionary<String, Boolean> Skills = new Hashtable<>();
-    Dictionary<String, Boolean> Tools = new Hashtable<>();
+    Map<String, Boolean> Skills = new Hashtable<>();
+    Map<String, Boolean> Tools = new Hashtable<>();
     //no init for Tools, they have added new tools before
-    Dictionary<String, Boolean> Armor = new Hashtable<>();
-    Dictionary<String, Boolean> Weapons = new Hashtable<>();
-    Dictionary<String, Boolean> Specific = new Hashtable<>();
+    Map<String, Boolean> Armor = new Hashtable<>();
+    Map<String, Boolean> Weapons = new Hashtable<>();
+    Map<String, Boolean> Specific = new Hashtable<>();
     //Use for marking down specific weapon proficiency, fuse with Tools?
 
     public void init() {

@@ -4,12 +4,11 @@ import not_implemented.Feature;
 import java.util.ArrayList;
 
 public class HitDice {
-    Player player;
     ArrayList<Integer> HitDicePerLevel = new ArrayList<>();
     public void addHitDie(Integer hitdie){
         this.HitDicePerLevel.add(hitdie);
     }
-    public int calculateMaxHitPoints(){
+    public int calculateMaxHitPoints(Player player){
         int hitpoints = 0;
         int ConstitutionModifier = 0;
         ArrayList<DndAttribute> attributes = player.getAttributes();

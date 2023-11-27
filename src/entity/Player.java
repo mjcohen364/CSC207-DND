@@ -1,5 +1,6 @@
 package entity;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -8,6 +9,9 @@ import entity.DndClass;
 import entity.Inventory;
 import entity.Item;
 import not_implemented.*;
+import com.google.gson.*;
+import java.io.File;
+import java.io.FileWriter;
 
 public class Player implements Character {
     String name;
@@ -170,4 +174,12 @@ public class Player implements Character {
     public void addFeature(Feature newFeature) {
         this.features.add(newFeature);
     }
+    public void generatejson (Player player) throws IOException {
+        Gson g = new Gson();
+        //File myObj = new File(this.name + ".txt");
+        FileWriter myWriter = new FileWriter(this.name + ".txt");
+        myWriter.write(g.toJson(player));
+        myWriter.close();
+    }
+
 }

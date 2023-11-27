@@ -2,6 +2,9 @@ package app;
 
 import data_access.DataAccessObject;
 
+import entity.Player;
+import entity.Player2;
+import entity.PlayerCreator;
 import interface_adapter.*;
 import interface_adapter.background.BackgroundController;
 import interface_adapter.background.BackgroundPresenter;
@@ -26,9 +29,10 @@ import view.ViewManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // Build the main program window, the main panel containing the
         // various cards, and the layout, and stitch them together.
 
