@@ -79,12 +79,21 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
                     }
                 }
         );
+        JButton chooseClass = new JButton("Class");
+        buttons.add(chooseClass);
+
+        chooseClass.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {classController.execute();}
+                }
+        );
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        this.add(buttons);
         this.add(title);
         this.add(items);
-        this.add(buttons);
 
     }
 
@@ -109,33 +118,33 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
             repaint();
 
         }
-        if (evt.getNewValue() instanceof ClassState) {
-            ClassState state = (ClassState) evt.getNewValue();
-
-            JPanel buttons = new JPanel();
-            for (String className: state.classes) {
-                JButton classAdd = new JButton(className);
-                buttons.add(classAdd);
-
-
-                classAdd.addActionListener(
-                        // This creates an anonymous subclass of ActionListener and instantiates it.
-                        new ActionListener() {
-                            public void actionPerformed(ActionEvent evt) {
-                                if (evt.getSource().equals(classAdd)) {
-                                    inventoryController.execute("/api/classes/" + className.toLowerCase());
-                                }
-                            }
-                        }
-                );
-
-
-            }
-            this.add(buttons);
-            revalidate();
-            repaint();
-
-        }
+//        if (evt.getNewValue() instanceof ClassState) {
+//            ClassState state = (ClassState) evt.getNewValue();
+//
+//            JPanel buttons = new JPanel();
+//            for (String className: state.classes) {
+//                JButton classAdd = new JButton(className);
+//                buttons.add(classAdd);
+//
+//
+//                classAdd.addActionListener(
+//                        // This creates an anonymous subclass of ActionListener and instantiates it.
+//                        new ActionListener() {
+//                            public void actionPerformed(ActionEvent evt) {
+//                                if (evt.getSource().equals(classAdd)) {
+//                                    inventoryController.execute("/api/classes/" + className.toLowerCase());
+//                                }
+//                            }
+//                        }
+//                );
+//
+//
+//            }
+//            this.add(buttons);
+//            revalidate();
+//            repaint();
+//
+//        }
         if (evt.getNewValue() instanceof RaceState) {
             RaceState state = (RaceState) evt.getNewValue();
 
