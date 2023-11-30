@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.character_creator.CharacterCreatorController;
 import interface_adapter.character_name.CharacterNameViewModel;
 import interface_adapter.clear_characters.ClearController;
 import interface_adapter.clear_characters.ClearState;
@@ -22,6 +23,7 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
     public final String viewName = "Name a Character!";
     private final CharacterNameViewModel characterNameViewModel;
     private final CharacterNameController characterNameController;
+    private final CharacterCreatorController characterCreatorController;
     private final JTextField nameInputField = new JTextField(15);
     private final ClearController clearController;
     private final ClearViewModel clearViewModel;
@@ -31,10 +33,11 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
     private final JButton clear;
     private boolean nameChoicesAdded;
 
-    public CharacterNameView(CharacterNameController characterNameController, CharacterNameViewModel characterNameViewModel, ClearController clearController, ClearViewModel clearViewModel) {
+    public CharacterNameView(CharacterNameController characterNameController, CharacterCreatorController characterCreatorController, CharacterNameViewModel characterNameViewModel, ClearController clearController, ClearViewModel clearViewModel) {
 
-        this.characterNameController = characterNameController;
+        this.characterCreatorController = characterCreatorController;
         this.characterNameViewModel = characterNameViewModel;
+        this.characterNameController = characterNameController;
         this.clearController = clearController;
         this.clearViewModel = clearViewModel;
         characterNameViewModel.addPropertyChangeListener(this);
@@ -62,10 +65,8 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(createCharacterName)) {
                             CharacterNameState currentState = characterNameViewModel.getState();
-
-                            characterNameController.execute(
-                                    currentState.getName()
-                            );
+//                            characterNameController.execute(currentState.getName());
+                            characterCreatorController.execute();
                         }
                     }
                 }
