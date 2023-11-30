@@ -3,6 +3,7 @@ package view;
 import interface_adapter.character_creator.CharacterCreatorController;
 import interface_adapter.dnd_class.ClassState;
 import interface_adapter.dnd_class.ClassViewModel;
+import interface_adapter.inventory.InventoryController;
 import interface_adapter.inventory.InventoryState;
 import interface_adapter.inventory.InventoryViewModel;
 import view.ViewManager;
@@ -15,13 +16,18 @@ import java.beans.PropertyChangeListener;
 
 public class ChooseClassView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "Choose Class";
+    private final InventoryController inventoryController;
+    private final InventoryViewModel inventoryViewModel;
     private final ClassViewModel classViewModel;
     private final CharacterCreatorController characterCreatorController;
     private boolean classChoicesAdded = false;
     final JButton mainScreen;
     private JLabel items;
 
-    public ChooseClassView(CharacterCreatorController characterCreatorController, ClassViewModel classViewModel) {
+    public ChooseClassView(InventoryController inventoryController, InventoryViewModel inventoryViewModel,
+                           CharacterCreatorController characterCreatorController, ClassViewModel classViewModel) {
+        this.inventoryController = inventoryController;
+        this.inventoryViewModel = inventoryViewModel;
         this.characterCreatorController = characterCreatorController;
         this.classViewModel = classViewModel;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -34,14 +40,14 @@ public class ChooseClassView extends JPanel implements ActionListener, PropertyC
         items.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel inventoryTitle = new JLabel(InventoryViewModel.TITLE_LABEL);
         inventoryTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.add(inventoryTitle);
-        this.add(items);
 
         JPanel buttons = new JPanel();
         mainScreen = new JButton(classViewModel.MAIN_SCREEN_LABEL);
         buttons.add(mainScreen);
         buttons.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(buttons);
+        this.add(inventoryTitle);
+        this.add(items);
 
         mainScreen.addActionListener(
                 new ActionListener() {
@@ -61,6 +67,7 @@ public class ChooseClassView extends JPanel implements ActionListener, PropertyC
     }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+
         if (evt.getNewValue() instanceof InventoryState) {
             InventoryState state = (InventoryState) evt.getNewValue();
 
@@ -79,14 +86,24 @@ public class ChooseClassView extends JPanel implements ActionListener, PropertyC
             for (String className: state.classes) {
                 JButton classAdd = new JButton(className);
                 buttons2.add(classAdd);
+
+                classAdd.addActionListener(
+                        new ActionListener() {
+                            public void actionPerformed(ActionEvent evt) {
+                                if (evt.getSource().equals(classAdd)) {
+                                    inventoryController.execute("/api/classes/" + className.toLowerCase());
+                                }
+                            }
+                        }
+                );
             }
             buttons2.setAlignmentX(Component.CENTER_ALIGNMENT);
             if (!this.classChoicesAdded){
                 this.add(buttons2, 1);
             }
             this.classChoicesAdded = true;
-            revalidate();
-            repaint();
+//            revalidate();
+//            repaint();
         }
     }
 }
