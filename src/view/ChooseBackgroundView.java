@@ -20,7 +20,7 @@ public class ChooseBackgroundView extends JPanel implements ActionListener, Prop
     public ChooseBackgroundView(CharacterCreatorController characterCreatorController, BackgroundViewModel backgroundViewModel) {
         this.characterCreatorController = characterCreatorController;
         this.backgroundViewModel = backgroundViewModel;
-        this.backgroundController = back
+        this.backgroundController = backgroundController;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         backgroundViewModel.addPropertyChangeListener(this);
         JLabel title = new JLabel("Choose Background");
