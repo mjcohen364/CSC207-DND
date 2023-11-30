@@ -15,12 +15,10 @@ public class ChooseBackgroundView extends JPanel implements ActionListener, Prop
     public final String viewName = "Choose Background";
     private final BackgroundViewModel backgroundViewModel;
     private final CharacterCreatorController characterCreatorController;
-    private final BackgroundController backgroundController;
     private boolean backgroundChoicesAdded = false;
     public ChooseBackgroundView(CharacterCreatorController characterCreatorController, BackgroundViewModel backgroundViewModel) {
         this.characterCreatorController = characterCreatorController;
         this.backgroundViewModel = backgroundViewModel;
-        this.backgroundController = backgroundController;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         backgroundViewModel.addPropertyChangeListener(this);
         JLabel title = new JLabel("Choose Background");
@@ -47,14 +45,6 @@ public class ChooseBackgroundView extends JPanel implements ActionListener, Prop
         );
     }
 //    TODO FINISH ACTIONPERFORMED
-    public ChooseBackgroundView(BackgroundController backgroundController, BackgroundViewModel backgroundViewModel, CharacterCreatorController characterCreatorController) {
-        this.backgroundController = backgroundController;
-        this.backgroundViewModel = backgroundViewModel;
-        this.characterCreatorController = characterCreatorController;
-        backgroundViewModel.addPropertyChangeListener(this);
-
-        backgroundController.execute();
-    }
     public void actionPerformed(ActionEvent evt) {
         JOptionPane.showConfirmDialog(this, "[NOT SURE WHAT TO PUT HERE YET]");
     }

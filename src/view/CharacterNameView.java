@@ -7,7 +7,6 @@ import interface_adapter.clear_characters.ClearState;
 import interface_adapter.clear_characters.ClearViewModel;
 import interface_adapter.character_name.CharacterNameController;
 import interface_adapter.character_name.CharacterNameState;
-import interface_adapter.dnd_class.ClassState;
 
 import javax.swing.*;
 import java.awt.*;
