@@ -98,7 +98,24 @@ public class DataAccessObject {
         return toReturn;
     }
     public String getDescription(String api) {
-        return "hi";
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("https://www.dnd5eapi.co/" + api)).build();
+        HttpResponse<String> response = null;
+        try {
+            response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        String jsonString = response.body().toString();
+        JSONObject obj = new JSONObject(jsonString);
+        JSONArray arr = obj.getJSONArray("results");
+        StringBuilder toReturn = new StringBuilder();
+        for (int i = 0; i < arr.length(); i++) {
+            toReturn.append(arr.getJSONObject(i).getString());
+        }
+
+        return "PLACEHOLDER_DESCRIPTION";
     }
     public ArrayList<String> getBackgrounds() {
         HttpRequest request = HttpRequest.newBuilder()

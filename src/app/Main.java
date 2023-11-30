@@ -9,6 +9,9 @@ import interface_adapter.background.BackgroundViewModel;
 import interface_adapter.character_creator.CharacterCreatorController;
 import interface_adapter.character_creator.CharacterCreatorPresenter;
 import interface_adapter.character_creator.CharacterCreatorViewModel;
+import interface_adapter.desc.DescController;
+import interface_adapter.desc.DescPresenter;
+import interface_adapter.desc.DescViewModel;
 import interface_adapter.dnd_class.ClassController;
 import interface_adapter.dnd_class.ClassPresenter;
 import interface_adapter.dnd_class.ClassViewModel;
@@ -19,6 +22,7 @@ import interface_adapter.race.RaceController;
 import interface_adapter.race.RacePresenter;
 import interface_adapter.race.RaceViewModel;
 import use_case.character_creator.CharacterCreatorInteractor;
+import use_case.desc.DescInteractor;
 import use_case.dnd_class.ClassInteractor;
 import use_case.inventory.InventoryInteractor;
 import use_case.race.RaceInteractor;
@@ -52,6 +56,7 @@ public class Main {
         // results from the use case. The ViewModels are observable, and will
         // be observed by the Views.
         InventoryViewModel inventoryViewModel = new InventoryViewModel();
+        DescViewModel descViewModel = new DescViewModel();
         ClassViewModel classViewModel = new ClassViewModel();
         RaceViewModel raceViewModel = new RaceViewModel();
         BackgroundViewModel backgroundViewModel = new BackgroundViewModel();
@@ -69,7 +74,9 @@ public class Main {
                         new CharacterCreatorController(new CharacterCreatorInteractor(dataAccessObject,
                         new CharacterCreatorPresenter(viewManagerModel, characterCreatorViewModel))), classViewModel);
         ChooseRaceView chooseRaceView =
-                new ChooseRaceView(new CharacterCreatorController(new CharacterCreatorInteractor(dataAccessObject,
+                new ChooseRaceView(new DescController(new DescInteractor(dataAccessObject,
+                        new DescPresenter(descViewModel))), descViewModel,
+                        new CharacterCreatorController(new CharacterCreatorInteractor(dataAccessObject,
                         new CharacterCreatorPresenter(viewManagerModel, characterCreatorViewModel))), raceViewModel);
 
 

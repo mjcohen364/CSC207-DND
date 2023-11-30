@@ -1,5 +1,9 @@
 package view;
 import interface_adapter.character_creator.CharacterCreatorController;
+import interface_adapter.desc.DescController;
+import interface_adapter.desc.DescState;
+import interface_adapter.desc.DescViewModel;
+import interface_adapter.inventory.InventoryState;
 import interface_adapter.race.RaceState;
 import interface_adapter.race.RaceViewModel;
 import not_implemented.Race;
@@ -14,23 +18,33 @@ import java.beans.PropertyChangeListener;
 public class ChooseRaceView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "Choose Race";
     private final RaceViewModel raceViewModel;
+    private final DescController descController;
+    private final DescViewModel descViewModel;
     private final CharacterCreatorController characterCreatorController;
     private boolean raceChoicesAdded = false;
     final JButton mainScreen;
-    public ChooseRaceView(CharacterCreatorController characterCreatorController, RaceViewModel raceViewModel) {
+    private JLabel description;
+    public ChooseRaceView(DescController descController, DescViewModel descViewModel,
+                          CharacterCreatorController characterCreatorController, RaceViewModel raceViewModel) {
         this.characterCreatorController = characterCreatorController;
         this.raceViewModel = raceViewModel;
+        this.descController = descController;
+        this.descViewModel = descViewModel;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         raceViewModel.addPropertyChangeListener(this);
         JLabel title = new JLabel("Choose Race");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(title);
 
+        description = new JLabel();
+        description.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         JPanel buttons = new JPanel();
         mainScreen = new JButton(RaceViewModel.MAIN_SCREEN_LABEL);
         buttons.add(mainScreen);
         buttons.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(buttons);
+        this.add(description);
 
         mainScreen.addActionListener(
                 new ActionListener() {
@@ -50,9 +64,15 @@ public class ChooseRaceView extends JPanel implements ActionListener, PropertyCh
     }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getNewValue() instanceof DescState) {
+            DescState state = (DescState) evt.getNewValue();
+            description.setText(state.desc);
+            revalidate();
+            repaint();
+
+        }
         if (evt.getNewValue() instanceof RaceState) {
             RaceState state = (RaceState) evt.getNewValue();
-
             JPanel buttons2 = new JPanel();
             for (String raceName: state.races) {
                 JButton raceAdd = new JButton(raceName);
@@ -61,9 +81,7 @@ public class ChooseRaceView extends JPanel implements ActionListener, PropertyCh
                         new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-                                if (evt.getSource().equals(raceAdd)) {
-
-                                }
+                                descController.execute("api/races/" + raceName.toLowerCase());
                             }
                         }
                 );
