@@ -11,6 +11,7 @@ public class DescPresenter implements DescOutputBoundary {
     public void prepareSuccessView(DescOutputData response) {
         DescState descState = descViewModel.getState();
         descState.desc = response.getDesc();
+        this.descViewModel.setState(descState);
         descViewModel.firePropertyChanged();
     }
     @Override

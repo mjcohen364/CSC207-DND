@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
-public class Proficiency {
+public class it Proficiency {
     Dictionary<String, Boolean> Skills = new Hashtable<>();
     Dictionary<String, Boolean> Tools = new Hashtable<>();
     //no init for Tools, they have added new tools before
