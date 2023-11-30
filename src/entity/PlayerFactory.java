@@ -8,9 +8,8 @@ public class PlayerFactory implements CharacterFactory {
      * @param name
      * @return Character
      */
-
     @Override
-    public entity.Character create(String name, LocalDateTime now) {
-        return new Player(/*name*/);
+    public Character create(String name, LocalDateTime now) {
+        return new Player();
     }
 }

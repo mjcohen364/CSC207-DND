@@ -9,9 +9,6 @@ import interface_adapter.background.BackgroundViewModel;
 import interface_adapter.character_creator.CharacterCreatorController;
 import interface_adapter.character_creator.CharacterCreatorPresenter;
 import interface_adapter.character_creator.CharacterCreatorViewModel;
-import interface_adapter.desc.DescController;
-import interface_adapter.desc.DescPresenter;
-import interface_adapter.desc.DescViewModel;
 import interface_adapter.dnd_class.ClassController;
 import interface_adapter.dnd_class.ClassPresenter;
 import interface_adapter.dnd_class.ClassViewModel;
@@ -22,12 +19,15 @@ import interface_adapter.race.RaceController;
 import interface_adapter.race.RacePresenter;
 import interface_adapter.race.RaceViewModel;
 import use_case.character_creator.CharacterCreatorInteractor;
-import use_case.desc.DescInteractor;
 import use_case.dnd_class.ClassInteractor;
 import use_case.inventory.InventoryInteractor;
 import use_case.race.RaceInteractor;
 import use_case.background.BackgroundInteractor;
-import view.*;
+import view.CharacterCreatorView;
+import view.ChooseBackgroundView;
+
+import view.ChooseClassView;
+import view.ViewManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -56,7 +56,6 @@ public class Main {
         // results from the use case. The ViewModels are observable, and will
         // be observed by the Views.
         InventoryViewModel inventoryViewModel = new InventoryViewModel();
-        DescViewModel descViewModel = new DescViewModel();
         ClassViewModel classViewModel = new ClassViewModel();
         RaceViewModel raceViewModel = new RaceViewModel();
         BackgroundViewModel backgroundViewModel = new BackgroundViewModel();
@@ -69,22 +68,15 @@ public class Main {
                 new ChooseBackgroundView(new CharacterCreatorController(new CharacterCreatorInteractor(dataAccessObject,
                         new CharacterCreatorPresenter(viewManagerModel, characterCreatorViewModel))), backgroundViewModel);
         ChooseClassView chooseClassView =
-                new ChooseClassView(new InventoryController(new InventoryInteractor(dataAccessObject,
-                        new InventoryPresenter(inventoryViewModel))), inventoryViewModel,
-                        new CharacterCreatorController(new CharacterCreatorInteractor(dataAccessObject,
+                new ChooseClassView(new CharacterCreatorController(new CharacterCreatorInteractor(dataAccessObject,
                         new CharacterCreatorPresenter(viewManagerModel, characterCreatorViewModel))), classViewModel);
-        ChooseRaceView chooseRaceView =
-                new ChooseRaceView(new DescController(new DescInteractor(dataAccessObject,
-                        new DescPresenter(descViewModel))), descViewModel,
-                        new CharacterCreatorController(new CharacterCreatorInteractor(dataAccessObject,
-                        new CharacterCreatorPresenter(viewManagerModel, characterCreatorViewModel))), raceViewModel);
 
 
         CharacterCreatorView characterCreatorView = new CharacterCreatorView(new InventoryController(new InventoryInteractor(dataAccessObject, new InventoryPresenter(inventoryViewModel))),
                 inventoryViewModel,
                 new ClassController(new ClassInteractor(dataAccessObject, new ClassPresenter(viewManagerModel, classViewModel))),
                 classViewModel,
-                new RaceController(new RaceInteractor(dataAccessObject, new RacePresenter(viewManagerModel, raceViewModel))),
+                new RaceController(new RaceInteractor(dataAccessObject, new RacePresenter(raceViewModel))),
                 raceViewModel,
                 new BackgroundController(new BackgroundInteractor(dataAccessObject, new BackgroundPresenter(viewManagerModel, backgroundViewModel))),
                 backgroundViewModel);
@@ -92,7 +84,6 @@ public class Main {
         views.add(characterCreatorView, characterCreatorView.viewName);
         views.add(chooseBackgroundView, chooseBackgroundView.viewName);
         views.add(chooseClassView, chooseClassView.viewName);
-        views.add(chooseRaceView, chooseRaceView.viewName);
 
 
 

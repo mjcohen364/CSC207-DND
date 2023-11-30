@@ -59,7 +59,7 @@ public class FileCharacterDataAccessObject implements CharacterNameDataAccessInt
 
     public Set clear() {
         Set usernames = new HashSet<>(characters.keySet());
-        this.clearUsers();
+        this.clearCharacters();
         return usernames;
     }
 
@@ -89,7 +89,7 @@ public class FileCharacterDataAccessObject implements CharacterNameDataAccessInt
         }
     }
 
-    private void clearUsers() {
+    private void clearCharacters() {
         characters.clear();
         BufferedWriter writer;
         try {
