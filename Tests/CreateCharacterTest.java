@@ -208,7 +208,7 @@ public class CreateCharacterTest {
     }
 
     private static int countLines() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader("users.csv"));
+        BufferedReader reader = new BufferedReader(new FileReader("characters.csv"));
         int lineCount = 0;
         while (reader.readLine() != null) {
             lineCount++;

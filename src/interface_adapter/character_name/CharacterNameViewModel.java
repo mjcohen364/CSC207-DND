@@ -7,9 +7,10 @@ import java.beans.PropertyChangeSupport;
 
 public class CharacterNameViewModel extends ViewModel {
 
-    public static final String CLEAR_BUTTON_LABEL = "Clear";
-    public static final String TITLE_LABEL = "Sign Up View";
-    public static final String NAME_LABEL = "Choose name";
+    public static final String CLEAR_BUTTON_LABEL = "Clear Previous Characters";
+    public static final String TITLE_LABEL = "Character Name View";
+    public static final String NAME_LABEL = "Choose a Character Name";
+    public static final String SUBTITLE_LABEL = "Edit a Previous Character";
 
     public static final String CREATECHARACTERNAME_BUTTON_LABEL = "Create Character";
     public static final String CANCEL_BUTTON_LABEL = "Cancel";

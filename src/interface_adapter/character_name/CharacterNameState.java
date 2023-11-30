@@ -1,12 +1,16 @@
 package interface_adapter.character_name;
 
+import java.util.ArrayList;
+
 public class CharacterNameState {
     private String name = "";
+    public ArrayList<String> names;
     private String nameError = null;
 
     public CharacterNameState(CharacterNameState copy) {
         name = copy.name;
         nameError = copy.nameError;
+        names = copy.names;
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
