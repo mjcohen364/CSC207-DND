@@ -11,7 +11,9 @@ public class RaceViewModel extends ViewModel {
     public RaceViewModel() {super("race");}
     public void setState(RaceState state) {this.state = state;}
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-    public void firePropertyChanged() {support.firePropertyChange("state", null, this.state);}
+    public void firePropertyChanged() {
+        support.firePropertyChange("state", null, this.state);
+    }
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }

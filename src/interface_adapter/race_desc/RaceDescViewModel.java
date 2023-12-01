@@ -1,20 +1,20 @@
-package interface_adapter.desc;
+package interface_adapter.race_desc;
 
 import interface_adapter.ViewModel;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class DescViewModel extends ViewModel {
+public class RaceDescViewModel extends ViewModel {
     public static final String TITLE_LABEL = "Description";
-    private DescState state = new DescState();
-    public DescViewModel() {super("Description");}
-    public void setState(DescState state) {this.state = state;}
+    private RaceDescState state = new RaceDescState();
+    public RaceDescViewModel() {super("Description");}
+    public void setState(RaceDescState state) {this.state = state;}
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     public void firePropertyChanged() {
-        support.firePropertyChange("state", null, this.state);
+        support.firePropertyChange("DescState", null, state);
     }
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
-    public DescState getState() {return state;}
+    public RaceDescState getState() {return state;}
 }
