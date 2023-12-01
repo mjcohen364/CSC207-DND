@@ -30,8 +30,9 @@ public class ChooseClassView extends JPanel implements ActionListener, PropertyC
         this.inventoryViewModel = inventoryViewModel;
         this.characterCreatorController = characterCreatorController;
         this.classViewModel = classViewModel;
+        this.inventoryViewModel.addPropertyChangeListener(this);
+        this.classViewModel.addPropertyChangeListener(this);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        classViewModel.addPropertyChangeListener(this);
         JLabel title = new JLabel("Choose Class");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(title);
