@@ -17,9 +17,9 @@ import interface_adapter.character_name.CharacterNameViewModel;
 import interface_adapter.clear_characters.ClearController;
 import interface_adapter.clear_characters.ClearPresenter;
 import interface_adapter.clear_characters.ClearViewModel;
-import interface_adapter.desc.DescController;
-import interface_adapter.desc.DescPresenter;
-import interface_adapter.desc.DescViewModel;
+import interface_adapter.race_desc.RaceDescController;
+import interface_adapter.race_desc.RaceRaceDescPresenter;
+import interface_adapter.race_desc.RaceDescViewModel;
 import interface_adapter.dnd_class.ClassController;
 import interface_adapter.dnd_class.ClassPresenter;
 import interface_adapter.dnd_class.ClassViewModel;
@@ -37,8 +37,7 @@ import interface_adapter.return_to_name.ReturnToNameViewModel;
 import use_case.character_creator.CharacterCreatorInteractor;
 import use_case.character_name.CharacterNameInteractor;
 import use_case.clear_users.ClearInteractor;
-import use_case.clear_users.ClearUserDataAccessInterface;
-import use_case.desc.DescInteractor;
+import use_case.desc.RaceDescInteractor;
 import use_case.dnd_class.ClassInteractor;
 import use_case.inventory.InventoryInteractor;
 import use_case.race.RaceInteractor;
@@ -74,7 +73,7 @@ public class Main {
         // results from the use case. The ViewModels are observable, and will
         // be observed by the Views.
         InventoryViewModel inventoryViewModel = new InventoryViewModel();
-        DescViewModel descViewModel = new DescViewModel();
+        RaceDescViewModel raceDescViewModel = new RaceDescViewModel();
         ClassViewModel classViewModel = new ClassViewModel();
         RaceViewModel raceViewModel = new RaceViewModel();
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
@@ -108,8 +107,8 @@ public class Main {
                         new InventoryPresenter(inventoryViewModel))), inventoryViewModel,
                         characterCreatorController, classViewModel);
         ChooseRaceView chooseRaceView =
-                new ChooseRaceView(new DescController(new DescInteractor(dataAccessObject,
-                new DescPresenter(descViewModel))), descViewModel,
+                new ChooseRaceView(new RaceDescController(new RaceDescInteractor(dataAccessObject,
+                new RaceRaceDescPresenter(raceDescViewModel))), raceDescViewModel,
                         characterCreatorController, raceViewModel);
 
 
