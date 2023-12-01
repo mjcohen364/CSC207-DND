@@ -11,8 +11,6 @@ public class BackDescInteractor implements BackDescInputBoundary {
     @Override
     public void execute(BackDescInputData backDescInputData) {
         Background back = backDetailsHelper.getBackDetails(backDescInputData.getApi());
-        StringBuilder featureDesc = new StringBuilder();
-        System.out.println(back.getFeature().get("desc"));
         String desc = "<html>Name: " + back.getName() +
                 "<br/>Feature: " + back.getFeature().get("name") + ". " +
                 back.getFeature().get("desc").toString().substring(1, back.getFeature().get(

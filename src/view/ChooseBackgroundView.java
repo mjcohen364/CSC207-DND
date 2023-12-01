@@ -36,7 +36,7 @@ public class ChooseBackgroundView extends JPanel implements ActionListener, Prop
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(title);
 
-        description = new JLabel();
+        description = new JLabel("Click a background to view its description!");
         description.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JPanel buttons = new JPanel();

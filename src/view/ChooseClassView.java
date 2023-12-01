@@ -37,7 +37,7 @@ public class ChooseClassView extends JPanel implements ActionListener, PropertyC
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(title);
 
-        items = new JLabel();
+        items = new JLabel("Click a class to see its starting items!");
         items.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel inventoryTitle = new JLabel(InventoryViewModel.TITLE_LABEL);
         inventoryTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
