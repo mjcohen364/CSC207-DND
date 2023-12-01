@@ -1,4 +1,4 @@
-package use_case.desc;
+package use_case.race_desc;
 
 public interface RaceDescOutputBoundary {
     void prepareSuccessView(RaceDescOutputData desc);

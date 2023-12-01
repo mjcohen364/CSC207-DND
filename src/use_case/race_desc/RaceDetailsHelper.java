@@ -1,4 +1,4 @@
-package use_case.race;
+package use_case.race_desc;
 
 import java.io.IOException;
 import java.net.URI;
@@ -13,7 +13,7 @@ import entity.Trait;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class RaceDetailsInteractor {
+public class RaceDetailsHelper {
 
     private final HttpClient httpClient = HttpClient.newHttpClient();
 

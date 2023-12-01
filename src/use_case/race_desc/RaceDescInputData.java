@@ -1,4 +1,4 @@
-package use_case.desc;
+package use_case.race_desc;
 
 public class RaceDescInputData {
     final private String api;

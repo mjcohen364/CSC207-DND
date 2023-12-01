@@ -1,11 +1,11 @@
 package interface_adapter.race_desc;
 
-import use_case.desc.RaceDescOutputData;
-import use_case.desc.RaceDescOutputBoundary;
+import use_case.race_desc.RaceDescOutputData;
+import use_case.race_desc.RaceDescOutputBoundary;
 
-public class RaceRaceDescPresenter implements RaceDescOutputBoundary {
+public class RaceDescPresenter implements RaceDescOutputBoundary {
     private final RaceDescViewModel raceDescViewModel;
-    public RaceRaceDescPresenter(RaceDescViewModel raceDescViewModel) {this.raceDescViewModel = raceDescViewModel;}
+    public RaceDescPresenter(RaceDescViewModel raceDescViewModel) {this.raceDescViewModel = raceDescViewModel;}
     @Override
     public void prepareSuccessView(RaceDescOutputData response) {
         RaceDescState raceDescState = raceDescViewModel.getState();

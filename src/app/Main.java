@@ -5,6 +5,9 @@ import data_access.DataAccessObject;
 import data_access.FileCharacterDataAccessObject;
 import entity.PlayerFactory;
 import interface_adapter.*;
+import interface_adapter.back_desc.BackDescController;
+import interface_adapter.back_desc.BackDescPresenter;
+import interface_adapter.back_desc.BackDescViewModel;
 import interface_adapter.background.BackgroundController;
 import interface_adapter.background.BackgroundPresenter;
 import interface_adapter.background.BackgroundViewModel;
@@ -18,7 +21,7 @@ import interface_adapter.clear_characters.ClearController;
 import interface_adapter.clear_characters.ClearPresenter;
 import interface_adapter.clear_characters.ClearViewModel;
 import interface_adapter.race_desc.RaceDescController;
-import interface_adapter.race_desc.RaceRaceDescPresenter;
+import interface_adapter.race_desc.RaceDescPresenter;
 import interface_adapter.race_desc.RaceDescViewModel;
 import interface_adapter.dnd_class.ClassController;
 import interface_adapter.dnd_class.ClassPresenter;
@@ -34,10 +37,11 @@ import interface_adapter.race.RaceViewModel;
 import interface_adapter.return_to_name.ReturnToNameController;
 import interface_adapter.return_to_name.ReturnToNamePresenter;
 import interface_adapter.return_to_name.ReturnToNameViewModel;
+import use_case.back_desc.BackDescInteractor;
 import use_case.character_creator.CharacterCreatorInteractor;
 import use_case.character_name.CharacterNameInteractor;
 import use_case.clear_users.ClearInteractor;
-import use_case.desc.RaceDescInteractor;
+import use_case.race_desc.RaceDescInteractor;
 import use_case.dnd_class.ClassInteractor;
 import use_case.inventory.InventoryInteractor;
 import use_case.race.RaceInteractor;
@@ -74,6 +78,7 @@ public class Main {
         // be observed by the Views.
         InventoryViewModel inventoryViewModel = new InventoryViewModel();
         RaceDescViewModel raceDescViewModel = new RaceDescViewModel();
+        BackDescViewModel backDescViewModel = new BackDescViewModel();
         ClassViewModel classViewModel = new ClassViewModel();
         RaceViewModel raceViewModel = new RaceViewModel();
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
@@ -101,15 +106,15 @@ public class Main {
                                         characterNameViewModel), playerFactory)),
                         clearViewModel);
         ChooseBackgroundView chooseBackgroundView =
-                new ChooseBackgroundView(characterCreatorController, backgroundViewModel);
+                new ChooseBackgroundView(new BackDescController((new BackDescInteractor(new BackDescPresenter(backDescViewModel)))),
+                        backDescViewModel, characterCreatorController, backgroundViewModel);
         ChooseClassView chooseClassView =
                 new ChooseClassView(new InventoryController(new InventoryInteractor(dataAccessObject,
                         new InventoryPresenter(inventoryViewModel))), inventoryViewModel,
                         characterCreatorController, classViewModel);
         ChooseRaceView chooseRaceView =
-                new ChooseRaceView(new RaceDescController(new RaceDescInteractor(dataAccessObject,
-                new RaceRaceDescPresenter(raceDescViewModel))), raceDescViewModel,
-                        characterCreatorController, raceViewModel);
+                new ChooseRaceView(new RaceDescController(new RaceDescInteractor(new RaceDescPresenter(raceDescViewModel))),
+                        raceDescViewModel, characterCreatorController, raceViewModel);
 
 
         CharacterCreatorView characterCreatorView = new CharacterCreatorView(new InventoryController(new InventoryInteractor(dataAccessObject, new InventoryPresenter(inventoryViewModel))),
