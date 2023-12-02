@@ -1,117 +1,64 @@
 package data_access;
 
+import java.io.File;
 import entity.Character;
 import entity.CharacterFactory;
 import use_case.clear_users.ClearUserDataAccessInterface;
-import use_case.loggedin.LoggedInUserDataAccessInterface;
 import use_case.character_name.CharacterNameDataAccessInterface;
 
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
-public class FileCharacterDataAccessObject implements CharacterNameDataAccessInterface, LoggedInUserDataAccessInterface, ClearUserDataAccessInterface {
-
-    private final File jsonFile;
-
-    private final Map<String, Integer> headers = new LinkedHashMap<>();
-
+public class FileCharacterDataAccessObject implements CharacterNameDataAccessInterface, ClearUserDataAccessInterface {
     private final Map<String, Character> characters = new HashMap<>();
 
-    private CharacterFactory characterFactory;
-
-    public FileCharacterDataAccessObject(String jsonPath, CharacterFactory characterFactory) throws IOException {
-        this.characterFactory = characterFactory;
-
-        jsonFile = new File(jsonPath);
-        headers.put("username", 0);
-        headers.put("password", 1);
-        headers.put("creation_time", 2);
-
-        if (jsonFile.length() == 0) {
-            save();
-        } else {
-
-            try (BufferedReader reader = new BufferedReader(new FileReader(jsonFile))) {
-                String header = reader.readLine();
-
-                // For later: clean this up by creating a new Exception subclass and handling it in the UI.
-                assert header.equals("name,creation_time");
-
-                String row;
-                while ((row = reader.readLine()) != null) {
-                    String[] col = row.split(",");
-                    String name = String.valueOf(col[headers.get("name")]);
-                    String creationTimeText = String.valueOf(col[headers.get("creation_time")]);
-                    LocalDateTime ldt = LocalDateTime.parse(creationTimeText);
-                    Character character = characterFactory.create(name, ldt);
-                    characters.put(name, character);
-                }
-            }
-        }
+    public FileCharacterDataAccessObject() throws IOException {
     }
 
     @Override
     public void save(Character character) {
         characters.put(character.getName(), character);
-        this.save();
     }
 
     public Set clear() {
-        Set usernames = new HashSet<>(characters.keySet());
+        Set names = new HashSet<>(characters.keySet());
         this.clearCharacters();
-        return usernames;
+        return names;
     }
 
-    @Override
     public Character get(String name) {
         return characters.get(name);
     }
 
-    private void save() {
-        BufferedWriter writer;
-        try {
-            writer = new BufferedWriter(new FileWriter(jsonFile));
-            writer.write(String.join(",", headers.keySet()));
-            writer.newLine();
-
-            for (Character character : characters.values()) {
-                String line = String.format("%s,%s,%s",
-                        character.getName(), character.getCreationTime());
-                writer.write(line);
-                writer.newLine();
-            }
-
-            writer.close();
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     private void clearCharacters() {
         characters.clear();
-        BufferedWriter writer;
-        try {
-            writer = new BufferedWriter(new FileWriter(jsonFile));
-            writer.write(String.join(",", headers.keySet()));
-            writer.newLine();
-            writer.close();
+        File[] characters = new File("src/characters").listFiles();
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        assert characters != null;
+        for (File file : characters) {
+            file.delete();
         }
     }
 
 
     /**
-     * Return whether a user exists with username identifier.
-     * @param identifier the username to check.
-     * @return whether a user exists with username identifier
+     * Return whether a character exists in the character folder with character identifier.
+     * @param identifier the character name to check.
+     * @return whether a character exists with character identifier
      */
     @Override
     public boolean existsByName(String identifier) {
-        return characters.containsKey(identifier);
-    }
+        boolean found = false;
+        File[] characters = new File("src/characters").listFiles();
 
+        assert characters != null;
+        for (File file : characters) {
+            if (file.getName().equals(identifier)) {
+                found = true;
+                break;
+            }
+        }
+        return found;
+    }
 }

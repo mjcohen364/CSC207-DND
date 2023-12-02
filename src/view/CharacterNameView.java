@@ -7,7 +7,6 @@ import interface_adapter.clear_characters.ClearState;
 import interface_adapter.clear_characters.ClearViewModel;
 import interface_adapter.character_name.CharacterNameController;
 import interface_adapter.character_name.CharacterNameState;
-import interface_adapter.dnd_class.ClassState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,6 +30,7 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
     private final JButton createCharacterName;
     private final JButton cancel;
     private final JButton clear;
+    private final JButton editCharacter;
     private boolean nameChoicesAdded;
 
     public CharacterNameView(CharacterNameController characterNameController, CharacterCreatorController characterCreatorController, CharacterNameViewModel characterNameViewModel, ClearController clearController, ClearViewModel clearViewModel) {
@@ -59,14 +59,16 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
         clear = new JButton(CharacterNameViewModel.CLEAR_BUTTON_LABEL);
         buttons.add(clear);
 
+        editCharacter = new JButton(CharacterNameViewModel.EDIT_BUTTON_LABEL);
+        buttons.add(editCharacter);
+
         createCharacterName.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(createCharacterName)) {
                             CharacterNameState currentState = characterNameViewModel.getState();
-//                            characterNameController.execute(currentState.getName());
-                            characterCreatorController.execute();
+                            characterNameController.execute(currentState.getName());
                         }
                     }
                 }

@@ -3,6 +3,7 @@ import interface_adapter.back_desc.BackDescController;
 import interface_adapter.back_desc.BackDescState;
 import interface_adapter.back_desc.BackDescViewModel;
 import interface_adapter.character_creator.CharacterCreatorController;
+import interface_adapter.background.BackgroundController;
 import interface_adapter.background.BackgroundState;
 import interface_adapter.background.BackgroundViewModel;
 import interface_adapter.race_desc.RaceDescState;
@@ -92,6 +93,14 @@ public class ChooseBackgroundView extends JPanel implements ActionListener, Prop
                 this.add(buttons2, 1);
             }
             this.backgroundChoicesAdded = true;
+            revalidate();
+            repaint();
+            JPanel buttons = new JPanel();
+            for (String backgroundName: state.backgrounds) {
+                JButton backgroundAdd = new JButton(backgroundName);
+                buttons.add(backgroundAdd);
+            }
+            this.add(buttons);
             revalidate();
             repaint();
         }
