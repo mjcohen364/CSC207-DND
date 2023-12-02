@@ -1,11 +1,11 @@
 package entity;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import com.google.gson.Gson;
 import not_implemented.*;
@@ -158,8 +158,31 @@ public class Player2 implements Character2 {
         myWriter.write(g.toJson(this));
         myWriter.close();
     }
-
-    public void initFromjson(String path) {
-
+    public int calculateModifier(String attribute) {
+        Map<String, Integer> attributes = this.getAttributes();
+        if (attributes.containsKey(attribute)) {
+            return Math.floorDiv(attributes.get(attribute) - 10, 2);
+        }
+        else {return 0;}
     }
+    public void calculateMaxHitPoints(){
+        int hitpoints = 0;
+        int ConstitutionModifier = 0;
+        ConstitutionModifier += this.calculateModifier("Constitution");
+        for (Feature feature : features) {
+            if (Objects.equals(feature.getName(), "Tough")) {
+                ConstitutionModifier += 2;
+                break;
+            }
+        }
+        for (int i = 0; i < this.level; i++) {
+            hitpoints += hitDice.get(i) + ConstitutionModifier;
+        }
+        this.hitPoints = hitpoints;
+    }
+    /*public void setFromCreator(PlayerCreator a){
+        this.setName(a.);
+        this.setSubtype();
+        this.setBackground();
+    }*/
 }
