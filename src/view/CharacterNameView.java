@@ -135,12 +135,12 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
             JOptionPane.showMessageDialog(this, state.getNameError());
         }
         if (evt.getNewValue() instanceof CharacterNameState) {
-            CharacterNameState state2 = (CharacterNameState) evt.getNewValue();
+            CharacterNameState state2 = characterNameViewModel.getState();
 
             JPanel buttons2 = new JPanel();
-            for (String className: state2.names) {
-                JButton classAdd = new JButton(className);
-                buttons2.add(classAdd);
+            for (String name: state2.names) {
+                JButton nameAdd = new JButton(name);
+                buttons2.add(nameAdd);
             }
             buttons2.setAlignmentX(Component.CENTER_ALIGNMENT);
             if (!this.nameChoicesAdded){
