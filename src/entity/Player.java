@@ -26,6 +26,11 @@ public class Player implements Character {
     ArrayList<Spell> spellsKnown = new ArrayList<Spell>();
     ArrayList<Feature> features = new ArrayList<Feature>();
 
+    public Player(String name, LocalDateTime now) {
+        this.name = name;
+        this.creationTime = now;
+    }
+
     @Override
     public String getName() {
         return name;

@@ -91,7 +91,7 @@ public class Main {
         CharacterNamePresenter characterNamePresenter = new CharacterNamePresenter(viewManagerModel,
                 characterNameViewModel, loggedInViewModel);
 
-        FileCharacterDataAccessObject fileCharacterDataAccessObject = new FileCharacterDataAccessObject("characters.csv", playerFactory);
+        FileCharacterDataAccessObject fileCharacterDataAccessObject = new FileCharacterDataAccessObject();
         CharacterNameView characterNameView =
                 new CharacterNameView(new CharacterNameController(new CharacterNameInteractor(fileCharacterDataAccessObject,
                         characterNamePresenter, playerFactory)),
