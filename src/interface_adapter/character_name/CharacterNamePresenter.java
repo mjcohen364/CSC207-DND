@@ -12,14 +12,18 @@ import java.time.format.DateTimeFormatter;
 
 public class CharacterNamePresenter implements CharacterNameOutputBoundary {
     private final CharacterCreatorViewModel characterCreatorViewModel;
+    private final CharacterCreatorView characterCreatorView;
     private final CharacterNameViewModel characterNameViewModel;
     private final ViewManagerModel viewManagerModel;
 
     public CharacterNamePresenter(ViewManagerModel viewManagerModel,
-                                  CharacterCreatorViewModel characterCreatorViewModel, CharacterNameViewModel characterNameViewModel) {
+                                  CharacterNameViewModel characterNameViewModel,
+                                  CharacterCreatorViewModel characterCreatorViewModel,
+                                  CharacterCreatorView characterCreatorView) {
         this.viewManagerModel = viewManagerModel;
-        this.characterCreatorViewModel = characterCreatorViewModel;
         this.characterNameViewModel = characterNameViewModel;
+        this.characterCreatorViewModel = characterCreatorViewModel;
+        this.characterCreatorView = characterCreatorView;
     }
 
     @Override
@@ -33,7 +37,7 @@ public class CharacterNamePresenter implements CharacterNameOutputBoundary {
         this.characterCreatorViewModel.setState(characterCreatorState);
         characterCreatorViewModel.firePropertyChanged();
 
-        viewManagerModel.setActiveView(characterCreatorViewModel.getViewName());
+        viewManagerModel.setActiveView(characterCreatorView.viewName);
         viewManagerModel.firePropertyChanged();
     }
 
