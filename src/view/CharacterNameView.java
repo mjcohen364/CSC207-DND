@@ -28,6 +28,7 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
     private final ClearViewModel clearViewModel;
 
     private final JButton createCharacterName;
+    private final JButton cancel;
     private final JButton clear;
     private final JButton editCharacter;
     private boolean nameChoicesAdded;
@@ -52,6 +53,9 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
         createCharacterName = new JButton(CharacterNameViewModel.CREATECHARACTERNAME_BUTTON_LABEL);
         buttons.add(createCharacterName);
 
+        cancel = new JButton(CharacterNameViewModel.CANCEL_BUTTON_LABEL);
+        buttons.add(cancel);
+
         clear = new JButton(CharacterNameViewModel.CLEAR_BUTTON_LABEL);
         buttons.add(clear);
 
@@ -64,13 +68,16 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(createCharacterName)) {
                             CharacterNameState currentState = characterNameViewModel.getState();
-                            characterNameController.execute(currentState.getName());
-                            characterCreatorController.execute();
+//                          characterNameController.execute(currentState.getName());
+                            //characterCreatorController.execute();
                         }
                     }
                 }
         );
 
+        // TODO Add the body to the actionPerformed method of the action listener below
+        //      for the "clear" button. You'll need to write the controller before
+        //      you can complete this.
         clear.addActionListener(
                 new ActionListener() {
                     @Override
@@ -86,41 +93,7 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
                 }
         );
 
-        editCharacter.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (e.getSource().equals(editCharacter)) {
-                            CharacterNameState state = characterNameViewModel.getState();
-                            JLabel prevCharactersTitle = new JLabel(CharacterNameViewModel.PREVIOUS_CHARACTERS_LABEL);
-                            prevCharactersTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-                            JPanel prevNameButtons = new JPanel();
-                            for (String prevName : state.names) {
-                                System.out.println(prevName);
-                                JButton prevNameAdd = new JButton(prevName);
-                                prevNameButtons.add(prevNameAdd);
-                                prevNameAdd.addActionListener(
-                                        new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                characterNameController.execute(prevName);
-                                            }
-                                        }
-                                );
-                            }
-                            prevNameButtons.setAlignmentX(Component.CENTER_ALIGNMENT);
-                            if (!nameChoicesAdded) {
-                                add(prevCharactersTitle);
-                                add(prevNameButtons);
-                            }
-                            nameChoicesAdded = true;
-                            revalidate();
-                            repaint();
-                        }
-                    }
-                }
-        );
-
+        cancel.addActionListener(this);
 
         // This makes a new KeyListener implementing class, instantiates it, and
         // makes it listen to keystrokes in the nameInputField.
@@ -152,15 +125,36 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
         this.add(buttons);
     }
 
+    /**
+     * React to a button click that results in evt.
+     */
+    public void actionPerformed(ActionEvent evt) {
+
+        JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
+    }
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         CharacterNameState state = (CharacterNameState) evt.getNewValue();
         if (state.getNameError() != null) {
             JOptionPane.showMessageDialog(this, state.getNameError());
         }
-    }
+        if (evt.getNewValue() instanceof CharacterNameState) {
+            CharacterNameState state2 = (CharacterNameState) evt.getNewValue();
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+            JPanel buttons2 = new JPanel();
+            for (String className: state2.names) {
+                JButton classAdd = new JButton(className);
+                buttons2.add(classAdd);
+            }
+            buttons2.setAlignmentX(Component.CENTER_ALIGNMENT);
+            if (!this.nameChoicesAdded){
+                this.add(buttons2, 1);
+            }
+            this.nameChoicesAdded = true;
+            revalidate();
+            repaint();
+        }
+
     }
 }

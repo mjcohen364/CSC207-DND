@@ -3,8 +3,6 @@ package app;
 import data_access.DataAccessObject;
 
 import data_access.FileCharacterDataAccessObject;
-import entity.Player2;
-import entity.PlayerCreator;
 import entity.PlayerFactory;
 import interface_adapter.*;
 import interface_adapter.back_desc.BackDescController;
@@ -108,24 +106,23 @@ public class Main {
         FileCharacterDataAccessObject fileCharacterDataAccessObject = new FileCharacterDataAccessObject();
         CharacterNameView characterNameView =
                 new CharacterNameView(new CharacterNameController(new CharacterNameInteractor(fileCharacterDataAccessObject,
-                        characterNamePresenter, playerFactory, dataAccessObject)),
+                        characterNamePresenter, playerFactory)),
                         characterCreatorController, characterNameViewModel,
                         new ClearController(new ClearInteractor(fileCharacterDataAccessObject,
                                 new ClearPresenter(viewManagerModel, clearViewModel,
                                         characterNameViewModel), playerFactory)),
                         clearViewModel);
         ChooseBackgroundView chooseBackgroundView =
-                new ChooseBackgroundView(new BackDescController((new BackDescInteractor(new BackDescPresenter(backDescViewModel), dataAccessObject))),
+                new ChooseBackgroundView(new BackDescController((new BackDescInteractor(new BackDescPresenter(backDescViewModel)))),
                         backDescViewModel, characterCreatorController, backgroundViewModel);
         ChooseClassView chooseClassView =
                 new ChooseClassView(new InventoryController(new InventoryInteractor(dataAccessObject,
                         new InventoryPresenter(inventoryViewModel))), inventoryViewModel,
                         characterCreatorController, classViewModel);
         ChooseRaceView chooseRaceView =
-                new ChooseRaceView(new RaceDescController(new RaceDescInteractor(new RaceDescPresenter(raceDescViewModel), dataAccessObject)),
+                new ChooseRaceView(new RaceDescController(new RaceDescInteractor(new RaceDescPresenter(raceDescViewModel))),
                         raceDescViewModel, characterCreatorController, raceViewModel);
 
-        characterNameView.setSize(new Dimension(500, 500));
         views.add(characterCreatorView, characterCreatorView.viewName);
         views.add(chooseBackgroundView, chooseBackgroundView.viewName);
         views.add(chooseClassView, chooseClassView.viewName);
@@ -133,13 +130,10 @@ public class Main {
         views.add(characterNameView, characterNameView.viewName);
 
 
-
-
         viewManagerModel.setActiveView(characterNameView.viewName);
         viewManagerModel.firePropertyChanged();
 
         application.pack();
         application.setVisible(true);
-
     }
 }
