@@ -35,7 +35,7 @@ public class ChooseRaceView extends JPanel implements ActionListener, PropertyCh
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(title);
 
-        description = new JLabel("", SwingConstants.CENTER);
+        description = new JLabel("Click a race to view its description!");
         description.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JPanel buttons = new JPanel();

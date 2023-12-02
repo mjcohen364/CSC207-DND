@@ -61,12 +61,6 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
         raceViewModel.addPropertyChangeListener(this);
         backgroundViewmodel.addPropertyChangeListener(this);
 
-
-        items = new JLabel();
-        items.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JLabel title = new JLabel(InventoryViewModel.TITLE_LABEL);
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
         //create buttons for choosing class
         classController.execute();
         raceController.execute();
@@ -114,8 +108,36 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(buttons);
-        this.add(title);
-        this.add(items);
+
+        JPanel buttons2 = new JPanel();
+        JButton characterAdd = new JButton("Add new Character");
+        JButton characterChange = new JButton("Edit another Character");
+        buttons2.add(characterAdd);
+        buttons2.add(characterChange);
+
+        characterAdd.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(characterAdd)) {
+                            LoggedInController.execute("Add Character");
+                        }
+                    }
+                }
+        );
+        characterChange.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(characterChange)) {
+                            LoggedInController.execute("Change Character");
+                        }
+                    }
+                }
+        );
+        this.add(buttons2);
+        revalidate();
+        repaint();
 
         JPanel buttons2 = new JPanel();
         JButton characterAdd = new JButton("Add new Character");
@@ -158,121 +180,9 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-//        if (evt.getNewValue() instanceof InventoryState) {
-//            InventoryState state = (InventoryState) evt.getNewValue();
-//
-//            items.setText("");
-//            for (int i = 0; i < state.items.size(); i++) {
-//                items.setText(items.getText() + "    " + state.items.get(i));
-//            }
-//            revalidate();
-//            repaint();
-//
-//        }
-//        if (evt.getNewValue() instanceof ClassState) {
-//            ClassState state = (ClassState) evt.getNewValue();
-//
-//            JPanel buttons = new JPanel();
-//            for (String className : state.classes) {
-//                JButton classAdd = new JButton(className);
-//                buttons.add(classAdd);
-//
-//
-//                classAdd.addActionListener(
-//                        // This creates an anonymous subclass of ActionListener and instantiates it.
-//                        new ActionListener() {
-//                            public void actionPerformed(ActionEvent evt) {
-//                                if (evt.getSource().equals(classAdd)) {
-//                                    inventoryController.execute("/api/classes/" + className.toLowerCase());
-//                                }
-//                            }
-//                        }
-//                );
-//
-//
-//            }
-//            this.add(buttons);
-//            revalidate();
-//            repaint();
-//        }
-//        if (evt.getNewValue() instanceof ClassState) {
-//            ClassState state = (ClassState) evt.getNewValue();
-//
-//            JPanel buttons = new JPanel();
-//            for (String className: state.classes) {
-//                JButton classAdd = new JButton(className);
-//                buttons.add(classAdd);
-//
-//
-//                classAdd.addActionListener(
-//                        // This creates an anonymous subclass of ActionListener and instantiates it.
-//                        new ActionListener() {
-//                            public void actionPerformed(ActionEvent evt) {
-//                                if (evt.getSource().equals(classAdd)) {
-//                                    inventoryController.execute("/api/classes/" + className.toLowerCase());
-//                                }
-//                            }
-//                        }
-//                );
-//
-//
-//            }
-//            this.add(buttons);
-//            revalidate();
-//            repaint();
-//
-//        }
-//        if (evt.getNewValue() instanceof RaceState) {
-//            RaceState state = (RaceState) evt.getNewValue();
-//
-//            JPanel buttons = new JPanel();
-//            for (String raceName : state.races) {
-//                JButton raceAdd = new JButton(raceName);
-//                buttons.add(raceAdd);
-//
-//
-//                raceAdd.addActionListener(
-//                        new ActionListener() {
-//                            public void actionPerformed(ActionEvent evt) {
-//                                if (evt.getSource().equals(raceAdd)) {
-//                                    inventoryController.execute("/api/races/" + raceName.toLowerCase());
-//                                }
-//                            }
-//                        }
-//                );
-//
-//
-//            }
-//            this.add(buttons);
-//            revalidate();
-//            repaint();
-//
-//        }
-//        if (evt.getNewValue() instanceof BackgroundState) {
-//            BackgroundState state = (BackgroundState) evt.getNewValue();
-//
-//            JPanel buttons = new JPanel();
-//            for (String backgroundName: state.backgrounds) {
-//                JButton backgroundAdd = new JButton(backgroundName);
-//                buttons.add(backgroundAdd);
-//
-//
-//                backgroundAdd.addActionListener(
-//                        new ActionListener() {
-//                            public void actionPerformed(ActionEvent evt) {
-//                                if (evt.getSource().equals(backgroundAdd)) {
-//                                    inventoryController.execute("/api/races/" + backgroundName.toLowerCase());
-//                                }
-//                            }
-//                        }
-//                );
-//
-//
-//            }
-//            this.add(buttons);
-//            revalidate();
-//            repaint();
-//
-//        }
+        if (evt.getNewValue() instanceof LoggedInState) {
+            LoggedInState state = (LoggedInState) evt.getNewValue();
+
+        }
     }
 }
