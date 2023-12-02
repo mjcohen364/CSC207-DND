@@ -63,7 +63,7 @@ public class Player implements Character {
     }
 
     @Override
-    public Race getRace() {
+    public Race getSubtype() {
         return race;
     }
 
@@ -133,8 +133,8 @@ public class Player implements Character {
     }
 
     @Override
-    public void setRace(Race race) {
-        this.race = race;
+    public void setSubtype(Race subtype) {
+        this.race = subtype;
     }
 
     @Override

@@ -3,6 +3,8 @@ package app;
 import data_access.DataAccessObject;
 
 import data_access.FileCharacterDataAccessObject;
+import entity.Player2;
+import entity.PlayerCreator;
 import entity.PlayerFactory;
 import interface_adapter.*;
 import interface_adapter.back_desc.BackDescController;
@@ -142,5 +144,15 @@ public class Main {
 
         application.pack();
         application.setVisible(true);
+
+        Player2 d = new Player2();
+        d.setName("Namer");
+
+        d.rawinit();
+        d.setAttribute("Strength", 1);
+        d.generatejson();
+        PlayerCreator another = new PlayerCreator();
+        Player2 b = another.readjson2("Namer.txt");
+        System.out.println(b.getName());
     }
 }

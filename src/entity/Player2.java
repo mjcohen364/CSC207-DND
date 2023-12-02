@@ -23,7 +23,7 @@ public class Player2 implements Character2 {
     String subtype;
     String type;
     String background;
-    Proficiency proficiency;
+    Proficiency proficiency = new Proficiency();
     ArrayList<String> spellsKnown = new ArrayList<>();
     ArrayList<Feature> features = new ArrayList<Feature>();
 
@@ -148,6 +148,9 @@ public class Player2 implements Character2 {
     }
 
     @Override
+    public void setType(String type) {this.type = type;}
+
+    @Override
     public void addFeature(Feature newFeature) {
         this.features.add(newFeature);
     }
@@ -170,9 +173,11 @@ public class Player2 implements Character2 {
         int ConstitutionModifier = 0;
         ConstitutionModifier += this.calculateModifier("Constitution");
         for (Feature feature : features) {
-            if (Objects.equals(feature.getName(), "Tough")) {
+            if (Objects.equals(feature.getName(), "tough")) {
                 ConstitutionModifier += 2;
-                break;
+            }
+            if (Objects.equals(feature.getName(), "dwarven-toughness")) {
+                ConstitutionModifier += 2;
             }
         }
         for (int i = 0; i < this.level; i++) {
@@ -180,9 +185,20 @@ public class Player2 implements Character2 {
         }
         this.hitPoints = hitpoints;
     }
-    /*public void setFromCreator(PlayerCreator a){
-        this.setName(a.);
-        this.setSubtype();
-        this.setBackground();
-    }*/
+    public void rawinit() {
+        this.setAttribute("Strength", 0);
+        this.setAttribute("Dexterity", 0);
+        this.setAttribute("Constitution", 0);
+        this.setAttribute("Intelligence", 0);
+        this.setAttribute("Wisdom", 0);
+        this.setAttribute("Charisma", 0);
+        this.proficiency.init(this.level);
+        this.setType("Humanoid");
+    }
+    public void setFromCreator(PlayerCreator a){
+        this.setName(a.name);
+        this.setSubtype(a.race);
+        this.setBackground(a.background);
+        this.addDndClass(a.dndclass);
+    }
 }
