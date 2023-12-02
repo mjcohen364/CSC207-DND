@@ -45,6 +45,7 @@ public class PlayerCreator {
         } catch (IOException io) {
             //idk
         }
+        return null;
     }
     public void generatejson() throws IOException {
         Gson g = new Gson();
