@@ -26,8 +26,6 @@ import interface_adapter.dnd_class.ClassViewModel;
 import interface_adapter.inventory.InventoryController;
 import interface_adapter.inventory.InventoryPresenter;
 import interface_adapter.inventory.InventoryViewModel;
-import interface_adapter.logged_in.LoggedInController;
-import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.race.RaceController;
 import interface_adapter.race.RacePresenter;
 import interface_adapter.race.RaceViewModel;
@@ -68,7 +66,7 @@ public class Main {
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         new ViewManager(views, cardLayout, viewManagerModel);
 
-        // The data for the views, such as username and password, are in the ViewModels.
+        // The data for the views, such as character name, are in the ViewModels.
         // This information will be changed by a presenter object that is reporting the
         // results from the use case. The ViewModels are observable, and will
         // be observed by the Views.
@@ -76,7 +74,6 @@ public class Main {
         RaceDescViewModel raceDescViewModel = new RaceDescViewModel();
         ClassViewModel classViewModel = new ClassViewModel();
         RaceViewModel raceViewModel = new RaceViewModel();
-        LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
         BackgroundViewModel backgroundViewModel = new BackgroundViewModel();
         CharacterCreatorViewModel characterCreatorViewModel = new CharacterCreatorViewModel();
         CharacterNameViewModel characterNameViewModel = new CharacterNameViewModel();
@@ -88,8 +85,18 @@ public class Main {
         CharacterCreatorController characterCreatorController = new CharacterCreatorController(new CharacterCreatorInteractor(dataAccessObject,
                 new CharacterCreatorPresenter(viewManagerModel, characterCreatorViewModel)));
         PlayerFactory playerFactory = new PlayerFactory();
+        CharacterCreatorView characterCreatorView = new CharacterCreatorView(new InventoryController(new InventoryInteractor(dataAccessObject, new InventoryPresenter(inventoryViewModel))),
+                inventoryViewModel,
+                new ClassController(new ClassInteractor(dataAccessObject, new ClassPresenter(viewManagerModel, classViewModel))),
+                classViewModel,
+                new RaceController(new RaceInteractor(dataAccessObject, new RacePresenter(viewManagerModel, raceViewModel))),
+                raceViewModel,
+                new BackgroundController(new BackgroundInteractor(dataAccessObject, new BackgroundPresenter(viewManagerModel, backgroundViewModel))),
+                backgroundViewModel,
+                new ReturnToNameController(new ReturnToNameInteractor(new ReturnToNamePresenter(viewManagerModel, returnToNameViewModel))));
+        //viewManagerModel
         CharacterNamePresenter characterNamePresenter = new CharacterNamePresenter(viewManagerModel,
-                characterNameViewModel, characterCreatorViewModel);
+                characterNameViewModel, characterCreatorViewModel, characterCreatorView);
 
         FileCharacterDataAccessObject fileCharacterDataAccessObject = new FileCharacterDataAccessObject();
         CharacterNameView characterNameView =
@@ -111,25 +118,11 @@ public class Main {
                 new RaceRaceDescPresenter(raceDescViewModel))), raceDescViewModel,
                         characterCreatorController, raceViewModel);
 
-
-        CharacterCreatorView characterCreatorView = new CharacterCreatorView(new InventoryController(new InventoryInteractor(dataAccessObject, new InventoryPresenter(inventoryViewModel))),
-                inventoryViewModel,
-                new ClassController(new ClassInteractor(dataAccessObject, new ClassPresenter(viewManagerModel, classViewModel))),
-                classViewModel,
-                new RaceController(new RaceInteractor(dataAccessObject, new RacePresenter(viewManagerModel, raceViewModel))),
-                raceViewModel,
-                new LoggedInController(), loggedInViewModel,
-                new BackgroundController(new BackgroundInteractor(dataAccessObject, new BackgroundPresenter(viewManagerModel, backgroundViewModel))),
-                backgroundViewModel,
-                new ReturnToNameController(new ReturnToNameInteractor(new ReturnToNamePresenter(viewManagerModel, returnToNameViewModel))));
-        //viewManagerModel
         views.add(characterCreatorView, characterCreatorView.viewName);
         views.add(chooseBackgroundView, chooseBackgroundView.viewName);
         views.add(chooseClassView, chooseClassView.viewName);
         views.add(chooseRaceView, chooseRaceView.viewName);
         views.add(characterNameView, characterNameView.viewName);
-
-
 
 
         viewManagerModel.setActiveView(characterNameView.viewName);
