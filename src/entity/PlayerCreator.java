@@ -8,19 +8,19 @@ import java.nio.file.Paths;
 
 public class PlayerCreator {
     String name;
-    Background background;
-    DndClass dndclass;
-    Race race;
+    String background;
+    String dndclass;
+    String race;
     public void setname(String v){
         this.name =v;
     }
-    public void setbackground(Background v){
+    public void setbackground(String v){
         this.background =v;
     }
-    public void setdndclass(DndClass v){
+    public void setdndclass(String v){
         this.dndclass =v;
     }
-    public void setrace(Race v) {
+    public void setrace(String v) {
         this.race = v;
     }
     public void incorporate(Player player){
