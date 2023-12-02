@@ -2,6 +2,7 @@
   <library name="json-20231013">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/src/Libraries/json-20231013.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/gson-2.10.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -28,7 +28,6 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
     private final ClearViewModel clearViewModel;
 
     private final JButton createCharacterName;
-    private final JButton cancel;
     private final JButton clear;
     private final JButton editCharacter;
     private boolean nameChoicesAdded;
@@ -52,9 +51,6 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
         //This button starts editing a new character (send to character creator view)
         createCharacterName = new JButton(CharacterNameViewModel.CREATECHARACTERNAME_BUTTON_LABEL);
         buttons.add(createCharacterName);
-
-        cancel = new JButton(CharacterNameViewModel.CANCEL_BUTTON_LABEL);
-        buttons.add(cancel);
 
         clear = new JButton(CharacterNameViewModel.CLEAR_BUTTON_LABEL);
         buttons.add(clear);
@@ -93,7 +89,6 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
                 }
         );
 
-        cancel.addActionListener(this);
 
         // This makes a new KeyListener implementing class, instantiates it, and
         // makes it listen to keystrokes in the nameInputField.
