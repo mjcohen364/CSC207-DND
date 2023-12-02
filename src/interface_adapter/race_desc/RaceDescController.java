@@ -1,6 +1,6 @@
 package interface_adapter.race_desc;
-import use_case.desc.RaceDescInputBoundary;
-import use_case.desc.RaceDescInputData;
+import use_case.race_desc.RaceDescInputBoundary;
+import use_case.race_desc.RaceDescInputData;
 
 public class RaceDescController {
     final RaceDescInputBoundary descUseCaseInteractor;
