@@ -95,8 +95,7 @@ public class Main {
                 backgroundViewModel,
                 new ReturnToNameController(new ReturnToNameInteractor(new ReturnToNamePresenter(viewManagerModel, returnToNameViewModel))));
         //viewManagerModel
-        CharacterNamePresenter characterNamePresenter = new CharacterNamePresenter(viewManagerModel,
-                characterNameViewModel, characterCreatorViewModel, characterCreatorView);
+        CharacterNamePresenter characterNamePresenter = new CharacterNamePresenter(viewManagerModel, characterCreatorViewModel, characterNameViewModel);
 
         FileCharacterDataAccessObject fileCharacterDataAccessObject = new FileCharacterDataAccessObject();
         CharacterNameView characterNameView =
