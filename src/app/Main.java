@@ -89,7 +89,7 @@ public class Main {
                 new CharacterCreatorPresenter(viewManagerModel, characterCreatorViewModel)));
         PlayerFactory playerFactory = new PlayerFactory();
         CharacterNamePresenter characterNamePresenter = new CharacterNamePresenter(viewManagerModel,
-                characterNameViewModel, loggedInViewModel);
+                characterNameViewModel, characterCreatorViewModel);
 
         FileCharacterDataAccessObject fileCharacterDataAccessObject = new FileCharacterDataAccessObject();
         CharacterNameView characterNameView =

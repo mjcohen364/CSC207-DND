@@ -1,6 +1,8 @@
 package interface_adapter.character_name;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.character_creator.CharacterCreatorState;
+import interface_adapter.character_creator.CharacterCreatorViewModel;
 import interface_adapter.logged_in.LoggedInState;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.character_name.CharacterNameViewModel;
@@ -11,15 +13,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class CharacterNamePresenter implements CharacterNameOutputBoundary {
-    private final LoggedInViewModel loggedInViewModel;
+    private final CharacterCreatorViewModel characterCreatorViewModel;
     private final CharacterNameViewModel characterNameViewModel;
     private final ViewManagerModel viewManagerModel;
 
     public CharacterNamePresenter(ViewManagerModel viewManagerModel,
-                                  CharacterNameViewModel characterNameViewModel, LoggedInViewModel loggedInViewModel) {
+                                  CharacterNameViewModel characterNameViewModel, CharacterCreatorViewModel characterCreatorViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.characterNameViewModel = characterNameViewModel;
-        this.loggedInViewModel = loggedInViewModel;
+        this.characterCreatorViewModel = characterCreatorViewModel;
     }
 
     @Override
@@ -28,12 +30,12 @@ public class CharacterNamePresenter implements CharacterNameOutputBoundary {
         LocalDateTime responseTime = LocalDateTime.parse(response.getCreationTime());
         response.setCreationTime(responseTime.format(DateTimeFormatter.ofPattern("hh:mm:ss")));
 
-        LoggedInState loginState = loggedInViewModel.getState();
-        loginState.setUsername(response.getName());
-        this.loggedInViewModel.setState(loginState);
-        loggedInViewModel.firePropertyChanged();
+        CharacterCreatorState characterCreatorState = characterCreatorViewModel.getState();
+        characterCreatorState.setName(response.getName());
+        this.characterCreatorViewModel.setState(characterCreatorState);
+        characterCreatorViewModel.firePropertyChanged();
 
-        viewManagerModel.setActiveView(loggedInViewModel.getViewName());
+        viewManagerModel.setActiveView(characterCreatorViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
 
