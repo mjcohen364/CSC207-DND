@@ -180,4 +180,9 @@ public class Player2 implements Character2 {
         }
         this.hitPoints = hitpoints;
     }
+    /*public void setFromCreator(PlayerCreator a){
+        this.setName(a.);
+        this.setSubtype();
+        this.setBackground();
+    }*/
 }
