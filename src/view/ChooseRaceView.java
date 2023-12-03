@@ -6,12 +6,16 @@ import interface_adapter.race_desc.RaceDescViewModel;
 import interface_adapter.race.RaceState;
 import interface_adapter.race.RaceViewModel;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ChooseRaceView extends JPanel implements ActionListener, PropertyChangeListener {
@@ -43,10 +47,12 @@ public class ChooseRaceView extends JPanel implements ActionListener, PropertyCh
 
         JPanel buttons = new JPanel();
         mainScreen = new JButton(RaceViewModel.MAIN_SCREEN_LABEL);
-        buttons.add(mainScreen);
         buttons.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(buttons);
         this.add(description);
+        this.add(mainScreen);
+        description.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainScreen.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         mainScreen.addActionListener(
                 new ActionListener() {
@@ -79,6 +85,9 @@ public class ChooseRaceView extends JPanel implements ActionListener, PropertyCh
             for (String raceName: state.races) {
                 JButton raceAdd = new JButton(raceName);
                 buttons2.add(raceAdd);
+                JLabel imageLabel = new JLabel();
+                this.add(imageLabel, 1);
+                imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
                 raceButtons.add(raceAdd);
                 if (raceName.toLowerCase().equals(state.selected)) {
                     raceAdd.setBackground(Color.GREEN);
@@ -92,6 +101,14 @@ public class ChooseRaceView extends JPanel implements ActionListener, PropertyCh
                                 }
                                 raceAdd.setBackground(Color.GREEN);
                                 raceDescController.execute(raceName.toLowerCase());
+                                try {
+                                    BufferedImage image = ImageIO.read(new File("images/" + raceName.toLowerCase() + ".png"));
+                                    imageLabel.setIcon(new ImageIcon(image));
+                                    revalidate();
+                                    repaint();
+                                } catch (IOException ex) {
+                                    throw new RuntimeException(ex);
+                                }
                             }
                         }
                 );
