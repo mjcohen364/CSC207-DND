@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.background.BackgroundState;
 import interface_adapter.character_creator.CharacterCreatorController;
 import interface_adapter.character_name.CharacterNameViewModel;
 import interface_adapter.clear_characters.ClearController;
@@ -48,6 +49,7 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
                 new JLabel(CharacterNameViewModel.NAME_LABEL), nameInputField);
 
         JPanel buttons = new JPanel();
+        JPanel prevNameButtons = new JPanel();
         //This button starts editing a new character (send to character creator view)
         createCharacterName = new JButton(CharacterNameViewModel.CREATECHARACTERNAME_BUTTON_LABEL);
         buttons.add(createCharacterName);
@@ -95,15 +97,14 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
                         if (e.getSource().equals(editCharacter)) {
                             CharacterNameState state2 = characterNameViewModel.getState();
 
-                            JPanel buttons2 = new JPanel();
                             for (Object name: state2.getNames()) {
                                 System.out.println(name);
                                 JButton nameAdd = new JButton(name.toString());
-                                buttons2.add(nameAdd);
+                                prevNameButtons.add(nameAdd);
                             }
-                            buttons2.setAlignmentX(Component.CENTER_ALIGNMENT);
+                            prevNameButtons.setAlignmentX(Component.CENTER_ALIGNMENT);
                             if (!nameChoicesAdded){
-                                add(buttons2);
+                                add(prevNameButtons);
                             }
                             nameChoicesAdded = true;
                             revalidate();
@@ -151,13 +152,59 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
         if (state.getNameError() != null) {
             JOptionPane.showMessageDialog(this, state.getNameError());
         }
-        if (evt.getNewValue() instanceof CharacterNameState) {
+        if (e.getSource().equals(editCharacter)) {
+            CharacterNameState state2 = characterNameViewModel.getState();
 
+            for (Object name: state2.getNames()) {
+                System.out.println(name);
+                JButton nameAdd = new JButton(name.toString());
+                prevNameButtons.add(nameAdd);
+            }
+            prevNameButtons.setAlignmentX(Component.CENTER_ALIGNMENT);
+            if (!nameChoicesAdded){
+                add(prevNameButtons);
+            }
+            nameChoicesAdded = true;
+            revalidate();
+            repaint();
+            characterNameViewModel.firePropertyChanged();
         }
+        if (evt.getNewValue() instanceof CharacterNameState) {
+            CharacterNameState state = (CharacterNameState) evt.getNewValue();
 
+            JPanel buttons2 = new JPanel();
+            for (String backgroundName: state.backgrounds) {
+                JButton backgroundAdd = new JButton(backgroundName);
+                buttons2.add(backgroundAdd);
+                backgroundAdd.addActionListener(
+                        new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                backDescController.execute();
+                            }
+                        }
+                );
+            }
+            buttons2.setAlignmentX(Component.CENTER_ALIGNMENT);
+            if (!this.backgroundChoicesAdded){
+                this.add(buttons2, 1);
+            }
+            this.backgroundChoicesAdded = true;
+            revalidate();
+            repaint();
+            JPanel buttons = new JPanel();
+            for (String backgroundName: state.backgrounds) {
+                JButton backgroundAdd = new JButton(backgroundName);
+                buttons.add(backgroundAdd);
+            }
+            this.add(buttons);
+            revalidate();
+            repaint();
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
     }
 }
