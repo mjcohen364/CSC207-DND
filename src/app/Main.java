@@ -79,7 +79,6 @@ public class Main {
         BackDescViewModel backDescViewModel = new BackDescViewModel();
         ClassViewModel classViewModel = new ClassViewModel();
         RaceViewModel raceViewModel = new RaceViewModel();
-        LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
         BackgroundViewModel backgroundViewModel = new BackgroundViewModel();
         CharacterCreatorViewModel characterCreatorViewModel = new CharacterCreatorViewModel();
         CharacterNameViewModel characterNameViewModel = new CharacterNameViewModel();
@@ -91,8 +90,18 @@ public class Main {
         CharacterCreatorController characterCreatorController = new CharacterCreatorController(new CharacterCreatorInteractor(dataAccessObject,
                 new CharacterCreatorPresenter(viewManagerModel, characterCreatorViewModel)));
         PlayerFactory playerFactory = new PlayerFactory();
+        CharacterCreatorView characterCreatorView = new CharacterCreatorView(new InventoryController(new InventoryInteractor(dataAccessObject, new InventoryPresenter(inventoryViewModel))),
+                inventoryViewModel,
+                new ClassController(new ClassInteractor(dataAccessObject, new ClassPresenter(viewManagerModel, classViewModel))),
+                classViewModel,
+                new RaceController(new RaceInteractor(dataAccessObject, new RacePresenter(viewManagerModel, raceViewModel))),
+                raceViewModel,
+                new BackgroundController(new BackgroundInteractor(dataAccessObject, new BackgroundPresenter(viewManagerModel, backgroundViewModel))),
+                backgroundViewModel,
+                new ReturnToNameController(new ReturnToNameInteractor(new ReturnToNamePresenter(viewManagerModel, returnToNameViewModel))));
+        //viewManagerModel
         CharacterNamePresenter characterNamePresenter = new CharacterNamePresenter(viewManagerModel,
-                characterNameViewModel, loggedInViewModel);
+                characterNameViewModel, characterCreatorViewModel, characterCreatorView);
 
         FileCharacterDataAccessObject fileCharacterDataAccessObject = new FileCharacterDataAccessObject("characters.csv", playerFactory);
         CharacterNameView characterNameView =
@@ -113,39 +122,6 @@ public class Main {
         ChooseRaceView chooseRaceView =
                 new ChooseRaceView(new RaceDescController(new RaceDescInteractor(new RaceDescPresenter(raceDescViewModel))),
                         raceDescViewModel, characterCreatorController, raceViewModel);
-
-
-        CharacterCreatorView characterCreatorView = new CharacterCreatorView(new InventoryController(new InventoryInteractor(dataAccessObject, new InventoryPresenter(inventoryViewModel))),
-                inventoryViewModel,
-                new ClassController(new ClassInteractor(dataAccessObject, new ClassPresenter(viewManagerModel, classViewModel))),
-                classViewModel,
-                new RaceController(new RaceInteractor(dataAccessObject, new RacePresenter(viewManagerModel, raceViewModel))),
-                raceViewModel,
-                new BackgroundController(new BackgroundInteractor(dataAccessObject, new BackgroundPresenter(viewManagerModel, backgroundViewModel))),
-                backgroundViewModel,
-                new ReturnToNameController(new ReturnToNameInteractor(new ReturnToNamePresenter(viewManagerModel, returnToNameViewModel))));
-        //viewManagerModel
-        CharacterNamePresenter characterNamePresenter = new CharacterNamePresenter(viewManagerModel, characterCreatorViewModel, characterNameViewModel);
-
-        FileCharacterDataAccessObject fileCharacterDataAccessObject = new FileCharacterDataAccessObject();
-        CharacterNameView characterNameView =
-                new CharacterNameView(new CharacterNameController(new CharacterNameInteractor(fileCharacterDataAccessObject,
-                        characterNamePresenter, playerFactory)),
-                        characterCreatorController, characterNameViewModel,
-                        new ClearController(new ClearInteractor(fileCharacterDataAccessObject,
-                                new ClearPresenter(viewManagerModel, clearViewModel,
-                                        characterNameViewModel), playerFactory)),
-                        clearViewModel);
-        ChooseBackgroundView chooseBackgroundView =
-                new ChooseBackgroundView(characterCreatorController, backgroundViewModel);
-        ChooseClassView chooseClassView =
-                new ChooseClassView(new InventoryController(new InventoryInteractor(dataAccessObject,
-                        new InventoryPresenter(inventoryViewModel))), inventoryViewModel,
-                        characterCreatorController, classViewModel);
-        ChooseRaceView chooseRaceView =
-                new ChooseRaceView(new RaceDescController(new RaceDescInteractor(dataAccessObject,
-                new RaceRaceDescPresenter(raceDescViewModel))), raceDescViewModel,
-                        characterCreatorController, raceViewModel);
 
         views.add(characterCreatorView, characterCreatorView.viewName);
         views.add(chooseBackgroundView, chooseBackgroundView.viewName);
