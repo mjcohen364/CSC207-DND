@@ -109,6 +109,7 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
                             nameChoicesAdded = true;
                             revalidate();
                             repaint();
+                            characterNameViewModel.firePropertyChanged();
                         }
                     }
                 }
@@ -159,21 +160,5 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(editCharacter)) {
-            ClearState state2 = clearViewModel.getState();
-
-            JPanel buttons2 = new JPanel();
-            for (Object name: state2.getNames()) {
-                JButton nameAdd = new JButton(name.toString());
-                buttons2.add(nameAdd);
-            }
-            buttons2.setAlignmentX(Component.CENTER_ALIGNMENT);
-            if (!nameChoicesAdded){
-                add(buttons2);
-            }
-            nameChoicesAdded = true;
-            revalidate();
-            repaint();
-        }
     }
 }

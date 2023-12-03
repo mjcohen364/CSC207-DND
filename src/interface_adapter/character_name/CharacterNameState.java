@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class CharacterNameState {
     private String name = "";
-    public ArrayList<String> names;
+    public ArrayList<String> names = new ArrayList<>();
     private String nameError = null;
     private String namesError = null;
 
