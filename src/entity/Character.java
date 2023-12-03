@@ -14,7 +14,7 @@ public interface Character {
     ArmourClass getArmourClass();
     Size getSize();
     ClassLevel getClassLevel();
-    Race getRace();
+    Race getSubtype();
     ArrayList<DndClass> getClasses();
     Background getBackground();
     ArrayList<Proficiency> getSkillProficiencies();
@@ -28,7 +28,7 @@ public interface Character {
     void setArmourClass(ArmourClass armourClass);
     void setSize(Size size);
     void setClassLevel(ClassLevel classLevel);
-    void setRace(Race race);
+    void setSubtype(Race subtype);
     void addDndClass(DndClass newClass);
     void setBackground(Background background);
     void addSkillProficiency(Proficiency newSkillProficiency);

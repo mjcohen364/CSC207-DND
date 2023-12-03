@@ -16,8 +16,7 @@ public class ClassInteractor implements ClassInputBoundary {
     @Override
     public void execute() {
         var test = dataAccessObject.getClasses();
-
-        classPresenter.prepareSuccessView(new ClassOutputData(test));
+        classPresenter.prepareSuccessView(new ClassOutputData(test, dataAccessObject.player.getdndclass()));
 
     }
 

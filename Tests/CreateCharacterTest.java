@@ -30,7 +30,7 @@ public class CreateCharacterTest {
         CharacterFactory cf = new PlayerFactory();
         FileCharacterDataAccessObject fcdao;
         try {
-            fcdao = new FileCharacterDataAccessObject("./characters.csv", cf);
+            fcdao = new FileCharacterDataAccessObject();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

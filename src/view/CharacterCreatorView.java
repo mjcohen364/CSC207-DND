@@ -1,15 +1,12 @@
 package view;
 
 import interface_adapter.character_name.CharacterNameController;
-import interface_adapter.logged_in.LoggedInController;
 import interface_adapter.dnd_class.ClassController;
 import interface_adapter.dnd_class.ClassState;
 import interface_adapter.dnd_class.ClassViewModel;
 import interface_adapter.inventory.InventoryController;
 import interface_adapter.inventory.InventoryState;
 import interface_adapter.inventory.InventoryViewModel;
-import interface_adapter.logged_in.LoggedInState;
-import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.race.RaceController;
 import interface_adapter.race.RaceState;
 import interface_adapter.race.RaceViewModel;
@@ -30,8 +27,6 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
 
     private final InventoryViewModel inventoryViewModel;
     private final InventoryController inventoryController;
-    private final LoggedInViewModel loggedInViewModel;
-    private final LoggedInController loggedInController;
     private final ClassViewModel classViewModel;
     private final ClassController classController;
     private final RaceViewModel raceViewModel;
@@ -48,16 +43,12 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
                                 ClassController classController,
                                 ClassViewModel classViewModel,
                                 RaceController raceController, RaceViewModel raceViewModel,
-                                LoggedInController loggedInController,
-                                LoggedInViewModel loggedInViewModel,
                                 BackgroundController backgroundController,
                                 BackgroundViewModel backgroundViewModel,
                                 ReturnToNameController returnToNameController) {
 
         this.inventoryController = controller;
         this.inventoryViewModel = inventoryViewModel;
-        this.loggedInViewModel = loggedInViewModel;
-        this.loggedInController = loggedInController;
         this.classController = classController;
         this.classViewModel = classViewModel;
         this.raceController = raceController;
@@ -68,12 +59,14 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
         inventoryViewModel.addPropertyChangeListener(this);
         classViewModel.addPropertyChangeListener(this);
         raceViewModel.addPropertyChangeListener(this);
-        loggedInViewModel.addPropertyChangeListener(this);
         backgroundViewmodel.addPropertyChangeListener(this);
 
         //create buttons for choosing class
-        classController.execute();
-        raceController.execute();
+        //Jun: actually, don't do that because I use .execute to color in a button for which option was selected
+        //Everything still works but the window is smaller, so this is to enlarge the window:
+        setPreferredSize(new Dimension(1000, 500));
+        //classController.execute();
+        //raceController.execute();
 
         JPanel buttons = new JPanel();
         JButton chooseBackground = new JButton("Background");
@@ -119,50 +112,17 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
 
         this.add(buttons);
 
-        JPanel buttons2 = new JPanel();
-        JButton characterAdd = new JButton("Add new Character");
-        JButton characterChange = new JButton("Edit another Character");
-        buttons2.add(characterAdd);
-        buttons2.add(characterChange);
-
-        characterAdd.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(characterAdd)) {
-                            LoggedInController.execute("Add Character");
-                        }
-                    }
-                }
-        );
-        characterChange.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(characterChange)) {
-                            LoggedInController.execute("Change Character");
-                        }
-                    }
-                }
-        );
-        this.add(buttons2);
-        revalidate();
-        repaint();
-
     }
 
     /**
      * React to a button click that results in evt.
      */
+//    TODO put proper string in actionPerformed
     public void actionPerformed(ActionEvent evt) {
         JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getNewValue() instanceof LoggedInState) {
-            LoggedInState state = (LoggedInState) evt.getNewValue();
-
-        }
     }
 }

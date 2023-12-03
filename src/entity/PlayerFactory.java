@@ -10,6 +10,6 @@ public class PlayerFactory implements CharacterFactory {
      */
     @Override
     public Character create(String name, LocalDateTime now) {
-        return new Player();
+        return new Player(name, now);
     }
 }

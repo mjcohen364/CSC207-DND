@@ -22,6 +22,13 @@ public class Player implements Character {
     ArrayList<Spell> spellsKnown = new ArrayList<Spell>();
     ArrayList<Feature> features = new ArrayList<Feature>();
 
+    public Player() {
+    }
+    public Player(String name, LocalDateTime now) {
+        this.name = name;
+        this.creationTime = now;
+    }
+
     @Override
     public String getName() {
         return name;
@@ -63,7 +70,7 @@ public class Player implements Character {
     }
 
     @Override
-    public Race getRace() {
+    public Race getSubtype() {
         return race;
     }
 
@@ -133,8 +140,8 @@ public class Player implements Character {
     }
 
     @Override
-    public void setRace(Race race) {
-        this.race = race;
+    public void setSubtype(Race subtype) {
+        this.race = subtype;
     }
 
     @Override

@@ -17,6 +17,7 @@ public class BackgroundPresenter implements BackgroundOutputBoundary {
     public void prepareSuccessView(BackgroundOutputData response) {
         BackgroundState backgroundState = backgroundViewModel.getState();
         backgroundState.backgrounds = response.getBackgrounds();
+        backgroundState.selected = response.getSelected();
         this.backgroundViewModel.setState(backgroundState);
         backgroundViewModel.firePropertyChanged();
 
