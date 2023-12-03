@@ -74,15 +74,19 @@ public class ChooseBackgroundView extends JPanel implements ActionListener, Prop
         }
         if (evt.getNewValue() instanceof BackgroundState) {
             BackgroundState state = (BackgroundState) evt.getNewValue();
-
             JPanel buttons2 = new JPanel();
             for (String backgroundName: state.backgrounds) {
                 JButton backgroundAdd = new JButton(backgroundName);
+
+                if (backgroundAdd.getText().toLowerCase().equals(state.selected)) {
+                    backgroundAdd.setBackground(Color.GREEN);
+                }
                 buttons2.add(backgroundAdd);
                 backgroundAdd.addActionListener(
                         new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
+                                backgroundAdd.setBackground(Color.GREEN);
                                 backDescController.execute(backgroundName.toLowerCase());
                             }
                         }
@@ -93,14 +97,6 @@ public class ChooseBackgroundView extends JPanel implements ActionListener, Prop
                 this.add(buttons2, 1);
             }
             this.backgroundChoicesAdded = true;
-            revalidate();
-            repaint();
-            JPanel buttons = new JPanel();
-            for (String backgroundName: state.backgrounds) {
-                JButton backgroundAdd = new JButton(backgroundName);
-                buttons.add(backgroundAdd);
-            }
-            this.add(buttons);
             revalidate();
             repaint();
         }

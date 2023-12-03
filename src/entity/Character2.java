@@ -33,6 +33,9 @@ public interface Character2 {
     void addDndClass(String newClass);
     void setBackground(String background);
     void addSpell(String newSpell);
+
+    void setType(String type);
+
     void addFeature(Feature newFeature);
 
 }

@@ -12,6 +12,6 @@ public class RaceInteractor implements RaceInputBoundary {
     @Override
     public void execute() {
         var test = dataAccessObject.getRaces();
-        racePresenter.prepareSuccessView(new RaceOutputData(test));
+        racePresenter.prepareSuccessView(new RaceOutputData(test, dataAccessObject.player.getrace()));
     }
 }

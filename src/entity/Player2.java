@@ -1,11 +1,11 @@
 package entity;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import com.google.gson.Gson;
 import not_implemented.*;
@@ -23,7 +23,7 @@ public class Player2 implements Character2 {
     String subtype;
     String type;
     String background;
-    Proficiency proficiency;
+    Proficiency proficiency = new Proficiency();
     ArrayList<String> spellsKnown = new ArrayList<>();
     ArrayList<Feature> features = new ArrayList<Feature>();
 
@@ -148,6 +148,9 @@ public class Player2 implements Character2 {
     }
 
     @Override
+    public void setType(String type) {this.type = type;}
+
+    @Override
     public void addFeature(Feature newFeature) {
         this.features.add(newFeature);
     }
@@ -158,8 +161,44 @@ public class Player2 implements Character2 {
         myWriter.write(g.toJson(this));
         myWriter.close();
     }
-
-    public void initFromjson(String path) {
-
+    public int calculateModifier(String attribute) {
+        Map<String, Integer> attributes = this.getAttributes();
+        if (attributes.containsKey(attribute)) {
+            return Math.floorDiv(attributes.get(attribute) - 10, 2);
+        }
+        else {return 0;}
+    }
+    public void calculateMaxHitPoints(){
+        int hitpoints = 0;
+        int ConstitutionModifier = 0;
+        ConstitutionModifier += this.calculateModifier("Constitution");
+        for (Feature feature : features) {
+            if (Objects.equals(feature.getName(), "tough")) {
+                ConstitutionModifier += 2;
+            }
+            if (Objects.equals(feature.getName(), "dwarven-toughness")) {
+                ConstitutionModifier += 2;
+            }
+        }
+        for (int i = 0; i < this.level; i++) {
+            hitpoints += hitDice.get(i) + ConstitutionModifier;
+        }
+        this.hitPoints = hitpoints;
+    }
+    public void rawinit() {
+        this.setAttribute("Strength", 0);
+        this.setAttribute("Dexterity", 0);
+        this.setAttribute("Constitution", 0);
+        this.setAttribute("Intelligence", 0);
+        this.setAttribute("Wisdom", 0);
+        this.setAttribute("Charisma", 0);
+        this.proficiency.init(this.level);
+        this.setType("Humanoid");
+    }
+    public void setFromCreator(PlayerCreator a){
+        this.setName(a.name);
+        this.setSubtype(a.race);
+        this.setBackground(a.background);
+        this.addDndClass(a.dndclass);
     }
 }

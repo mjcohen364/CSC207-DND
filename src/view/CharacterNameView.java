@@ -66,6 +66,7 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
                         if (evt.getSource().equals(createCharacterName)) {
                             CharacterNameState currentState = characterNameViewModel.getState();
                             characterNameController.execute(currentState.getName());
+                            characterCreatorController.execute();
                         }
                     }
                 }
