@@ -1,1 +1,1 @@
-{"name":"","background":"acolyte","dndclass":"paladin","race":"tiefling"}
+{"name":"","background":"acolyte","dndclass":"ranger","race":"gnome"}
