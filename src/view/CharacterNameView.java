@@ -89,6 +89,30 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
                 }
         );
 
+        editCharacter.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(editCharacter)) {
+                            ClearState state2 = clearViewModel.getState();
+
+                            JPanel buttons2 = new JPanel();
+                            for (Object name: state2.getNames()) {
+                                JButton nameAdd = new JButton(name.toString());
+                                buttons2.add(nameAdd);
+                            }
+                            buttons2.setAlignmentX(Component.CENTER_ALIGNMENT);
+                            if (!nameChoicesAdded){
+                                add(buttons2);
+                            }
+                            nameChoicesAdded = true;
+                            revalidate();
+                            repaint();
+                        }
+                    }
+                }
+        );
+
 
         // This makes a new KeyListener implementing class, instantiates it, and
         // makes it listen to keystrokes in the nameInputField.
@@ -120,14 +144,6 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
         this.add(buttons);
     }
 
-    /**
-     * React to a button click that results in evt.
-     */
-    public void actionPerformed(ActionEvent evt) {
-
-        JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
-    }
-
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         CharacterNameState state = (CharacterNameState) evt.getNewValue();
@@ -135,21 +151,28 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
             JOptionPane.showMessageDialog(this, state.getNameError());
         }
         if (evt.getNewValue() instanceof CharacterNameState) {
-            CharacterNameState state2 = characterNameViewModel.getState();
+
+        }
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(editCharacter)) {
+            ClearState state2 = clearViewModel.getState();
 
             JPanel buttons2 = new JPanel();
-            for (String name: state2.names) {
-                JButton nameAdd = new JButton(name);
+            for (Object name: state2.getNames()) {
+                JButton nameAdd = new JButton(name.toString());
                 buttons2.add(nameAdd);
             }
             buttons2.setAlignmentX(Component.CENTER_ALIGNMENT);
-            if (!this.nameChoicesAdded){
-                this.add(buttons2, 1);
+            if (!nameChoicesAdded){
+                add(buttons2);
             }
-            this.nameChoicesAdded = true;
+            nameChoicesAdded = true;
             revalidate();
             repaint();
         }
-
     }
 }
