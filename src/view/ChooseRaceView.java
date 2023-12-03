@@ -25,18 +25,23 @@ public class ChooseRaceView extends JPanel implements ActionListener, PropertyCh
     private final RaceDescViewModel raceDescViewModel;
     private final CharacterCreatorController characterCreatorController;
     private boolean raceChoicesAdded = false;
+    private boolean imageAdded = false;
+    private JLabel imageLabel;
+    private BufferedImage image;
     final JButton mainScreen;
     private JLabel description;
 
     ArrayList<JButton> raceButtons = new ArrayList<>();
     public ChooseRaceView(RaceDescController raceDescController, RaceDescViewModel raceDescViewModel,
-                          CharacterCreatorController characterCreatorController, RaceViewModel raceViewModel) {
+                          CharacterCreatorController characterCreatorController, RaceViewModel raceViewModel) throws IOException {
         this.characterCreatorController = characterCreatorController;
         this.raceViewModel = raceViewModel;
         this.raceDescController = raceDescController;
         this.raceDescViewModel = raceDescViewModel;
         this.raceDescViewModel.addPropertyChangeListener(this);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.image = ImageIO.read(new File("images/noneselected.png"));
+        this.imageLabel = new JLabel(new ImageIcon(image));
         raceViewModel.addPropertyChangeListener(this);
         JLabel title = new JLabel("Choose Race");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -65,6 +70,10 @@ public class ChooseRaceView extends JPanel implements ActionListener, PropertyCh
                     }
                 }
         );
+        this.add(imageLabel, 1);
+        imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        revalidate();
+        repaint();
     }
     //    TODO FINISH ACTIONPERFORMED
     public void actionPerformed(ActionEvent evt) {
@@ -85,9 +94,6 @@ public class ChooseRaceView extends JPanel implements ActionListener, PropertyCh
             for (String raceName: state.races) {
                 JButton raceAdd = new JButton(raceName);
                 buttons2.add(raceAdd);
-                JLabel imageLabel = new JLabel();
-                this.add(imageLabel, 1);
-                imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
                 raceButtons.add(raceAdd);
                 if (raceName.toLowerCase().equals(state.selected)) {
                     raceAdd.setBackground(Color.GREEN);
@@ -102,7 +108,7 @@ public class ChooseRaceView extends JPanel implements ActionListener, PropertyCh
                                 raceAdd.setBackground(Color.GREEN);
                                 raceDescController.execute(raceName.toLowerCase());
                                 try {
-                                    BufferedImage image = ImageIO.read(new File("images/" + raceName.toLowerCase() + ".png"));
+                                    image = ImageIO.read(new File("images/" + raceName.toLowerCase() + ".png"));
                                     imageLabel.setIcon(new ImageIcon(image));
                                     revalidate();
                                     repaint();
