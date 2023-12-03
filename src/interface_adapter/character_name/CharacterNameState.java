@@ -4,13 +4,15 @@ import java.util.ArrayList;
 
 public class CharacterNameState {
     private String name = "";
-    public ArrayList<String> names;
+    public ArrayList<String> names = new ArrayList<>();
     private String nameError = null;
+    private String namesError = null;
 
     public CharacterNameState(CharacterNameState copy) {
         name = copy.name;
         nameError = copy.nameError;
         names = copy.names;
+        namesError = copy.namesError;
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.
@@ -23,6 +25,13 @@ public class CharacterNameState {
 
     public String getNameError() {
         return nameError;
+    }
+    public ArrayList<String> getNames() {
+        return names;
+    }
+
+    public String getNamesError() {
+        return namesError;
     }
 
     public void setName(String name) {

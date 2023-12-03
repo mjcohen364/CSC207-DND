@@ -206,14 +206,3 @@ public class CreateCharacterTest {
         t.setRepeats(false);
         return t;
     }
-
-    private static int countLines() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader("characters.csv"));
-        int lineCount = 0;
-        while (reader.readLine() != null) {
-            lineCount++;
-        }
-        return lineCount;
-    }
-
-}

@@ -1,7 +1,5 @@
 package interface_adapter.clear_characters;
 
-// TODO Complete me seems good
-
 import interface_adapter.ViewModel;
 
 import java.beans.PropertyChangeListener;
@@ -12,7 +10,7 @@ public class ClearViewModel extends ViewModel {
     private ClearState state = new ClearState();
 
     public ClearViewModel() {
-        super("sign up");
+        super("character name");
     }
 
     public void setState(ClearState state) {

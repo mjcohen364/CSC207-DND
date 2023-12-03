@@ -111,7 +111,6 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(buttons);
-
     }
 
     /**

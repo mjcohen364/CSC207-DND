@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.background.BackgroundState;
 import interface_adapter.character_creator.CharacterCreatorController;
 import interface_adapter.character_name.CharacterNameViewModel;
 import interface_adapter.clear_characters.ClearController;
@@ -28,7 +29,6 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
     private final ClearViewModel clearViewModel;
 
     private final JButton createCharacterName;
-    private final JButton cancel;
     private final JButton clear;
     private final JButton editCharacter;
     private boolean nameChoicesAdded;
@@ -52,9 +52,6 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
         //This button starts editing a new character (send to character creator view)
         createCharacterName = new JButton(CharacterNameViewModel.CREATECHARACTERNAME_BUTTON_LABEL);
         buttons.add(createCharacterName);
-
-        cancel = new JButton(CharacterNameViewModel.CANCEL_BUTTON_LABEL);
-        buttons.add(cancel);
 
         clear = new JButton(CharacterNameViewModel.CLEAR_BUTTON_LABEL);
         buttons.add(clear);
@@ -93,7 +90,42 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
                 }
         );
 
-        cancel.addActionListener(this);
+        editCharacter.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(editCharacter)) {
+                            CharacterNameState state = characterNameViewModel.getState();
+                            JLabel prevCharactersTitle = new JLabel(CharacterNameViewModel.PREVIOUS_CHARACTERS_LABEL);
+                            prevCharactersTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+                            JPanel prevNameButtons = new JPanel();
+                            System.out.println("hi");
+                            for (String prevName : state.names) {
+                                System.out.println(prevName);
+                                JButton prevNameAdd = new JButton(prevName);
+                                prevNameButtons.add(prevNameAdd);
+                                prevNameAdd.addActionListener(
+                                        new ActionListener() {
+                                            @Override
+                                            public void actionPerformed(ActionEvent e) {
+                                                characterNameController.execute(prevName);
+                                            }
+                                        }
+                                );
+                            }
+                            prevNameButtons.setAlignmentX(Component.CENTER_ALIGNMENT);
+                            if (!nameChoicesAdded) {
+                                add(prevCharactersTitle);
+                                add(prevNameButtons);
+                            }
+                            nameChoicesAdded = true;
+                            revalidate();
+                            repaint();
+                        }
+                    }
+                }
+        );
+
 
         // This makes a new KeyListener implementing class, instantiates it, and
         // makes it listen to keystrokes in the nameInputField.
@@ -125,36 +157,53 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
         this.add(buttons);
     }
 
-    /**
-     * React to a button click that results in evt.
-     */
-    public void actionPerformed(ActionEvent evt) {
-
-        JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
-    }
-
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         CharacterNameState state = (CharacterNameState) evt.getNewValue();
         if (state.getNameError() != null) {
             JOptionPane.showMessageDialog(this, state.getNameError());
         }
-        if (evt.getNewValue() instanceof CharacterNameState) {
-            CharacterNameState state2 = (CharacterNameState) evt.getNewValue();
+    }
 
-            JPanel buttons2 = new JPanel();
-            for (String className: state2.names) {
-                JButton classAdd = new JButton(className);
-                buttons2.add(classAdd);
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(editCharacter)) {
+            CharacterNameState state = characterNameViewModel.getState();
+            JLabel prevCharactersTitle = new JLabel(CharacterNameViewModel.PREVIOUS_CHARACTERS_LABEL);
+            prevCharactersTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+            JPanel prevNameButtons = new JPanel();
+            System.out.println("hi");
+            for (String prevName: state.names) {
+                System.out.println(prevName);
+                JButton prevNameAdd = new JButton(prevName);
+                prevNameButtons.add(prevNameAdd);
+                prevNameAdd.addActionListener(
+                        new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                characterNameController.execute(prevName);
+                            }
+                        }
+                );
             }
-            buttons2.setAlignmentX(Component.CENTER_ALIGNMENT);
+            prevNameButtons.setAlignmentX(Component.CENTER_ALIGNMENT);
             if (!this.nameChoicesAdded){
-                this.add(buttons2, 1);
+                this.add(prevCharactersTitle);
+                this.add(prevNameButtons);
             }
             this.nameChoicesAdded = true;
             revalidate();
             repaint();
-        }
 
+            JPanel buttons2 = new JPanel();
+            for (String prevName: state.names) {
+                JButton prevNameAdd = new JButton(prevName);
+                buttons2.add(prevNameAdd);
+                System.out.println("hello");
+            }
+            this.add(buttons2);
+            revalidate();
+            repaint();
+        }
     }
 }

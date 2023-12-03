@@ -11,14 +11,13 @@ public class CharacterNameViewModel extends ViewModel {
     public static final String TITLE_LABEL = "Character Name View";
     public static final String NAME_LABEL = "Choose a Character Name";
     public static final String EDIT_BUTTON_LABEL = "Edit a Previous Character";
-
+    public static final String PREVIOUS_CHARACTERS_LABEL = "Previous Characters";
     public static final String CREATECHARACTERNAME_BUTTON_LABEL = "Create Character";
-    public static final String CANCEL_BUTTON_LABEL = "Cancel";
 
     private CharacterNameState state = new CharacterNameState();
 
     public CharacterNameViewModel() {
-        super("create character");
+        super("Name a character");
     }
 
     public void setState(CharacterNameState state) {
