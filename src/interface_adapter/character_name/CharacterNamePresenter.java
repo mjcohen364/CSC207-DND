@@ -32,6 +32,9 @@ public class CharacterNamePresenter implements CharacterNameOutputBoundary {
         LocalDateTime responseTime = LocalDateTime.parse(response.getCreationTime());
         response.setCreationTime(responseTime.format(DateTimeFormatter.ofPattern("hh:mm:ss")));
 
+        CharacterNameState characterNameState = characterNameViewModel.getState();
+        characterNameState.names.add(response.getName());
+        characterNameViewModel.setState(characterNameState);
         CharacterCreatorState characterCreatorState = characterCreatorViewModel.getState();
         characterCreatorState.setName(response.getName());
         this.characterCreatorViewModel.setState(characterCreatorState);

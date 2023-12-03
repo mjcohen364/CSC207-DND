@@ -94,10 +94,11 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(editCharacter)) {
-                            ClearState state2 = clearViewModel.getState();
+                            CharacterNameState state2 = characterNameViewModel.getState();
 
                             JPanel buttons2 = new JPanel();
                             for (Object name: state2.getNames()) {
+                                System.out.println(name);
                                 JButton nameAdd = new JButton(name.toString());
                                 buttons2.add(nameAdd);
                             }
