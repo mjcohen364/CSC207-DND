@@ -119,9 +119,5 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getNewValue() instanceof LoggedInState) {
-            LoggedInState state = (LoggedInState) evt.getNewValue();
-
-        }
     }
 }
