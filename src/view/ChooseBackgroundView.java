@@ -99,14 +99,6 @@ public class ChooseBackgroundView extends JPanel implements ActionListener, Prop
             this.backgroundChoicesAdded = true;
             revalidate();
             repaint();
-            JPanel buttons = new JPanel();
-            for (String backgroundName: state.backgrounds) {
-                JButton backgroundAdd = new JButton(backgroundName);
-                buttons.add(backgroundAdd);
-            }
-            this.add(buttons);
-            revalidate();
-            repaint();
         }
     }
 }
