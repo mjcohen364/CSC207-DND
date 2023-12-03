@@ -34,7 +34,6 @@ public class CharacterNameInteractor implements CharacterNameInputBoundary {
         /*if (characterNameDataAccessObject.existsByName(characterNameInputData.getName())) {
             characterNamePresenter.prepareFailView("Character already exists.");
         } else {
-
             LocalDateTime now = LocalDateTime.now();
             Character character = characterFactory.create(characterNameInputData.getName(), now);
             characterNameDataAccessObject.save(character);

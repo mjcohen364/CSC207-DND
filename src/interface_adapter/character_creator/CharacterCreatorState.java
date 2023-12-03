@@ -6,4 +6,7 @@ public class CharacterCreatorState {
     public CharacterCreatorState() {}
     @Override
     public String toString() {return "";}
+    public void setName(String name) {
+        this.characterName = name;
+    }
 }
