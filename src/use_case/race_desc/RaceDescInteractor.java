@@ -4,13 +4,18 @@ import entity.Race;
 import entity.Trait;
 
 public class RaceDescInteractor implements RaceDescInputBoundary {
+
+    DataAccessObject dataAccessObject;
     final RaceDetailsHelper raceDetailsHelper = new RaceDetailsHelper();
     final RaceDescOutputBoundary descPresenter;
-    public RaceDescInteractor(RaceDescOutputBoundary raceDescOutputBoundary) {
+    public RaceDescInteractor(RaceDescOutputBoundary raceDescOutputBoundary, DataAccessObject dataAccessObject) {
         descPresenter = raceDescOutputBoundary;
+        this.dataAccessObject = dataAccessObject;
     }
     @Override
     public void execute(RaceDescInputData raceDescInputData) {
+        dataAccessObject.player.setrace(raceDescInputData.getApi());
+        dataAccessObject.player.generatejson();
         Race race = raceDetailsHelper.getRaceDetails(raceDescInputData.getApi());
         StringBuilder traits = new StringBuilder();
         for (Trait trait : race.getTraits()) {

@@ -24,6 +24,16 @@ public class PlayerCreator {
     public void setrace(String v) {
         this.race = v;
     }
+
+    public String getbackground(){
+        return this.background;
+    }
+    public String getdndclass(){
+        return this.dndclass;
+    }
+    public String getrace() {
+        return this.race;
+    }
     public void incorporate(Player player){
 
     }
@@ -37,16 +47,26 @@ public class PlayerCreator {
         String content = new String(Files.readAllBytes(Paths.get(path)));
         return g.fromJson(content, Player2.class);
     }
-    public PlayerCreator readjson3 (String path) throws IOException {
+    static public PlayerCreator readjson3 (String path) {
+        try {
         Gson g = new Gson();
         String content = new String(Files.readAllBytes(Paths.get(path)));
         return g.fromJson(content, PlayerCreator.class);
+        } catch (IOException io) {
+            //idk
+        }
+        return null;
     }
-    public void generatejson() throws IOException {
+    public void generatejson() {
         Gson g = new Gson();
         //File myObj = new File(this.name + ".txt");
-        FileWriter myWriter = new FileWriter(this.name + ".txt");
-        myWriter.write(g.toJson(this));
-        myWriter.close();
+        try {
+            FileWriter myWriter = new FileWriter(this.name + ".txt");
+            myWriter.write(g.toJson(this));
+            myWriter.close();
+            System.out.println("success");
+        } catch (IOException io) {
+            System.out.println("fail");//idk
+        }
     }
 }

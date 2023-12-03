@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
 public class ChooseRaceView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "Choose Race";
@@ -22,6 +23,8 @@ public class ChooseRaceView extends JPanel implements ActionListener, PropertyCh
     private boolean raceChoicesAdded = false;
     final JButton mainScreen;
     private JLabel description;
+
+    ArrayList<JButton> raceButtons = new ArrayList<>();
     public ChooseRaceView(RaceDescController raceDescController, RaceDescViewModel raceDescViewModel,
                           CharacterCreatorController characterCreatorController, RaceViewModel raceViewModel) {
         this.characterCreatorController = characterCreatorController;
@@ -76,10 +79,18 @@ public class ChooseRaceView extends JPanel implements ActionListener, PropertyCh
             for (String raceName: state.races) {
                 JButton raceAdd = new JButton(raceName);
                 buttons2.add(raceAdd);
+                raceButtons.add(raceAdd);
+                if (raceName.toLowerCase().equals(state.selected)) {
+                    raceAdd.setBackground(Color.GREEN);
+                }
                 raceAdd.addActionListener(
                         new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
+                                for (var butt: raceButtons) {
+                                    butt.setBackground(UIManager.getColor("Panel.background"));
+                                }
+                                raceAdd.setBackground(Color.GREEN);
                                 raceDescController.execute(raceName.toLowerCase());
                             }
                         }

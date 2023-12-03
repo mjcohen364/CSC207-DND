@@ -5,10 +5,10 @@ import java.util.ArrayList;
 
 public class HitDice {
     Player player;
-    ArrayList<Integer> HitDicePerLevel = new ArrayList<>();
+    ArrayList<Integer> HitDiceByLevel = new ArrayList<>();
     public void addHitDie(Integer hitdie){
-        this.HitDicePerLevel.add(hitdie);
-    }
+        this.HitDiceByLevel.add(hitdie);
+    }/*
     public int calculateMaxHitPoints(){
         int hitpoints = 0;
         int ConstitutionModifier = 0;
@@ -26,8 +26,8 @@ public class HitDice {
                 break;
             }
         }
-        for (int i = 0; i < HitDicePerLevel.size(); i++) {
-            hitpoints += HitDicePerLevel.get(i) + ConstitutionModifier;
+        for (int i = 0; i < HitDiceByLevel.size(); i++) {
+            hitpoints += HitDiceByLevel.get(i) + ConstitutionModifier;
 
         }
         return hitpoints;
