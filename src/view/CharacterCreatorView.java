@@ -108,67 +108,6 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(buttons);
-
-        JPanel buttons2 = new JPanel();
-        JButton characterAdd = new JButton("Add new Character");
-        JButton characterChange = new JButton("Edit another Character");
-        buttons2.add(characterAdd);
-        buttons2.add(characterChange);
-
-        characterAdd.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(characterAdd)) {
-                            LoggedInController.execute("Add Character");
-                        }
-                    }
-                }
-        );
-        characterChange.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(characterChange)) {
-                            LoggedInController.execute("Change Character");
-                        }
-                    }
-                }
-        );
-        this.add(buttons2);
-        revalidate();
-        repaint();
-
-        JPanel buttons2 = new JPanel();
-        JButton characterAdd = new JButton("Add new Character");
-        JButton characterChange = new JButton("Edit another Character");
-        buttons2.add(characterAdd);
-        buttons2.add(characterChange);
-
-        characterAdd.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(characterAdd)) {
-
-                        }
-                    }
-                }
-        );
-        characterChange.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(characterChange)) {
-
-                        }
-                    }
-                }
-        );
-        this.add(buttons2);
-        revalidate();
-        repaint();
-
     }
 
     /**
