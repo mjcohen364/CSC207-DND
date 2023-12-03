@@ -106,21 +106,21 @@ public class Main {
         FileCharacterDataAccessObject fileCharacterDataAccessObject = new FileCharacterDataAccessObject();
         CharacterNameView characterNameView =
                 new CharacterNameView(new CharacterNameController(new CharacterNameInteractor(fileCharacterDataAccessObject,
-                        characterNamePresenter, playerFactory)),
+                        characterNamePresenter, playerFactory, dataAccessObject)),
                         characterCreatorController, characterNameViewModel,
                         new ClearController(new ClearInteractor(fileCharacterDataAccessObject,
                                 new ClearPresenter(viewManagerModel, clearViewModel,
                                         characterNameViewModel), playerFactory)),
                         clearViewModel);
         ChooseBackgroundView chooseBackgroundView =
-                new ChooseBackgroundView(new BackDescController((new BackDescInteractor(new BackDescPresenter(backDescViewModel)))),
+                new ChooseBackgroundView(new BackDescController((new BackDescInteractor(new BackDescPresenter(backDescViewModel), dataAccessObject))),
                         backDescViewModel, characterCreatorController, backgroundViewModel);
         ChooseClassView chooseClassView =
                 new ChooseClassView(new InventoryController(new InventoryInteractor(dataAccessObject,
                         new InventoryPresenter(inventoryViewModel))), inventoryViewModel,
                         characterCreatorController, classViewModel);
         ChooseRaceView chooseRaceView =
-                new ChooseRaceView(new RaceDescController(new RaceDescInteractor(new RaceDescPresenter(raceDescViewModel))),
+                new ChooseRaceView(new RaceDescController(new RaceDescInteractor(new RaceDescPresenter(raceDescViewModel), dataAccessObject)),
                         raceDescViewModel, characterCreatorController, raceViewModel);
 
         views.add(characterCreatorView, characterCreatorView.viewName);
