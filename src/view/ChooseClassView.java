@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
 public class ChooseClassView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "Choose Class";
@@ -23,6 +24,8 @@ public class ChooseClassView extends JPanel implements ActionListener, PropertyC
     private boolean classChoicesAdded = false;
     final JButton mainScreen;
     private JLabel items;
+
+    ArrayList<JButton> classButtons = new ArrayList<>();
 
     public ChooseClassView(InventoryController inventoryController, InventoryViewModel inventoryViewModel,
                            CharacterCreatorController characterCreatorController, ClassViewModel classViewModel) {
@@ -87,10 +90,20 @@ public class ChooseClassView extends JPanel implements ActionListener, PropertyC
             for (String className: state.classes) {
                 JButton classAdd = new JButton(className);
                 buttons2.add(classAdd);
+                classButtons.add(classAdd);
+
+                if (className.toLowerCase().equals(state.selected)) {
+                    classAdd.setBackground(Color.GREEN);
+                }
 
                 classAdd.addActionListener(
                         new ActionListener() {
                             public void actionPerformed(ActionEvent evt) {
+                                for (JButton butt: classButtons) {
+                                    butt.setBackground(UIManager.getColor("Panel.background"));
+
+                                }
+                                classAdd.setBackground(Color.GREEN);
                                 if (evt.getSource().equals(classAdd)) {
                                     inventoryController.execute("/api/classes/" + className.toLowerCase());
                                 }

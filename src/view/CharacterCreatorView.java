@@ -72,8 +72,11 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
         backgroundViewmodel.addPropertyChangeListener(this);
 
         //create buttons for choosing class
-        classController.execute();
-        raceController.execute();
+        //Jun: actually, don't do that because I use .execute to color in a button for which option was selected
+        //Everything still works but the window is smaller, so this is to enlarge the window:
+        setPreferredSize(new Dimension(1000, 500));
+        //classController.execute();
+        //raceController.execute();
 
         JPanel buttons = new JPanel();
         JButton chooseBackground = new JButton("Background");

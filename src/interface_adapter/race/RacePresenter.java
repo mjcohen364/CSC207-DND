@@ -15,6 +15,7 @@ public class RacePresenter implements RaceOutputBoundary {
     public void prepareSuccessView(RaceOutputData response) {
         RaceState raceState = raceViewModel.getState();
         raceState.races = response.getRaces();
+        raceState.selected = response.getSelected();
         this.raceViewModel.setState(raceState);
         raceViewModel.firePropertyChanged();
 

@@ -2,6 +2,7 @@ package data_access;
 
 import entity.Item;
 import entity.Player;
+import entity.PlayerCreator;
 import entity.Unit;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,7 +15,7 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 
 public class DataAccessObject {
-    public Player player = new Player();
+    public PlayerCreator player = new PlayerCreator();
     public ArrayList<Item> itemsFromClass = new ArrayList<>();
     public ArrayList<Item> itemsFromClassOptions = new ArrayList<>();
 //    TODO REPLACE PLACEHOLDERNAME WITH CODE THAT RETRIEVES CURRENT SELECTED CHARACTER'S NAME
@@ -46,6 +47,8 @@ public class DataAccessObject {
     }
 
     public void chooseClass(String apiCall) {
+        player.setdndclass(apiCall.substring(13));
+        player.generatejson();
         itemsFromClass.clear();
         itemsFromClassOptions.clear();
 
