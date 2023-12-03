@@ -123,6 +123,7 @@ public class Main {
                 new ChooseRaceView(new RaceDescController(new RaceDescInteractor(new RaceDescPresenter(raceDescViewModel))),
                         raceDescViewModel, characterCreatorController, raceViewModel);
 
+        characterNameView.setSize(new Dimension(500, 500));
         views.add(characterCreatorView, characterCreatorView.viewName);
         views.add(chooseBackgroundView, chooseBackgroundView.viewName);
         views.add(chooseClassView, chooseClassView.viewName);

@@ -120,43 +120,10 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
                             nameChoicesAdded = true;
                             revalidate();
                             repaint();
-
-                            JPanel buttons2 = new JPanel();
-                            for (String prevName : state.names) {
-                                JButton prevNameAdd = new JButton(prevName);
-                                buttons2.add(prevNameAdd);
-                                System.out.println("hello");
-                            }
-                            add(buttons2);
-                            revalidate();
-                            repaint();
                         }
                     }
                 }
         );
-//                            CharacterNameState state2 = characterNameViewModel.getState();
-//                            JLabel prevCharactersTitle = new JLabel(CharacterNameViewModel.PREVIOUS_CHARACTERS_LABEL);
-//                            prevCharactersTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-//                            JPanel prevNameButtons = new JPanel();
-//                            for (Object name: state2.getNames()) {
-//                                System.out.println(name);
-//                                JButton nameAdd = new JButton(name.toString());
-//                                prevNameButtons.add(nameAdd);
-//                            }
-//                            prevNameButtons.setAlignmentX(Component.CENTER_ALIGNMENT);
-//                            if (!nameChoicesAdded){
-//
-//                                add(prevCharactersTitle);
-//                                add(prevNameButtons);
-//                            }
-//                            nameChoicesAdded = true;
-//                            revalidate();
-//                            repaint();
-//                            characterNameViewModel.firePropertyChanged();
-//                        }
-//                    }
-//                }
-//        );
 
 
         // This makes a new KeyListener implementing class, instantiates it, and
