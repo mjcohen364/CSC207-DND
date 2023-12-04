@@ -32,7 +32,7 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
     private final JButton clear;
     private final JButton editCharacter;
     private boolean nameChoicesAdded;
-    private final Image backgroundImage = ImageIO.read(new File("Walmart's gate.png"));
+    private final ImageIcon icon = new ImageIcon("Walmart's gate.png");;
     public CharacterNameView(CharacterNameController characterNameController, CharacterCreatorController characterCreatorController, CharacterNameViewModel characterNameViewModel, ClearController clearController, ClearViewModel clearViewModel) throws IOException {
         this.characterCreatorController = characterCreatorController;
         this.characterNameViewModel = characterNameViewModel;
@@ -142,6 +142,9 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
                 });
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(welcome);
+        JLabel image = new JLabel(icon);
+        image.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.add(image);
         this.add(title);
         this.add(nameInfo);
         this.add(buttons);
