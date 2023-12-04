@@ -1,4 +1,6 @@
 package view;
+
+import entity.GamePlayer;
 import interface_adapter.background.BackgroundState;
 import interface_adapter.character_creator.CharacterCreatorController;
 import interface_adapter.character_name.CharacterNameViewModel;
@@ -7,6 +9,12 @@ import interface_adapter.clear_characters.ClearState;
 import interface_adapter.clear_characters.ClearViewModel;
 import interface_adapter.character_name.CharacterNameController;
 import interface_adapter.character_name.CharacterNameState;
+import interface_adapter.game_player.GamePlayerPresenter;
+import interface_adapter.tile.TilePresenter;
+import use_case.game.CollisionInteractor;
+import use_case.game.GamePlayerInteractor;
+import use_case.game.KeyHandlerInteractor;
+import use_case.game.TileManagerInteractor;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -32,7 +40,9 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
     private final JButton clear;
     private final JButton editCharacter;
     private boolean nameChoicesAdded;
+  
     private final ImageIcon icon = new ImageIcon("Walmart's gate.png");
+    private final JButton startGameButton;
     public CharacterNameView(CharacterNameController characterNameController, CharacterCreatorController characterCreatorController, CharacterNameViewModel characterNameViewModel, ClearController clearController, ClearViewModel clearViewModel) throws IOException {
         this.characterCreatorController = characterCreatorController;
         this.characterNameViewModel = characterNameViewModel;
@@ -57,6 +67,8 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
         buttons.add(clear);
         editCharacter = new JButton(CharacterNameViewModel.EDIT_BUTTON_LABEL);
         buttons.add(editCharacter);
+        startGameButton = new JButton("Start Game");
+        buttons.add(startGameButton);
         createCharacterName.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
@@ -68,6 +80,13 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
                     }
                 }
         );
+
+        startGameButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                startGame();
+            }
+        });
 
         clear.addActionListener(
                 new ActionListener() {
@@ -165,5 +184,29 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
 
         // Draw the background image.
         //g.drawImage(backgroundImage, 0, 0, null);
+    }
+    private void startGame(){
+        JFrame window = new JFrame();
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setResizable(false);
+        window.setTitle("Walmart's Gate");
+
+        // Create instances of the required components
+        GamePlayer p = new GamePlayer();
+        KeyHandlerInteractor keyHandlerInteractor = new KeyHandlerInteractor();
+        TileManagerInteractor tileManagerInteractor = new TileManagerInteractor();
+        CollisionInteractor collisionInteractor = new CollisionInteractor(tileManagerInteractor);
+        GamePlayerInteractor gamePlayerInteractor = new GamePlayerInteractor(keyHandlerInteractor, collisionInteractor,"wizard", p);
+        TilePresenter tilePresenter = new TilePresenter(tileManagerInteractor, p);
+        GamePlayerPresenter gamePlayerPresenter = new GamePlayerPresenter(gamePlayerInteractor);
+        GameView gameView =  new GameView(tilePresenter, tileManagerInteractor, keyHandlerInteractor, gamePlayerPresenter, gamePlayerInteractor, collisionInteractor);
+        window.add(gameView);
+        window.pack(); //so we can see it
+
+
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
+
+        gameView.startGameThread();
     }
 }
