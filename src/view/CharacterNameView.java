@@ -9,6 +9,7 @@ import interface_adapter.clear_characters.ClearViewModel;
 import interface_adapter.character_name.CharacterNameController;
 import interface_adapter.character_name.CharacterNameState;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,9 +18,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.Set;
 
-public class CharacterNameView extends JPanel implements ActionListener, PropertyChangeListener {
+public class CharacterNameView extends JPanelWithBackground implements ActionListener, PropertyChangeListener {
     public final String viewName = "Name a Character!";
     private final CharacterNameViewModel characterNameViewModel;
     private final CharacterNameController characterNameController;
@@ -31,8 +34,12 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
     private final JButton clear;
     private final JButton editCharacter;
     private boolean nameChoicesAdded;
-
-    public CharacterNameView(CharacterNameController characterNameController, CharacterCreatorController characterCreatorController, CharacterNameViewModel characterNameViewModel, ClearController clearController, ClearViewModel clearViewModel) {
+    private Image backgroundImage = ImageIO.read(new File("Walmart's gate.png"));
+    public void paint( Graphics g ) {
+        super.paint(g);
+        g.drawImage(backgroundImage, 0, 0, null);
+    }
+    public CharacterNameView(CharacterNameController characterNameController, CharacterCreatorController characterCreatorController, CharacterNameViewModel characterNameViewModel, ClearController clearController, ClearViewModel clearViewModel) throws IOException {
 
         this.characterCreatorController = characterCreatorController;
         this.characterNameViewModel = characterNameViewModel;
@@ -41,7 +48,7 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
         this.clearViewModel = clearViewModel;
         characterNameViewModel.addPropertyChangeListener(this);
 
-        JLabel welcome = new JLabel(CharacterNameViewModel);
+        JLabel welcome = new JLabel(CharacterNameViewModel.WELCOME_LABEL);
         JLabel title = new JLabel(CharacterNameViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -141,6 +148,7 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        this.add(welcome);
         this.add(title);
         this.add(nameInfo);
         this.add(buttons);

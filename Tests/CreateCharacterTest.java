@@ -9,8 +9,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
@@ -18,8 +16,6 @@ import static org.junit.Assert.*;
 
 
 public class CreateCharacterTest {
-
-
     static String message = "";
     static boolean popUpDiscovered = false;
 
@@ -59,20 +55,19 @@ public class CreateCharacterTest {
 
         CharacterNameView sv = (CharacterNameView) jp2.getComponent(0);
 
-     
-        JPanel buttons = (JPanel) sv.getComponent(4);
+
+        JPanel buttons = (JPanel) sv.getComponent(1);
 
         return (JButton) buttons.getComponent(2); // this should be the clear button
     }
 
 
     /**
-     *
      * This test checks that the JDialog contains the names of
      * all character deleted from the file.
      */
     @org.junit.Test
-    public void testClearUsersPopUpShown() {
+    public void testClearCharactersPopUpShown() throws IOException {
 
         addCharacter();
         popUpDiscovered = false;
@@ -83,7 +78,7 @@ public class CreateCharacterTest {
         JButton button = getButton();
 
 
-        // since clicking the button should end up displaying a JDialog to the user to report the
+        // since clicking the button should end up displaying a JDialog to the character to report the
         // result, we set a timer, which will execute code necessary to complete the testing.
         createCloseTimer().start();
 
@@ -93,13 +88,12 @@ public class CreateCharacterTest {
         // will continue execution here after the JDialog is closed
 
         // confirm a popUp was discovered
-        assert(popUpDiscovered);
+        assert (popUpDiscovered);
         System.out.println("popup was detected successfully.");
-
     }
 
     @org.junit.Test
-    public void testClearUsersReturnedUsersDeleted() throws InterruptedException {
+    public void testClearCharactersReturnedCharactersDeleted() throws InterruptedException, IOException {
 
         addCharacter();
         message = "";
@@ -108,7 +102,7 @@ public class CreateCharacterTest {
 
         JButton button = getButton();
 
-        // since clicking the button should end up displaying a JDialog to the user to report the
+        // since clicking the button should end up displaying a JDialog to the character to report the
         // result, we set a timer, which will execute code necessary to complete the testing.
         createCloseTimer().start();
 
@@ -118,7 +112,7 @@ public class CreateCharacterTest {
         // will continue execution here after the JDialog is closed
 
         // check the message
-        assert(message.contains("user1") && message.contains("user2"));
+        assert (message.contains("character1") && message.contains("character2"));
     }
 
     private Timer createCloseTimer() {
@@ -132,7 +126,7 @@ public class CreateCharacterTest {
 
                     if (window instanceof JDialog) {
 
-                        JDialog dialog = (JDialog)window;
+                        JDialog dialog = (JDialog) window;
 
                         // this ignores old dialogs
                         if (dialog.isVisible()) {
@@ -141,8 +135,8 @@ public class CreateCharacterTest {
                             System.out.println("message = " + s);
 
                             // store the information we got from the JDialog
-//                            ClearUsersTest.message = s;
-//                            ClearUsersTest.popUpDiscovered = true;
+//                            ClearCharactersTest.message = s;
+//                            ClearCharactersTest.popUpDiscovered = true;
 
                             System.out.println("disposing of..." + window.getClass());
                             window.dispose();
@@ -157,3 +151,4 @@ public class CreateCharacterTest {
         t.setRepeats(false);
         return t;
     }
+}
