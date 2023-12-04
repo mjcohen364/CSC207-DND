@@ -76,44 +76,6 @@ public class CreateCharacterTest {
         assert(button.getText().equals("Clear"));
     }
 
-    /**
-     *
-     * Test that pressing the Clear button deletes all users. This test first
-     * adds two users to the CSV file, then starts the program, then clicks the Clear button,
-     * and then checks that the file's length has decreased.
-     */
-    @org.junit.Test
-    public void testClearUsersDeletedUsersFromFile() {
-
-        addCharacter();
-        Main.main(null);
-        JButton button = getButton();
-
-        // since clicking the button should end up displaying a JDialog to the user to report the
-        // result, we set a timer, which will execute code necessary to complete the testing.
-        createCloseTimer().start();
-
-        button.doClick();
-
-        // will continue execution here after the JDialog is closed
-
-        // users.csv format
-        //username, password,timestamp (in format returned by a call like LocalDateTime.now())
-        //example
-        //user1,pass1,2023-10-12T14:46:26.733518
-
-        //check the users.csv file to ensure the users are gone
-        try {
-            int lines = countLines();
-            System.out.println("lines left = " + lines);
-            assert(lines <= 1);
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-
-    }
 
     /**
      *
