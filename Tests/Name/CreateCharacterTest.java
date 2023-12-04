@@ -1,22 +1,35 @@
 package Name;
 
-import app.Main;
+import data_access.DataAccessObject;
 import data_access.FileCharacterDataAccessObject;
-import entity.Character;
-import entity.CharacterFactory;
 import entity.PlayerFactory;
-import view.CharacterNameView;
+import use_case.character_name.*;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 import static org.junit.Assert.*;
 
 
 public class CreateCharacterTest {
+    CharacterNameDataAccessInterface dao = new FileCharacterDataAccessObject();
+    DataAccessObject dao2 = new DataAccessObject();
+    CharacterNameOutputBoundary presenter = new CharacterNameOutputBoundary() {
+        @Override
+        public void prepareSuccessView(CharacterNameOutputData response) {
+            assertEquals("Alice", response.getName());
+            assertNotNull(response.getCreationTime());
+            assertTrue(dao.existsByName("Alice"));
+        }
 
+        @Override
+        public void prepareFailView(String error) {
+            fail("Use case failure is unexpected");
+        }
+    };
+    CharacterNameInputData inputData = new CharacterNameInputData("Alice");
+    CharacterNameInputBoundary interactor = new CharacterNameInteractor(dao, presenter, new PlayerFactory(), dao2);
+
+    interactor.execute(inputData)
+    public CreateCharacterTest() throws IOException {
+    }
 }

@@ -14,13 +14,13 @@ class PlayerTest {
     void init() {
         PlayerFactory pf = new PlayerFactory();
         time = LocalDateTime.now();
-        player = (Player) pf.create("Paul", time);
+        player = (Player) pf.create("Matthew", time);
     }
 
     @Test
     void getName() {
-        player.setName("Emily");
-        assertEquals("Emily", player.getName());
+        player.setName("Sean");
+        assertEquals("Sean", player.getName());
     }
 
     @Test
