@@ -21,7 +21,7 @@ public class TileManagerInteractor {
         tile = new Tile[10];
         mapTileNum = new int[maxWorldCol][maxWorldRow];
         getTileImage();
-        loadMap("/maps/playable_map.txt");
+        loadMap("/maps/world01.txt");
     }
 
     private void getTileImage() {
@@ -34,7 +34,7 @@ public class TileManagerInteractor {
             tile[1].collision = true;
 
             tile[2] = new Tile();
-            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/water00.png"));
+            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/water01.png"));
             tile[2].collision = true;
 
             tile[3] = new Tile();
