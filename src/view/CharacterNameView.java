@@ -22,7 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Set;
 
-public class CharacterNameView extends JPanelWithBackground implements ActionListener, PropertyChangeListener {
+public class CharacterNameView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "Name a Character!";
     private final CharacterNameViewModel characterNameViewModel;
     private final CharacterNameController characterNameController;
