@@ -26,7 +26,7 @@ public class ChooseRaceView extends JPanel implements ActionListener, PropertyCh
     private final CharacterCreatorController characterCreatorController;
     private boolean raceChoicesAdded = false;
     private boolean imageAdded = false;
-    private JLabel imageLabel;
+    private JLabel imageLabel = new JLabel();
     private BufferedImage image;
     final JButton mainScreen;
     private JLabel description;
@@ -40,8 +40,12 @@ public class ChooseRaceView extends JPanel implements ActionListener, PropertyCh
         this.raceDescViewModel = raceDescViewModel;
         this.raceDescViewModel.addPropertyChangeListener(this);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.image = ImageIO.read(new File("images/noneselected.png"));
-        this.imageLabel = new JLabel(new ImageIcon(image));
+        try {
+            this.image = ImageIO.read(new File("images/noneselected.png"));
+            this.imageLabel = new JLabel(new ImageIcon(image));
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
         raceViewModel.addPropertyChangeListener(this);
         JLabel title = new JLabel("Choose Race");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
