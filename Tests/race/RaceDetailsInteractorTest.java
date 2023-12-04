@@ -29,5 +29,4 @@ class RaceDetailsInteractorTest {
         // Additional assertions for other race attributes
     }
 
-
 }
