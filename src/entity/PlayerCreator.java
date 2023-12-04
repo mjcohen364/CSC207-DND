@@ -69,7 +69,7 @@ public class PlayerCreator {
         }
         Gson s = new Gson();
         try {
-            FileWriter myWriter = new FileWriter(this.name + " export.txt");
+            FileWriter myWriter = new FileWriter(this.name + " export.json");
             myWriter.write(s.toJson(new Player2(this)));
             myWriter.close();
         } catch (IOException io) {
