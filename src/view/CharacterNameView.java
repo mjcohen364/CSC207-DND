@@ -1,7 +1,5 @@
 package view;
 
-import entity.GamePlayer;
-import interface_adapter.background.BackgroundState;
 import interface_adapter.character_creator.CharacterCreatorController;
 import interface_adapter.character_name.CharacterNameViewModel;
 import interface_adapter.clear_characters.ClearController;
@@ -9,12 +7,6 @@ import interface_adapter.clear_characters.ClearState;
 import interface_adapter.clear_characters.ClearViewModel;
 import interface_adapter.character_name.CharacterNameController;
 import interface_adapter.character_name.CharacterNameState;
-import interface_adapter.game_player.GamePlayerPresenter;
-import interface_adapter.tile.TilePresenter;
-import use_case.game.CollisionInteractor;
-import use_case.game.GamePlayerInteractor;
-import use_case.game.KeyHandlerInteractor;
-import use_case.game.TileManagerInteractor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,7 +30,6 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
     private final JButton createCharacterName;
     private final JButton clear;
     private final JButton editCharacter;
-    private final JButton startGameButton;
     private boolean nameChoicesAdded;
 
     public CharacterNameView(CharacterNameController characterNameController, CharacterCreatorController characterCreatorController, CharacterNameViewModel characterNameViewModel, ClearController clearController, ClearViewModel clearViewModel) {
@@ -49,8 +40,6 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
         this.clearController = clearController;
         this.clearViewModel = clearViewModel;
         characterNameViewModel.addPropertyChangeListener(this);
-
-
 
         JLabel title = new JLabel(CharacterNameViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -69,9 +58,6 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
         editCharacter = new JButton(CharacterNameViewModel.EDIT_BUTTON_LABEL);
         buttons.add(editCharacter);
 
-        startGameButton = new JButton("Start Game");
-        buttons.add(startGameButton);
-
         createCharacterName.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
@@ -85,9 +71,6 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
                 }
         );
 
-        // TODO Add the body to the actionPerformed method of the action listener below
-        //      for the "clear" button. You'll need to write the controller before
-        //      you can complete this.
         clear.addActionListener(
                 new ActionListener() {
                     @Override
@@ -112,7 +95,6 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
                             JLabel prevCharactersTitle = new JLabel(CharacterNameViewModel.PREVIOUS_CHARACTERS_LABEL);
                             prevCharactersTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
                             JPanel prevNameButtons = new JPanel();
-                            System.out.println("hi");
                             for (String prevName : state.names) {
                                 System.out.println(prevName);
                                 JButton prevNameAdd = new JButton(prevName);
@@ -138,13 +120,6 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
                     }
                 }
         );
-
-        startGameButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                startGame();
-            }
-        });
 
 
         // This makes a new KeyListener implementing class, instantiates it, and
@@ -187,68 +162,5 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(editCharacter)) {
-            CharacterNameState state = characterNameViewModel.getState();
-            JLabel prevCharactersTitle = new JLabel(CharacterNameViewModel.PREVIOUS_CHARACTERS_LABEL);
-            prevCharactersTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-            JPanel prevNameButtons = new JPanel();
-            System.out.println("hi");
-            for (String prevName: state.names) {
-                System.out.println(prevName);
-                JButton prevNameAdd = new JButton(prevName);
-                prevNameButtons.add(prevNameAdd);
-                prevNameAdd.addActionListener(
-                        new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                characterNameController.execute(prevName);
-                            }
-                        }
-                );
-            }
-            prevNameButtons.setAlignmentX(Component.CENTER_ALIGNMENT);
-            if (!this.nameChoicesAdded){
-                this.add(prevCharactersTitle);
-                this.add(prevNameButtons);
-            }
-            this.nameChoicesAdded = true;
-            revalidate();
-            repaint();
-
-            JPanel buttons2 = new JPanel();
-            for (String prevName: state.names) {
-                JButton prevNameAdd = new JButton(prevName);
-                buttons2.add(prevNameAdd);
-                System.out.println("hello");
-            }
-            this.add(buttons2);
-            revalidate();
-            repaint();
-        }
-    }
-
-    private void startGame(){
-        JFrame window = new JFrame();
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
-        window.setTitle("Walmart's Gate");
-
-        // Create instances of the required components
-        GamePlayer p = new GamePlayer();
-        KeyHandlerInteractor keyHandlerInteractor = new KeyHandlerInteractor();
-        TileManagerInteractor tileManagerInteractor = new TileManagerInteractor();
-        CollisionInteractor collisionInteractor = new CollisionInteractor(tileManagerInteractor);
-        GamePlayerInteractor gamePlayerInteractor = new GamePlayerInteractor(keyHandlerInteractor, collisionInteractor,"wizard", p);
-        TilePresenter tilePresenter = new TilePresenter(tileManagerInteractor, p);
-        GamePlayerPresenter gamePlayerPresenter = new GamePlayerPresenter(gamePlayerInteractor);
-        GameView gameView =  new GameView(tilePresenter, tileManagerInteractor, keyHandlerInteractor, gamePlayerPresenter, gamePlayerInteractor, collisionInteractor);
-        window.add(gameView);
-        window.pack(); //so we can see it
-
-
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
-
-        gameView.startGameThread();
     }
 }
