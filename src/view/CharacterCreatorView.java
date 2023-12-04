@@ -1,6 +1,7 @@
 package view;
 
 import interface_adapter.character_name.CharacterNameController;
+import interface_adapter.character_name.CharacterNameViewModel;
 import interface_adapter.dnd_class.ClassController;
 import interface_adapter.dnd_class.ClassState;
 import interface_adapter.dnd_class.ClassViewModel;
@@ -34,6 +35,7 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
     private final BackgroundViewModel backgroundViewmodel;
     private final BackgroundController backgroundController;
     private final ReturnToNameController returnToNameController;
+    private final ImageIcon icon = new ImageIcon("Walmart's gate.png");
 
     private JLabel items;
 //    private final JButton chooseBackground;
@@ -68,6 +70,9 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
         //classController.execute();
         //raceController.execute();
 
+        JLabel title = new JLabel("Select a feature to edit");
+        title.setFont(new Font("times new roman", Font.BOLD, 50));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
         JPanel buttons = new JPanel();
         JButton chooseBackground = new JButton("Background");
         buttons.add(chooseBackground);
@@ -110,6 +115,10 @@ public class CharacterCreatorView extends JPanel implements ActionListener, Prop
         );
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        JLabel image = new JLabel(icon);
+        image.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.add(title);
+        this.add(image);
         this.add(buttons);
     }
 

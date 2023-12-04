@@ -40,7 +40,8 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
     private final JButton clear;
     private final JButton editCharacter;
     private boolean nameChoicesAdded;
-    private final ImageIcon icon = new ImageIcon("Walmart's gate.png");;
+  
+    private final ImageIcon icon = new ImageIcon("Walmart's gate.png");
     private final JButton startGameButton;
     public CharacterNameView(CharacterNameController characterNameController, CharacterCreatorController characterCreatorController, CharacterNameViewModel characterNameViewModel, ClearController clearController, ClearViewModel clearViewModel) throws IOException {
         this.characterCreatorController = characterCreatorController;
