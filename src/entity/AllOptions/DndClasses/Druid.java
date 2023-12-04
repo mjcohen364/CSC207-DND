@@ -4,7 +4,7 @@ import not_implemented.Feature;
 
 import java.util.ArrayList;
 
-public class Druid extends DndClass {
+public class Druid extends MyDndClass {
     public Druid(){
         ArrayList<String> savingThrows = new ArrayList<>();
         ArrayList<Feature> features = new ArrayList<>();
