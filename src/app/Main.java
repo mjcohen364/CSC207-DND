@@ -102,8 +102,7 @@ public class Main {
                 backgroundViewModel,
                 new ReturnToNameController(new ReturnToNameInteractor(new ReturnToNamePresenter(viewManagerModel, returnToNameViewModel))));
         //viewManagerModel
-        CharacterNamePresenter characterNamePresenter = new CharacterNamePresenter(viewManagerModel,
-                characterNameViewModel, characterCreatorViewModel, characterCreatorView);
+        CharacterNamePresenter characterNamePresenter = new CharacterNamePresenter(viewManagerModel, characterNameViewModel, characterCreatorViewModel, characterCreatorView);
 
         FileCharacterDataAccessObject fileCharacterDataAccessObject = new FileCharacterDataAccessObject();
         CharacterNameView characterNameView =
@@ -125,7 +124,6 @@ public class Main {
                 new ChooseRaceView(new RaceDescController(new RaceDescInteractor(new RaceDescPresenter(raceDescViewModel), dataAccessObject)),
                         raceDescViewModel, characterCreatorController, raceViewModel);
 
-        characterNameView.setSize(new Dimension(500, 500));
         views.add(characterCreatorView, characterCreatorView.viewName);
         views.add(chooseBackgroundView, chooseBackgroundView.viewName);
         views.add(chooseClassView, chooseClassView.viewName);
@@ -133,13 +131,19 @@ public class Main {
         views.add(characterNameView, characterNameView.viewName);
 
 
-
-
         viewManagerModel.setActiveView(characterNameView.viewName);
         viewManagerModel.firePropertyChanged();
 
         application.pack();
         application.setVisible(true);
-
+//
+//        Player2 d = new Player2();
+//        d.setName("Namer");
+//
+//        d.rawinit();
+//        d.setAttribute("Strength", 1);
+//        d.generatejson();
+//        PlayerCreator another = new PlayerCreator();
+//        Player2 b = another.readjson2("Namer.txt");
     }
 }

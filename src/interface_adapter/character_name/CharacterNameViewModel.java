@@ -6,7 +6,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class CharacterNameViewModel extends ViewModel {
-
+    public static final String WELCOME_LABEL = "Welcome to Walmart's Gate!";
     public static final String CLEAR_BUTTON_LABEL = "Clear Previous Characters";
     public static final String TITLE_LABEL = "Character Name View";
     public static final String NAME_LABEL = "Choose a Character Name";
