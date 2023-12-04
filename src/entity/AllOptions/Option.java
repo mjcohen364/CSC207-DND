@@ -39,11 +39,6 @@ public class Option {
     public void setArmorProficiency(ArrayList<String> armorProficiency) {
         this.armorProficiency = armorProficiency;
     }
-
-    public ArrayList<String> getArmorProficiency() {
-        return armorProficiency;
-    }
-
     public String getName(){
         return this.name;
     }

@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import entity.AllOptions.Backgrounds.Background;
-import entity.AllOptions.Backgrounds.BackgroundTracker;
-import entity.AllOptions.DndClasses.ClassTracker;
-import entity.AllOptions.DndClasses.MyDndClass;
 import entity.AllOptions.Races.Race;
 import entity.AllOptions.Races.RaceTracker;
 import not_implemented.*;
@@ -18,7 +14,6 @@ public class Player2 implements Character2 {
     int speed;
     String size;
     int level;
-    String DndClass;
     String subtype;
     String type;
     String background;
@@ -111,13 +106,6 @@ public class Player2 implements Character2 {
     }
     public void setSpeed(int speed){this.speed = speed;}
 
-    public void setDndClass(String dndClass) {
-        DndClass = dndClass;
-    }
-    public String getDndClass() {
-        return DndClass;
-    }
-
     @Override
     public void setType(String type) {this.type = type;}
 
@@ -129,24 +117,8 @@ public class Player2 implements Character2 {
     public void addFeatures(ArrayList<Feature> features) {
         this.features.addAll(features);
     }
-    public void getClass(String name){
-        ClassTracker tracker = new ClassTracker();
-        MyDndClass choice = tracker.getClass(name);
-        this.setDndClass(choice.getName());
-        this.proficiency.setSkillProficiencies(choice.getSkillProficiency(), true);
-        this.proficiency.addToolProficiencies(choice.getToolProficiency());
-        this.proficiency.addWeaponProficiencies(choice.getWeaponProficiency());
-        this.proficiency.setArmorProficiencies(choice.getArmorProficiency(), true);
-    }
-    public void getBackground(String name){
-        BackgroundTracker tracker = new BackgroundTracker();
-        Background choice = tracker.getBackground(name);
-        this.setBackground(choice.getName());
-        this.addFeatures(choice.getFeatures());
-        this.proficiency.setSkillProficiencies(choice.getSkillProficiency(), true);
-        this.proficiency.addToolProficiencies(choice.getToolProficiency());
-        this.proficiency.addWeaponProficiencies(choice.getWeaponProficiency());
-        this.proficiency.setArmorProficiencies(choice.getArmorProficiency(), true);
+    public void getClass(String classname){
+
     }
     public void getRace(String name){
         RaceTracker tracker = new RaceTracker();
@@ -158,14 +130,13 @@ public class Player2 implements Character2 {
         this.proficiency.setSkillProficiencies(choice.getSkillProficiency(), true);
         this.proficiency.addToolProficiencies(choice.getToolProficiency());
         this.proficiency.addWeaponProficiencies(choice.getWeaponProficiency());
-        this.proficiency.setArmorProficiencies(choice.getArmorProficiency(), true);
+    }
+    public void getBackground(String name){
+
     }
     public Player2(PlayerCreator a) {
         this.setType("Humanoid");
-        this.setLevel(1);
         this.setName(a.name);
-        this.getClass(a.getdndclass());
-        this.getBackground(a.getbackground());
         this.getRace(a.getrace());
     }
 
