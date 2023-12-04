@@ -27,7 +27,6 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
     private final JTextField nameInputField = new JTextField(15);
     private final ClearController clearController;
     private final ClearViewModel clearViewModel;
-
     private final JButton createCharacterName;
     private final JButton clear;
     private final JButton editCharacter;
@@ -42,6 +41,7 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
         this.clearViewModel = clearViewModel;
         characterNameViewModel.addPropertyChangeListener(this);
 
+        JLabel welcome = new JLabel(CharacterNameViewModel);
         JLabel title = new JLabel(CharacterNameViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 

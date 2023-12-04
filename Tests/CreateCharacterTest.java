@@ -65,22 +65,11 @@ public class CreateCharacterTest {
         return (JButton) buttons.getComponent(2); // this should be the clear button
     }
 
-    /**
-     *
-     * Test that the Clear button is present and where it is expected to be
-     */
-    @org.junit.Test
-    public void testClearButtonPresent() {
-        Main.main(null);
-        JButton button = getButton();
-        assert(button.getText().equals("Clear"));
-    }
-
 
     /**
      *
-     * This test is the same as above, but it additionally checks that the JDialog contains the names of
-     * all users deleted from the file.
+     * This test checks that the JDialog contains the names of
+     * all character deleted from the file.
      */
     @org.junit.Test
     public void testClearUsersPopUpShown() {
