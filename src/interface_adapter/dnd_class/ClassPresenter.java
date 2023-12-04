@@ -20,7 +20,6 @@ public class ClassPresenter implements ClassOutputBoundary {
         ClassState classState = classViewModel.getState();
         classState.classes = response.getClasses();
         classState.selected = response.getSelected();
-        System.out.println(response.getSelected());
         this.classViewModel.setState(classState);
         classViewModel.firePropertyChanged();
 

@@ -64,7 +64,6 @@ public class PlayerCreator {
             FileWriter myWriter = new FileWriter(this.name + ".txt");
             myWriter.write(g.toJson(this));
             myWriter.close();
-            System.out.println("success");
         } catch (IOException io) {
             System.out.println("fail");//idk
         }
@@ -73,7 +72,6 @@ public class PlayerCreator {
             FileWriter myWriter = new FileWriter(this.name + " export.txt");
             myWriter.write(s.toJson(new Player2(this)));
             myWriter.close();
-            System.out.println("success");
         } catch (IOException io) {
             System.out.println("fail");//idk
         }

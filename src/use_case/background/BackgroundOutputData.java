@@ -8,7 +8,6 @@ public class BackgroundOutputData {
     public BackgroundOutputData(ArrayList<String> backgrounds, String selected)
     {
         this.backgrounds.addAll(backgrounds);
-        System.out.println(selected);
         this.selected = selected;
     }
     public ArrayList<String> getBackgrounds() {return backgrounds;}
