@@ -141,14 +141,5 @@ public class Main {
         application.pack();
         application.setVisible(true);
 
-        Player2 d = new Player2();
-        d.setName("Namer");
-
-        d.rawinit();
-        d.setAttribute("Strength", 1);
-        d.generatejson();
-        PlayerCreator another = new PlayerCreator();
-        Player2 b = another.readjson2("Namer.txt");
-        System.out.println(b.getName());
     }
 }

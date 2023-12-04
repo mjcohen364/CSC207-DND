@@ -68,5 +68,14 @@ public class PlayerCreator {
         } catch (IOException io) {
             System.out.println("fail");//idk
         }
+        Gson s = new Gson();
+        try {
+            FileWriter myWriter = new FileWriter(this.name + " export.txt");
+            myWriter.write(s.toJson(new Player2(this)));
+            myWriter.close();
+            System.out.println("success");
+        } catch (IOException io) {
+            System.out.println("fail");//idk
+        }
     }
 }
