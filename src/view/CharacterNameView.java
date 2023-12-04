@@ -112,9 +112,7 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
                             JLabel prevCharactersTitle = new JLabel(CharacterNameViewModel.PREVIOUS_CHARACTERS_LABEL);
                             prevCharactersTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
                             JPanel prevNameButtons = new JPanel();
-                            System.out.println("hi");
                             for (String prevName : state.names) {
-                                System.out.println(prevName);
                                 JButton prevNameAdd = new JButton(prevName);
                                 prevNameButtons.add(prevNameAdd);
                                 prevNameAdd.addActionListener(
@@ -192,9 +190,7 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
             JLabel prevCharactersTitle = new JLabel(CharacterNameViewModel.PREVIOUS_CHARACTERS_LABEL);
             prevCharactersTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
             JPanel prevNameButtons = new JPanel();
-            System.out.println("hi");
             for (String prevName: state.names) {
-                System.out.println(prevName);
                 JButton prevNameAdd = new JButton(prevName);
                 prevNameButtons.add(prevNameAdd);
                 prevNameAdd.addActionListener(
@@ -219,7 +215,6 @@ public class CharacterNameView extends JPanel implements ActionListener, Propert
             for (String prevName: state.names) {
                 JButton prevNameAdd = new JButton(prevName);
                 buttons2.add(prevNameAdd);
-                System.out.println("hello");
             }
             this.add(buttons2);
             revalidate();

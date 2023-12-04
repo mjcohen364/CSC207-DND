@@ -30,7 +30,6 @@ public class CharacterNameInteractor implements CharacterNameInputBoundary {
             dataAccessObject.player = new PlayerCreator();
         }
         dataAccessObject.player.setname(characterNameInputData.getName());
-        System.out.println("abcdedf");
         /*if (characterNameDataAccessObject.existsByName(characterNameInputData.getName())) {
             characterNamePresenter.prepareFailView("Character already exists.");
         } else {

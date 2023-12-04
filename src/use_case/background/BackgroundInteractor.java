@@ -11,7 +11,6 @@ public class BackgroundInteractor implements BackgroundInputBoundary {
     @Override
     public void execute() {
         var test = dataAccessObject.getBackgrounds();
-        System.out.println(dataAccessObject.player.getbackground());
         backgroundPresenter.prepareSuccessView(new BackgroundOutputData(test, dataAccessObject.player.getbackground()));
     }
 }
